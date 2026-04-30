@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { CatalogHeroTopRow } from '@uux/components';
+import { CatalogHeroTopRow } from '../../catalog-shell';
 import { BellIcon, BellOffIcon } from '../../icons';
 import PropTypes from 'prop-types';
 

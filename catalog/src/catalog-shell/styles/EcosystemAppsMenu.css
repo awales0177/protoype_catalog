@@ -1,0 +1,353 @@
+.ecosystemAppsWrap {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+}
+
+.ecosystemAppsMenu {
+  min-width: 260px;
+  max-width: min(320px, calc(100vw - 16px));
+  padding: 0;
+  background: var(--bg-white);
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(15, 35, 52, 0.12);
+  display: flex;
+  flex-direction: column;
+  max-height: min(420px, calc(100vh - 96px));
+}
+
+.ecosystemAppsMenuHeader {
+  flex-shrink: 0;
+  padding: 12px 14px 10px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.ecosystemAppsMenuTitle {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.ecosystemAppsMenuScroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+.ecosystemAppsMenuFooter {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 6px 8px 8px;
+  border-top: 1px solid var(--border-light);
+  background: color-mix(in srgb, var(--text-muted, #888) 4%, var(--bg-white));
+  border-radius: 0 0 7px 7px;
+}
+
+.ecosystemAppsPopOutBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted, #666);
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.ecosystemAppsPopOutBtn:hover {
+  background: var(--tab-active-bg);
+  color: var(--accent-blue, #3277d3);
+}
+
+.ecosystemAppsPopOutIcon {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* In-flow fallback (unused when portaled) */
+.ecosystemAppsMenu:not(.ecosystemAppsMenu--portal) {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 6px;
+  z-index: 20;
+}
+
+/* Portaled to body: above app chrome (rail header 1100, drawer 1200) and overflow containers */
+.ecosystemAppsMenu--portal {
+  position: fixed;
+  margin-top: 0;
+  z-index: 1350;
+}
+
+html[data-catalog-theme='dark'] .ecosystemAppsMenu,
+html.dark-mode .ecosystemAppsMenu {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.ecosystemAppsItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  text-align: left;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.ecosystemAppsItem:hover {
+  background: var(--tab-active-bg);
+}
+
+.ecosystemAppsItemIcon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  color: var(--accent-blue);
+}
+
+.ecosystemAppsItem--catalog .ecosystemAppsItemIcon {
+  color: #0f766e;
+  background: color-mix(in srgb, #14b8a6 14%, var(--card-bg));
+  border-color: color-mix(in srgb, #14b8a6 24%, var(--border-light));
+}
+
+.ecosystemAppsItem--app3 .ecosystemAppsItemIcon {
+  color: #6d28d9;
+  background: color-mix(in srgb, #8b5cf6 14%, var(--card-bg));
+  border-color: color-mix(in srgb, #8b5cf6 24%, var(--border-light));
+}
+
+.ecosystemAppsItem--app4 .ecosystemAppsItemIcon {
+  color: #b45309;
+  background: color-mix(in srgb, #f59e0b 14%, var(--card-bg));
+  border-color: color-mix(in srgb, #f59e0b 24%, var(--border-light));
+}
+
+.ecosystemAppsItem--app5 .ecosystemAppsItemIcon {
+  color: #be185d;
+  background: color-mix(in srgb, #ec4899 14%, var(--card-bg));
+  border-color: color-mix(in srgb, #ec4899 24%, var(--border-light));
+}
+
+.ecosystemAppsItem--app6 .ecosystemAppsItemIcon {
+  color: #0369a1;
+  background: color-mix(in srgb, #0ea5e9 14%, var(--card-bg));
+  border-color: color-mix(in srgb, #0ea5e9 24%, var(--border-light));
+}
+
+.ecosystemAppsItem--app7 .ecosystemAppsItemIcon {
+  color: #0f766e;
+  background: color-mix(in srgb, #14b8a6 12%, var(--card-bg));
+  border-color: color-mix(in srgb, #14b8a6 22%, var(--border-light));
+}
+
+.ecosystemAppLogoSvg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.ecosystemAppLogoImg {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  display: block;
+}
+
+/* AI (logo7): light theme uses logo7.png; dark theme uses logo7-dark.png (prior mark). */
+.ecosystemLogo7Img--dark {
+  display: none;
+}
+
+html[data-catalog-theme='dark'] .ecosystemLogo7Img--light,
+html.dark-mode .ecosystemLogo7Img--light {
+  display: none;
+}
+
+html[data-catalog-theme='dark'] .ecosystemLogo7Img--dark,
+html.dark-mode .ecosystemLogo7Img--dark {
+  display: block;
+}
+
+.ecosystemAppsItemText {
+  min-width: 0;
+  flex: 1;
+}
+
+.ecosystemAppsItemName {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ecosystemAppsItemDesc {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+/* Modal stacks above portaled menu (z-index 1350) */
+.uiModalBackdrop:has(.ecosystemAppsModalPanel) {
+  z-index: 1400;
+}
+
+.ecosystemAppsModalBody.ecosystemAppsModalBody {
+  padding: 20px var(--ui-space-lg, 20px) 24px;
+}
+
+.ecosystemAppsModalGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  gap: 16px;
+}
+
+.ecosystemAppsModalCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  margin: 0;
+  padding: 20px 14px 18px;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  background: var(--card-bg, #fafaf8);
+  cursor: pointer;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+.ecosystemAppsModalCard:hover {
+  border-color: color-mix(in srgb, var(--accent-blue, #3277d3) 35%, var(--border-light));
+  box-shadow: 0 4px 14px rgba(15, 35, 52, 0.08);
+  background: var(--bg-white, #fff);
+}
+
+.ecosystemAppsModalCardIcon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: var(--bg-white, #fff);
+  border: 1px solid var(--border-light);
+  color: var(--accent-blue, #3277d3);
+}
+
+.ecosystemAppsModalCardIcon .ecosystemAppLogoImg {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.ecosystemAppsModalCardIcon--catalog {
+  color: #0f766e;
+  background: color-mix(in srgb, #14b8a6 12%, var(--bg-white));
+  border-color: color-mix(in srgb, #14b8a6 22%, var(--border-light));
+}
+
+.ecosystemAppsModalCardIcon--app3 {
+  color: #6d28d9;
+  background: color-mix(in srgb, #8b5cf6 12%, var(--bg-white));
+  border-color: color-mix(in srgb, #8b5cf6 22%, var(--border-light));
+}
+
+.ecosystemAppsModalCardIcon--app4 {
+  color: #b45309;
+  background: color-mix(in srgb, #f59e0b 12%, var(--bg-white));
+  border-color: color-mix(in srgb, #f59e0b 22%, var(--border-light));
+}
+
+.ecosystemAppsModalCardIcon--app5 {
+  color: #be185d;
+  background: color-mix(in srgb, #ec4899 12%, var(--bg-white));
+  border-color: color-mix(in srgb, #ec4899 22%, var(--border-light));
+}
+
+.ecosystemAppsModalCardIcon--app6 {
+  color: #0369a1;
+  background: color-mix(in srgb, #0ea5e9 12%, var(--bg-white));
+  border-color: color-mix(in srgb, #0ea5e9 22%, var(--border-light));
+}
+
+.ecosystemAppsModalCardIcon--app7 {
+  color: #0f766e;
+  background: color-mix(in srgb, #14b8a6 10%, var(--bg-white));
+  border-color: color-mix(in srgb, #14b8a6 20%, var(--border-light));
+}
+
+.ecosystemAppsModalCardText {
+  min-width: 0;
+  width: 100%;
+}
+
+.ecosystemAppsModalCardName {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.ecosystemAppsModalCardDesc {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+html[data-catalog-theme='dark'] .ecosystemAppsMenuFooter,
+html.dark-mode .ecosystemAppsMenuFooter {
+  border-top-color: var(--border-light, #3d4450);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+html[data-catalog-theme='dark'] .ecosystemAppsModalCard,
+html.dark-mode .ecosystemAppsModalCard {
+  background: var(--card-bg, #22262e);
+  border-color: var(--border-light, #3d4450);
+}
+
+html[data-catalog-theme='dark'] .ecosystemAppsModalCard:hover,
+html.dark-mode .ecosystemAppsModalCard:hover {
+  background: var(--bg-canvas, #1a1d24);
+}
+
+html[data-catalog-theme='dark'] .ecosystemAppsModalCardIcon,
+html.dark-mode .ecosystemAppsModalCardIcon {
+  background: var(--bg-canvas, #1a1d24);
+  border-color: var(--border-light, #3d4450);
+}

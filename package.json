@@ -1,22 +1,28 @@
 {
   "name": "uux",
   "private": true,
-  "packageManager": "pnpm@9.15.4",
+  "workspaces": [
+    "catalog"
+  ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "pnpm --filter catalog_ds dev",
-    "start": "pnpm --filter catalog_ds dev",
-    "dev:catalog-ds": "pnpm --filter catalog_ds dev",
+    "dev": "npm run dev -w catalog_ds",
+    "start": "npm run dev -w catalog_ds",
+    "dev:catalog-ds": "npm run dev -w catalog_ds",
     "dev:all": "turbo run dev --parallel",
     "test": "turbo run test"
   },
   "devDependencies": {
     "turbo": "^2.4.4"
   },
-  "pnpm": {
-    "overrides": {
-      "nth-check": "^2.1.1",
-      "postcss": "^8.5.6"
+  "overrides": {
+    "nth-check": "^2.1.1",
+    "postcss": "^8.5.6",
+    "eslint": {
+      "ajv": "^6.12.6"
+    },
+    "@eslint/eslintrc": {
+      "ajv": "^6.12.6"
     }
   }
 }

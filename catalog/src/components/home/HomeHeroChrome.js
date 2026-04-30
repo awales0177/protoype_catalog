@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import CatalogHeroToolbar, { CatalogHeroSearch, CatalogHeroSearchRegion } from '@uux/components';
-import '@uux/components/dist/styles/CatalogHeroToolbar.css';
+import { CatalogHeroToolbar, CatalogHeroSearch, CatalogHeroSearchRegion } from '../../catalog-shell';
 import { home } from '../../routes';
 import { publicAssetUrl } from '../../utils/publicAssetUrl';
 

@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import { home } from '../../routes';
 import { SearchIcon, RssFeedIcon, SendPlaneIcon, PrintIcon, FloppySaveIcon } from '../../icons';
-import { EcosystemAppsMenu, CatalogHeroActionsMenu } from '@uux/components';
-import CatalogGlobalBarTray from '../shell/CatalogGlobalBarTray';
+import { EcosystemAppsMenu, CatalogHeroActionsMenu, CatalogGlobalBarTray } from '../../catalog-shell';
 import './SearchResultsHeroBar.css';
 import PropTypes from 'prop-types';
 import { publicAssetUrl } from '../../utils/publicAssetUrl';

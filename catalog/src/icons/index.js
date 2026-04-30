@@ -358,6 +358,40 @@ export function CopyIcon() {
   );
 }
 
+/** Truck / delivery — quick-actions “Register a Data Tool” */
+export function DeliveryVanIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h2" />
+      <path d="M15 18h2M15 6h5l4 4v8h-3M19 18h2a2 2 0 1 0 0-4 7 7 0 0 0-14 0 2 2 0 1 0 0 4Z" />
+      <circle cx="7.5" cy="18.5" r="2.5" />
+      <circle cx="17.5" cy="18.5" r="2.5" />
+    </svg>
+  );
+}
+
+/** Flow / modeler glyph — header Actions trigger */
+export function FlowModelerGlyph({ size = 18, className }) {
+  return (
+    <svg
+      className={['flowModelerGlyph', className].filter(Boolean).join(' ')}
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <rect x="2.5" y="5" width="7.5" height="6.5" rx="1.2" />
+      <path d="M10 8.25h3.5l1.5-1.5v9l-1.5-1.5H10" />
+      <rect x="15" y="12.5" width="6.5" height="6.5" rx="1.2" />
+    </svg>
+  );
+}
+
 export function FileIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

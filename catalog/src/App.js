@@ -1,6 +1,6 @@
 import { useState, useLayoutEffect, useCallback, useMemo } from 'react';
 import { Routes, Route, Outlet, useNavigate, Navigate } from 'react-router-dom';
-import { CatalogShellProvider } from '@uux/components';
+import { CatalogShellProvider } from './catalog-shell';
 import { CATALOG_FEEDBACK_SUBTITLE } from './constants/shellCopy';
 import { submitFeedback } from './services/submitFeedback';
 import { ChatbotIcon } from './icons';
