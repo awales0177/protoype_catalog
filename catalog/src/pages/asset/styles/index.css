@@ -1,0 +1,17 @@
+/* Asset + curated list presentation — split for maintainability (single aggregate import from AssetPage.css) */
+@import './shell.css';
+@import './data-lake.css';
+@import './tracker.css';
+@import './curated.css';
+@import './profiles.css';
+@import './detail-overview.css';
+@import './asset-summary.css';
+@import './sidebar.css';
+@import './access-card.css';
+/* After access-card so `.assetProjectValueCard--record` beats base `.assetProjectValueCard` (same specificity) */
+@import './record-page.css';
+@import './bucket-modal.css';
+@import './bucket-icon.css';
+@import './history.css';
+@import './comments.css';
+@import './attachments.css';

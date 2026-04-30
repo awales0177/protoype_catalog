@@ -1,0 +1,121 @@
+/* History tab — change log timeline */
+.assetHistoryList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  padding-left: 20px;
+}
+
+.assetHistoryList::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border-light);
+  border-radius: 1px;
+}
+
+.assetHistoryItem {
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.assetHistoryItem:last-child {
+  padding-bottom: 0;
+}
+
+.assetHistoryMarker {
+  position: absolute;
+  left: -20px;
+  top: 18px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  border: 2px solid var(--bg-white);
+  box-shadow: 0 0 0 1px var(--border-light);
+}
+
+.assetHistoryCard {
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+.assetHistoryMeta {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.assetHistoryUserAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--primary-dark);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.assetHistoryMetaText {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 12px;
+  min-width: 0;
+}
+
+.assetHistoryUser {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.assetHistoryAction {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.assetHistoryTime {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.assetHistoryChanges {
+  margin-left: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.assetHistoryChangeRow {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  line-height: 1.45;
+}
+
+.assetHistoryChangeField {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-right: 6px;
+}
+
+.assetHistoryChangeOld {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.assetHistoryChangeNew {
+  color: var(--text-primary);
+}
+

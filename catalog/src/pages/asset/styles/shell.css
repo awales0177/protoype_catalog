@@ -1,0 +1,727 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+
+.assetPage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-white);
+  min-height: 0;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-optical-sizing: auto;
+  color: var(--text-primary);
+}
+
+.assetPage *,
+.assetPage *::before,
+.assetPage *::after {
+  font-family: inherit;
+}
+
+.assetHero {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--hero-band-gradient-stacked);
+  /* Tall band so main “papers” can overlap like home / search */
+  padding: 16px 24px 180px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.assetHero--toolbarOnly {
+  padding: 16px 24px 24px;
+}
+
+.assetBreadcrumb {
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.assetBreadcrumb a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+}
+
+.assetBreadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.assetBreadcrumbCurrent {
+  color: #fff;
+}
+
+.assetTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.assetTitleBlock {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.assetTitleRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.assetTitleIcon {
+  width: 32px;
+  height: 32px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e65100;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.assetTitleIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.assetTitleIconList {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: #6f42c1;
+  color: white;
+}
+
+.assetHero .assetTitle {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.assetBadges {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.assetBadgeRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.assetStatusBadge {
+  width: 80px;
+  box-sizing: border-box;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.assetStatusBadge.approved {
+  background: var(--success-green);
+  color: white;
+}
+
+.assetStatusBadge.feed {
+  background: var(--success-green);
+  color: white;
+}
+
+.assetStatusBadge.single {
+  background: var(--tag-orange);
+  color: white;
+}
+
+.assetStatusBadge.stale {
+  background: var(--text-muted);
+  color: white;
+}
+
+.assetStatusBadge.curatedListVisibilityBadge.public {
+  background: var(--success-green);
+  color: white;
+}
+
+.assetStatusBadge.curatedListVisibilityBadge.private {
+  background: var(--text-muted);
+  color: white;
+}
+
+.assetNotifyBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid #dc2626;
+  border-radius: 6px;
+  background: rgba(220, 38, 38, 0.08);
+  color: #dc2626;
+  cursor: pointer;
+}
+
+.assetNotifyBtn:hover {
+  background: rgba(220, 38, 38, 0.14);
+}
+
+.assetNotifyBtn.subscribed {
+  border-color: var(--success-green);
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--success-green);
+}
+
+.assetNotifyBtn.subscribed:hover {
+  background: rgba(34, 197, 94, 0.2);
+}
+
+.assetNotifyBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.assetTypeLabel {
+  font-size: 0.875rem;
+  color: #fff;
+  opacity: 0.95;
+}
+
+.assetRating {
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  color: #FFC107;
+}
+
+.assetRatingCount {
+  font-size: 0.8125rem;
+  color: #fff;
+  opacity: 0.9;
+}
+
+.assetProgressBar {
+  width: 80px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.assetProgressFill {
+  height: 100%;
+  border-radius: 3px;
+}
+
+.assetProgressFill.feed {
+  background: var(--success-green);
+}
+
+.assetProgressFill.single {
+  background: var(--tag-orange);
+}
+
+.assetProgressFill.stale {
+  background: var(--text-muted);
+}
+
+.assetTitleActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.assetActionIcon {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.assetActionBtn {
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.assetPrimaryBtn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background: var(--accent-blue);
+  color: white;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.assetBody {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+  padding: 0 24px 32px;
+  margin-top: -140px;
+  position: relative;
+  z-index: 1;
+  overflow: auto;
+  min-height: 0;
+  align-items: stretch;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+.assetBody--noOverlap {
+  margin-top: 0;
+  padding: 24px 24px 32px;
+}
+
+.assetMainStack {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.assetMain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.assetMain--summaryCard {
+  flex: 0 0 auto;
+  overflow: visible;
+}
+
+.assetSecondaryCard {
+  flex: 1;
+  min-width: 0;
+  min-height: min(520px, 58vh);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.assetSecondaryCard .assetTabs {
+  flex-shrink: 0;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 0;
+}
+
+.assetSecondaryPane {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 16px 22px 24px;
+  background: var(--card-bg);
+  border-radius: 0 0 8px 8px;
+}
+
+.assetMain--plain {
+  min-height: min(70vh, 480px);
+}
+
+.assetMainPane {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 16px 22px 24px;
+  background: var(--card-bg);
+  border-radius: 0 0 8px 8px;
+}
+
+.assetMain--plain .assetMainPane {
+  border-radius: 8px;
+}
+
+.assetTabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 0;
+  padding: 16px 22px 0;
+  flex-shrink: 0;
+  background: var(--card-bg);
+  border-radius: 8px 8px 0 0;
+}
+
+.assetTab {
+  padding: 12px 16px;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  margin-bottom: -1px;
+}
+
+.assetTab:hover {
+  color: var(--text-primary);
+}
+
+.assetTab.active {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.assetTab.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--tab-underline-active);
+}
+
+.assetContentLayout {
+  display: flex;
+  gap: 24px;
+}
+
+.bucketTabContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.bucketTabContent--noAccess {
+  position: relative;
+}
+
+.bucketTabContent--noAccess > .assetSubNav,
+.bucketTabContent--noAccess > .assetContentArea {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.bucketNoAccessOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.75);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  z-index: 10;
+  pointer-events: all;
+}
+
+.bucketNoAccessLock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  color: var(--alert-red);
+}
+
+.bucketNoAccessLock svg {
+  width: 24px;
+  height: 24px;
+}
+
+.bucketNoAccessText {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.bucketConsolePane {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: auto;
+}
+
+.bucketConsolePane > .bucketExploreCard {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.bucketAwsConsoleCard {
+  padding: 20px 16px;
+  flex: 0 0 auto;
+}
+
+.bucketAwsConsoleCard .assetSectionTitle {
+  margin-bottom: 8px;
+}
+
+.bucketAwsConsoleCard .bucketMetricsDesc {
+  margin-bottom: 14px;
+}
+
+.bucketAwsConsoleCardActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.bucketAwsConsoleBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--bg-white);
+  background: var(--accent-blue);
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.bucketAwsConsoleBtn:hover {
+  background: #2580b3;
+  color: var(--bg-white);
+}
+
+.bucketAwsConsoleCard .bucketConsoleHint {
+  margin: 14px 0 0;
+}
+
+.bucketConsoleHint {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  max-width: 42rem;
+}
+
+.bucketConsoleCode {
+  font-size: 0.78rem;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.bucketExploreCard {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-white);
+}
+
+.bucketMetricsCard--standalone {
+  flex: 0 0 auto;
+}
+
+.bucketStatisticsCard .bucketStatisticsPane {
+  padding: 20px 16px;
+}
+
+.bucketMetricsCard {
+  padding: 20px 16px;
+}
+
+.bucketMetricsDesc {
+  margin: 0 0 16px;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.bucketDistribution {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.bucketDistributionRow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bucketDistributionLabel {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.875rem;
+}
+
+.bucketDistributionFolder {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.bucketDistributionCount {
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+}
+
+.bucketDistributionBarWrap {
+  height: 8px;
+  background: var(--card-bg);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bucketDistributionBar {
+  height: 100%;
+  background: var(--accent-blue, #2e9ad0);
+  border-radius: 4px;
+  min-width: 2px;
+  transition: width 0.2s ease;
+}
+
+.bucketMetricsEmpty {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.bucketInlineHeader {
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.assetSubNav {
+  width: 160px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.assetSubNavItem {
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.assetSubNavItem:hover {
+  color: var(--accent-blue);
+}
+
+.assetSubNavItem.active {
+  background: var(--tab-active-bg);
+  color: var(--accent-blue);
+  font-weight: 500;
+}
+
+.assetSubNav button.assetSubNavItem {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  padding: 8px 12px;
+  margin: 0;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--text-muted);
+  text-decoration: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.assetSubNav button.assetSubNavItem:hover {
+  color: var(--accent-blue);
+}
+
+.assetSubNav button.assetSubNavItem.active {
+  background: var(--tab-active-bg);
+  color: var(--accent-blue);
+  font-weight: 500;
+}
+
+.assetSubNavSection {
+  margin-bottom: 12px;
+}
+
+.assetSubNavLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+}
+
+.assetSubNavSelect {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.assetSubNavSelect:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+}
+
+html[data-catalog-theme='dark'] .bucketNoAccessOverlay {
+  background: var(--ui-backdrop);
+}
+
+html[data-catalog-theme='dark'] .bucketExploreCard {
+  box-shadow: var(--ui-shadow-card);
+}
+
+html[data-catalog-theme='dark'] .bucketAwsConsoleBtn {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+

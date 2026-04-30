@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Export toolkit localStorage → toolkit.json</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
+    code { background: #f0f0f0; padding: 0.1em 0.35em; border-radius: 4px; }
+    button { padding: 0.6rem 1rem; font-size: 1rem; cursor: pointer; margin-top: 1rem; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 1rem; overflow: auto; font-size: 12px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Toolkit localStorage → JSON</h1>
+  <p>
+    Reads browser <code>localStorage</code> keys written by the legacy toolkit UI
+    (<code>toolkit_*</code>, <code>toolkit-reactions-*</code>) and builds a fragment you can merge into
+    <code>toolkit.json</code> under <code>toolkit.toolkits[]</code>, then load with
+    <code>api/scripts/upload_data_to_postgres.py</code> (or reconcile with your existing DB rows by matching ids).
+  </p>
+  <p><strong>Note:</strong> Open this file from the same origin as the catalog (e.g. <code>http://localhost:3000/toolkit-export-localstorage.html</code>) so it can read your app’s storage.</p>
+  <button type="button" id="go">Download <code>toolkit_localstorage_export.json</code></button>
+  <pre id="out" style="display:none"></pre>
+
+  <script>
+(function () {
+  const readmeSuffixes = ['_installation', '_usage', '_requirements', '_evaluation', '_icons'];
+
+  function parseTechRest(rest) {
+    for (const suf of readmeSuffixes) {
+      if (rest.endsWith(suf)) {
+        return { techId: rest.slice(0, -suf.length), extra: suf.slice(1) };
+      }
+    }
+    return { techId: rest, extra: 'base' };
+  }
+
+  function buildExport() {
+    const toolkitsById = {};
+
+    function ensureTk(tid) {
+      if (!toolkitsById[tid]) {
+        toolkitsById[tid] = { id: tid, technologies: [] };
+      }
+      return toolkitsById[tid];
+    }
+
+    function techById(tk, techId) {
+      let t = tk.technologies.find((x) => x.id === techId);
+      if (!t) {
+        t = { id: techId };
+        tk.technologies.push(t);
+      }
+      return t;
+    }
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (!key) continue;
+
+      const reactionsMatch = key.match(/^toolkit-reactions-(.+)$/);
+      if (reactionsMatch) {
+        const tid = reactionsMatch[1];
+        let parsed;
+        try {
+          parsed = JSON.parse(localStorage.getItem(key) || '{}');
+        } catch {
+          continue;
+        }
+        const tk = ensureTk(tid);
+        tk._reactions = parsed;
+        continue;
+      }
+
+      if (!key.startsWith('toolkit_')) continue;
+      if (key.includes('_tech_')) {
+        const m = key.match(/^toolkit_(.+?)_tech_(.+)$/);
+        if (!m) continue;
+        const tid = m[1];
+        const rest = m[2];
+        const { techId, extra } = parseTechRest(rest);
+        const tk = ensureTk(tid);
+        const tech = techById(tk, techId);
+        const raw = localStorage.getItem(key);
+        if (extra === 'base') {
+          try {
+            const o = JSON.parse(raw || '{}');
+            Object.assign(tech, o);
+          } catch {
+            /* ignore */
+          }
+        } else if (extra === 'icons') {
+          try {
+            tech.iconOverrides = JSON.parse(raw || '{}');
+          } catch {
+            /* ignore */
+          }
+        } else {
+          tech[extra] = raw || '';
+        }
+        continue;
+      }
+
+      if (
+        key.includes('_reactions') ||
+        key.includes('_evaluation') ||
+        key.includes('_installation') ||
+        key.includes('_usage')
+      ) {
+        continue;
+      }
+
+      try {
+        const o = JSON.parse(localStorage.getItem(key) || '{}');
+        const tid = o.id || key.replace(/^toolkit_/, '');
+        const tk = ensureTk(tid);
+        Object.assign(tk, o);
+        if (!tk.technologies) tk.technologies = [];
+      } catch {
+        /* ignore */
+      }
+    }
+
+    Object.keys(toolkitsById).forEach((tid) => {
+      const tk = toolkitsById[tid];
+      const rx = tk._reactions;
+      delete tk._reactions;
+      if (rx && tk.technologies) {
+        tk.technologies.forEach((t) => {
+          const r = rx[t.id];
+          if (r) {
+            if (typeof r.likes === 'number') t.likes = r.likes;
+            if (typeof r.dislikes === 'number') t.dislikes = r.dislikes;
+          }
+        });
+      }
+      tk.technologies.sort((a, b) => (a.rank || 0) - (b.rank || 0));
+    });
+
+    return {
+      _comment:
+        'Merge toolkit.toolkits[] into your toolkit.json or POST/PATCH via API. Parent rows use JSON id as item_id where applicable.',
+      toolkit: {
+        toolkits: Object.values(toolkitsById),
+      },
+    };
+  }
+
+  document.getElementById('go').onclick = function () {
+    const data = buildExport();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'toolkit_localstorage_export.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    document.getElementById('out').style.display = 'block';
+    document.getElementById('out').textContent =
+      'Exported ' + data.toolkit.toolkits.length + ' toolkit(s).';
+  };
+})();
+  </script>
+</body>
+</html>

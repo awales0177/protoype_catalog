@@ -1,0 +1,159 @@
+/* Attachments tab */
+.assetAttachmentsHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.assetAttachmentsHeader .assetSectionTitle {
+  margin-bottom: 4px;
+}
+
+.assetAttachmentsHeader .assetSectionDesc {
+  margin: 0;
+}
+
+.assetAttachmentUploadBtn {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  background: var(--primary-dark);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.assetAttachmentUploadBtn:hover {
+  opacity: 0.9;
+}
+
+.assetAttachmentsTableWrap {
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-white);
+}
+
+.assetAttachmentsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.assetAttachmentsTable th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--card-bg);
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.assetAttachmentsTable td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.assetAttachmentsTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.assetAttachmentsTable tbody tr:hover {
+  background: var(--card-bg);
+}
+
+.assetAttachmentsColName {
+  min-width: 0;
+}
+
+.assetAttachmentIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  vertical-align: middle;
+  color: var(--text-muted);
+}
+
+.assetAttachmentIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.assetAttachmentName {
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+
+.assetAttachmentName:hover {
+  text-decoration: underline;
+}
+
+.assetAttachmentsColSize {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.assetAttachmentsColDate {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.assetAttachmentsColBy {
+  color: var(--text-primary);
+}
+
+.assetAttachmentsColAction {
+  width: 48px;
+  text-align: right;
+}
+
+.assetAttachmentDownload {
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  font-size: 1rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.assetAttachmentDownload:hover {
+  color: var(--accent-blue);
+  background: var(--card-bg);
+}
+
+@media (max-width: 900px) {
+  .assetBody {
+    margin-top: -100px;
+    padding: 0 16px 24px;
+    flex-direction: column;
+  }
+
+  .assetHero {
+    padding: 14px 16px 140px;
+  }
+
+  .assetRightColumn {
+    width: 100%;
+    order: 1;
+  }
+
+  .assetSidebar {
+    width: 100%;
+  }
+
+  .assetMain,
+  .assetMain--plain {
+    order: 0;
+    min-height: 0;
+  }
+}

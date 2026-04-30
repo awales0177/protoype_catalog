@@ -1,0 +1,163 @@
+@import './styles/tokens.css';
+
+:root {
+  --primary-dark: #1E1E20;
+  --accent-blue: #3277D3;
+  /* Home hero (::before): full diagonal from viewport top */
+  --hero-band-gradient: linear-gradient(
+    168deg,
+    color-mix(in srgb, var(--primary-dark) 90%, var(--accent-blue) 10%) 0%,
+    var(--primary-dark) 48%,
+    color-mix(in srgb, var(--primary-dark) 93%, #0a0c10 7%) 100%
+  );
+  /* Below app nav: same hues but starts with flat primary-dark so it meets the solid bar */
+  --hero-band-gradient-stacked: linear-gradient(
+    168deg,
+    var(--primary-dark) 0%,
+    color-mix(in srgb, var(--primary-dark) 90%, var(--accent-blue) 10%) 34%,
+    var(--primary-dark) 50%,
+    color-mix(in srgb, var(--primary-dark) 93%, #0a0c10 7%) 100%
+  );
+  /* Page chrome vs. elevated surfaces (aligned with DH / Material dark: canvas #121212, cards #1a1a1a) */
+  --bg-canvas: #ffffff;
+  --bg-white: #ffffff;
+  --text-primary: #333333;
+  --text-muted: #6C757D;
+  --tab-active-bg: #E6F0FC;
+  --success-green: #28A745;
+  --tab-underline-active: var(--success-green);
+  --alert-red: #DC3545;
+  --border-light: #E9ECEF;
+  --card-bg: #F8F9FA;
+  --tag-yellow: #FFC107;
+  --tag-orange: #E65100;
+  --header-height: 48px;
+  --title-band-height: 72px;
+}
+
+/* Dark mode — match DH catalog (`body.dark-mode`): #121212 canvas, #1a1a1a cards, high-contrast type */
+html[data-catalog-theme='dark'] {
+  background-color: var(--bg-canvas);
+  --bg-canvas: #121212;
+  /* Diagram / secondary panes that used --bg-page fallback #fafafa */
+  --bg-page: #121212;
+  --bg-white: #1a1a1a;
+  --text-primary: #fafafa;
+  --text-muted: #a3a3a3;
+  --border-light: rgba(255, 255, 255, 0.08);
+  --card-bg: #141414;
+  --tab-active-bg: rgba(255, 255, 255, 0.08);
+  --ui-shadow-card: 0 4px 20px rgba(0, 0, 0, 0.45);
+  --ui-shadow-modal: 0 16px 56px rgba(0, 0, 0, 0.55);
+  --ui-backdrop: rgba(0, 0, 0, 0.6);
+  --hero-band-gradient: linear-gradient(
+    168deg,
+    #121212 0%,
+    color-mix(in srgb, var(--primary-dark) 88%, var(--accent-blue) 12%) 44%,
+    #0a0a0a 100%
+  );
+  --hero-band-gradient-stacked: linear-gradient(
+    168deg,
+    #141414 0%,
+    color-mix(in srgb, var(--primary-dark) 85%, var(--accent-blue) 15%) 38%,
+    #121212 100%
+  );
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-primary);
+  background: var(--bg-canvas);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+html[data-catalog-theme='dark'] .app,
+html[data-catalog-theme='dark'] .homePage,
+html[data-catalog-theme='dark'] .searchResultsPage,
+html[data-catalog-theme='dark'] .assetPage {
+  background: var(--bg-canvas);
+}
+
+/* DH-style scrollbars in dark */
+html[data-catalog-theme='dark'] ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+html[data-catalog-theme='dark'] ::-webkit-scrollbar-track {
+  background: #141414;
+  border-radius: 4px;
+}
+
+html[data-catalog-theme='dark'] ::-webkit-scrollbar-thumb {
+  background: #4a4a4a;
+  border-radius: 4px;
+}
+
+html[data-catalog-theme='dark'] ::-webkit-scrollbar-thumb:hover {
+  background: #5a5a5a;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+a {
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Fast hover tips (native title is slow; avoids help cursor) */
+.catalogHoverTip[data-tip] {
+  position: relative;
+}
+
+.catalogHoverTip[data-tip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 10px;
+  background: rgba(28, 29, 33, 0.96);
+  color: #f4f4f5;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.35;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  white-space: normal;
+  max-width: 260px;
+  width: max-content;
+  text-align: center;
+  pointer-events: none;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.04s ease-out, visibility 0.04s ease-out;
+}
+
+.catalogHoverTip[data-tip]:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+html[data-catalog-theme='dark'] .catalogHoverTip[data-tip]::after {
+  background: rgba(244, 244, 245, 0.96);
+  color: #1c1d21;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}

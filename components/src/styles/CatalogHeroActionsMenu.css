@@ -1,0 +1,201 @@
+/* Actions dropdown — reference layout: header (Actions pill + search) + bordered action cards */
+.catalogHeroActionsWrap {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Trigger: flow-modeler asset on dark hero chrome */
+.catalogHeroActionsTriggerIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: block;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
+}
+
+.catalogHeroActionsPanel {
+  --actions-panel-border: var(--border-light);
+  --actions-panel-muted: var(--text-muted);
+  position: fixed;
+  z-index: 1350;
+  box-sizing: border-box;
+  min-width: min(340px, calc(100vw - 16px));
+  max-width: min(420px, calc(100vw - 16px));
+  padding: 12px;
+  font-family: var(--ui-font-sans);
+  background: var(--bg-white);
+  color: var(--text-primary);
+  border: 1px solid var(--actions-panel-border);
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(15, 35, 52, 0.14);
+}
+
+html[data-catalog-theme='dark'] .catalogHeroActionsPanel,
+html.dark-mode .catalogHeroActionsPanel {
+  --actions-panel-border: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
+.catalogHeroActionsPanel__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.catalogHeroActionsPanel__headerPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid var(--actions-panel-border);
+  border-radius: var(--ui-radius-pill);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.catalogHeroActionsPanel__headerPillIcon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
+}
+
+html[data-catalog-theme='dark'] .catalogHeroActionsPanel__headerPillIcon,
+html.dark-mode .catalogHeroActionsPanel__headerPillIcon,
+html[data-catalog-theme='dark'] .catalogHeroActionsCard__flowImg,
+html.dark-mode .catalogHeroActionsCard__flowImg {
+  filter: brightness(0) invert(1);
+}
+
+.catalogHeroActionsPanel__searchLabel {
+  flex: 1;
+  min-width: 140px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid var(--actions-panel-border);
+  border-radius: var(--ui-radius-pill);
+  color: var(--actions-panel-muted);
+  box-sizing: border-box;
+}
+
+.catalogHeroActionsPanel__searchLabel svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  opacity: 0.85;
+}
+
+.catalogHeroActionsPanel__search {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 0.8125rem;
+  outline: none;
+}
+
+.catalogHeroActionsPanel__search::placeholder {
+  color: var(--actions-panel-muted);
+  opacity: 0.9;
+}
+
+.catalogHeroActionsPanel__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: min(520px, 72vh);
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.catalogHeroActionsPanel__empty {
+  margin: 12px 8px;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.catalogHeroActionsCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 14px;
+  text-align: left;
+  border: 1px solid var(--actions-panel-border);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.catalogHeroActionsCard:hover {
+  background: var(--tab-active-bg);
+  border-color: color-mix(in srgb, var(--accent-blue) 35%, var(--actions-panel-border));
+}
+
+.catalogHeroActionsCard__iconBox {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--actions-panel-border);
+  border-radius: 10px;
+  color: var(--text-muted);
+  box-sizing: border-box;
+}
+
+.catalogHeroActionsCard__iconBox svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.catalogHeroActionsCard__flowImg {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: block;
+}
+
+.catalogHeroActionsCard__body {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.catalogHeroActionsCard__title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+
+.catalogHeroActionsCard__desc {
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-muted);
+}

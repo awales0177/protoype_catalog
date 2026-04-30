@@ -1,0 +1,544 @@
+.productDataLineageFlowWrap {
+  height: min(640px, 78vh);
+  width: 100%;
+  border: 1px solid var(--border-light, #e2e2e2);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f6f6f4;
+}
+
+.productDataLineageFlowWrap--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  height: auto;
+}
+
+.productDataLineageFlowEmpty {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted, #666);
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.lineageFlowNodeWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.lineageUnsyncedBadge {
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #b45309;
+  background: #ffedd5;
+  border: 1px solid #fdba74;
+  border-radius: 4px;
+  padding: 2px 8px 2px 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.lineageUnsyncedBadgeIcon {
+  font-size: 0.75rem;
+  line-height: 1;
+  opacity: 0.9;
+}
+
+.lineagePlatformLogo {
+  display: flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+}
+
+.lineagePlatformLogo svg {
+  width: 24px;
+  height: 24px;
+}
+
+.lineagePlatformLogoImg {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  display: block;
+}
+
+.lineagePlatformLogo--chip {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.lineagePlatformLogo--chip svg {
+  width: 14px;
+  height: 14px;
+}
+
+.lineagePlatformLogo--chip .lineagePlatformLogoImg {
+  width: 14px;
+  height: 14px;
+}
+
+.lineageFlowNodeCard {
+  width: 276px;
+  background: #fff;
+  border: 1px solid #e0e0dc;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  overflow: hidden;
+}
+
+.lineageFlowNodeCard:hover {
+  border-color: #c5c5c0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.lineageFlowNodeCard--current {
+  box-shadow: 0 0 0 2px #2e9ad0, 0 2px 10px rgba(46, 154, 208, 0.2);
+  border-color: #2e9ad0;
+}
+
+.lineageFlowNodeCard--selected {
+  box-shadow: 0 0 0 2px #1c6696;
+}
+
+.lineageFlowNodeCard--pipeline {
+  border-style: dashed;
+  border-color: #c5c5c0;
+  background: linear-gradient(180deg, #fff 0%, #fafbf9 100%);
+}
+
+.lineageFlowNodeCard--pipeline:hover {
+  border-color: #9ca3af;
+}
+
+.lineageFlowNodeCardInner {
+  padding: 8px 10px 0;
+}
+
+.lineageFlowNodeHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.lineageFlowNodeLogoBadge {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #f8f8f6, #ececea);
+  border: 1px solid #e4e4e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lineageFlowNodeTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  flex: 1;
+  padding-top: 4px;
+}
+
+.lineageNodeIcon {
+  flex-shrink: 0;
+  color: #4a4a48;
+  opacity: 0.75;
+}
+
+.lineageNodeIcon--table {
+  opacity: 0.65;
+}
+
+.lineageFlowNodeTitle {
+  font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1a1a18;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.lineageFlowNodeDesc {
+  margin: 0 0 6px;
+  font-size: 0.625rem;
+  line-height: 1.35;
+  color: #8a8a86;
+  min-height: 2.5em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.lineageValidationBlock {
+  border: 1px solid #eeece8;
+  border-radius: 6px;
+  background: #fafaf8;
+  padding: 6px 8px 4px;
+  margin-bottom: 6px;
+}
+
+.lineageValidationBlockHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.lineageValidationBlockTitle {
+  font-size: 0.5625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b6b66;
+}
+
+.lineageValidationBlockCounts {
+  font-size: 0.5625rem;
+  font-variant-numeric: tabular-nums;
+  color: #555;
+}
+
+.lineageCountSep {
+  margin: 0 2px;
+  color: #bbb;
+}
+
+.lineageCount--pass {
+  color: #15803d;
+  font-weight: 600;
+}
+
+.lineageCount--warn {
+  color: #b45309;
+  font-weight: 600;
+}
+
+.lineageCount--fail {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.lineageCount--pending {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.lineageValidationList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2px 0;
+}
+
+.lineageValidationItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.59375rem;
+  line-height: 1.25;
+  color: #3f3f3c;
+}
+
+.lineageValidationDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.lineageValidationItem--pass .lineageValidationDot {
+  background: #22c55e;
+  box-shadow: 0 0 0 1px #bbf7d0;
+}
+
+.lineageValidationItem--warn .lineageValidationDot {
+  background: #f59e0b;
+  box-shadow: 0 0 0 1px #fde68a;
+}
+
+.lineageValidationItem--fail .lineageValidationDot {
+  background: #ef4444;
+  box-shadow: 0 0 0 1px #fecaca;
+}
+
+.lineageValidationItem--pending .lineageValidationDot {
+  background: #94a3b8;
+  box-shadow: 0 0 0 1px #e2e8f0;
+}
+
+.lineageValidationLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lineageValidationMore {
+  margin: 4px 0 0;
+  font-size: 0.5625rem;
+  color: #888;
+}
+
+.lineageFlowNodeFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0 -10px;
+  padding: 5px 10px;
+  background: #dcfce7;
+  border-top: 1px solid #bbf7d0;
+  font-size: 0.625rem;
+}
+
+.lineageFlowNodeFooter--risk {
+  background: #ffedd5;
+  border-top-color: #fdba74;
+}
+
+.lineageFlowNodeFooter--risk .lineageFlowNodeFooterStatus {
+  color: #9a3412;
+}
+
+.lineageFlowNodeFooter--risk .lineageFlowNodeFooterTime {
+  color: #c2410c;
+}
+
+.lineageFlowNodeFooter--pending:not(.lineageFlowNodeFooter--risk) {
+  background: #e0f2fe;
+  border-top-color: #bae6fd;
+}
+
+.lineageFlowNodeFooter--pending:not(.lineageFlowNodeFooter--risk) .lineageFlowNodeFooterStatus {
+  color: #0369a1;
+}
+
+.lineageFlowNodeFooterStatus {
+  font-weight: 600;
+  color: #166534;
+}
+
+.lineageFlowNodeFooterTime {
+  color: #15803d;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.lineageFlowHandle {
+  width: 6px;
+  height: 6px;
+  background: #b0b0ac;
+  border: 2px solid #fff;
+}
+
+.lineageTechRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 8px;
+  margin-top: 8px;
+  max-width: 300px;
+}
+
+.lineageTechChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px 3px 5px;
+  border-radius: 999px;
+  border: 1px solid #e2e2de;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  max-width: 100%;
+}
+
+.lineageTechChipLabel {
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: #454543;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 76px;
+}
+
+.productDataLineageFlowWrap .react-flow__edge-path {
+  stroke: #5a5a5a;
+  stroke-width: 1.5;
+}
+
+.productDataLineageFlowWrap .react-flow__controls {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.productDataLineageFlowWrap .react-flow__controls-button {
+  border-bottom-color: #e8e8e4;
+}
+
+/* Dark: flow canvas, nodes, validation chips (catalog tokens) */
+html[data-catalog-theme='dark'] .productDataLineageFlowWrap {
+  background: var(--card-bg);
+  border-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .lineageUnsyncedBadge {
+  color: #fdba74;
+  background: rgba(251, 146, 60, 0.12);
+  border-color: rgba(251, 146, 60, 0.35);
+}
+
+html[data-catalog-theme='dark'] .lineageFlowNodeCard {
+  background: var(--bg-white);
+  border-color: var(--border-light);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+html[data-catalog-theme='dark'] .lineageFlowNodeCard:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: var(--ui-shadow-card);
+}
+
+html[data-catalog-theme='dark'] .lineageFlowNodeCard--pipeline {
+  background: linear-gradient(180deg, var(--bg-white) 0%, var(--card-bg) 100%);
+  border-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .lineageFlowNodeCard--pipeline:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+html[data-catalog-theme='dark'] .lineageFlowNodeLogoBadge {
+  background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+  border-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .lineageNodeIcon {
+  color: var(--text-muted);
+}
+
+html[data-catalog-theme='dark'] .lineageFlowNodeTitle {
+  color: var(--text-primary);
+}
+
+html[data-catalog-theme='dark'] .lineageFlowNodeDesc {
+  color: var(--text-muted);
+}
+
+html[data-catalog-theme='dark'] .lineageValidationBlock {
+  border-color: var(--border-light);
+  background: var(--card-bg);
+}
+
+html[data-catalog-theme='dark'] .lineageValidationBlockTitle {
+  color: var(--text-muted);
+}
+
+html[data-catalog-theme='dark'] .lineageValidationBlockCounts,
+html[data-catalog-theme='dark'] .lineageCountSep {
+  color: var(--text-muted);
+}
+
+html[data-catalog-theme='dark'] .lineageValidationItem {
+  color: var(--text-primary);
+}
+
+html[data-catalog-theme='dark'] .lineageValidationMore {
+  color: var(--text-muted);
+}
+
+html[data-catalog-theme='dark'] .lineageFlowNodeFooter {
+  background: rgba(34, 197, 94, 0.12);
+  border-top-color: rgba(34, 197, 94, 0.35);
+}
+
+html[data-catalog-theme='dark'] .lineageFlowNodeFooterStatus {
+  color: #86efac;
+}
+
+html[data-catalog-theme='dark'] .lineageFlowNodeFooterTime {
+  color: #4ade80;
+}
+
+html[data-catalog-theme='dark'] .lineageFlowNodeFooter--risk {
+  background: rgba(251, 146, 60, 0.12);
+  border-top-color: rgba(251, 146, 60, 0.35);
+}
+
+html[data-catalog-theme='dark'] .lineageFlowNodeFooter--risk .lineageFlowNodeFooterStatus {
+  color: #fdba74;
+}
+
+html[data-catalog-theme='dark'] .lineageFlowNodeFooter--risk .lineageFlowNodeFooterTime {
+  color: #fb923c;
+}
+
+html[data-catalog-theme='dark']
+  .lineageFlowNodeFooter--pending:not(.lineageFlowNodeFooter--risk) {
+  background: rgba(56, 189, 248, 0.12);
+  border-top-color: rgba(56, 189, 248, 0.35);
+}
+
+html[data-catalog-theme='dark']
+  .lineageFlowNodeFooter--pending:not(.lineageFlowNodeFooter--risk)
+  .lineageFlowNodeFooterStatus {
+  color: #7dd3fc;
+}
+
+html[data-catalog-theme='dark'] .lineageFlowHandle {
+  background: #6a6a6a;
+  border-color: var(--bg-white);
+}
+
+html[data-catalog-theme='dark'] .lineageTechChip {
+  background: var(--bg-white);
+  border-color: var(--border-light);
+  box-shadow: none;
+}
+
+html[data-catalog-theme='dark'] .lineageTechChipLabel {
+  color: var(--text-primary);
+}
+
+html[data-catalog-theme='dark'] .productDataLineageFlowWrap .react-flow__edge-path {
+  stroke: rgba(255, 255, 255, 0.28);
+}
+
+html[data-catalog-theme='dark'] .productDataLineageFlowWrap .react-flow__controls {
+  background: var(--bg-white);
+  box-shadow: var(--ui-shadow-card);
+}
+
+html[data-catalog-theme='dark'] .productDataLineageFlowWrap .react-flow__controls-button {
+  border-bottom-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .productDataLineageFlowWrap .react-flow__controls-button svg {
+  fill: var(--text-primary);
+}

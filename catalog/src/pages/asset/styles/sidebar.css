@@ -1,0 +1,178 @@
+/* Sidebar — match search filter card */
+.assetSidebar {
+  width: 272px;
+  flex-shrink: 0;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  box-shadow: none;
+  padding: 20px 18px;
+  height: fit-content;
+  align-self: flex-start;
+}
+
+.assetSidebarTitle {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.assetSidebarSection {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.assetSidebarSection:last-child {
+  border-bottom: none;
+}
+
+.assetSidebarNoAccess {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.assetSidebarLockIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--alert-red);
+}
+
+.assetSidebarLockIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.assetSidebarNoAccessLabel {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.assetSidebarLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+
+.assetSidebarValue {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+}
+
+.assetSidebarValue a {
+  color: var(--accent-blue);
+}
+
+.assetSidebarList {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.assetSidebarList a {
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+
+.assetSidebarList a:hover {
+  text-decoration: underline;
+}
+
+.assetSidebarProfiles {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.assetSidebarProfileRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.assetSidebarProfileRow:hover .assetSidebarProfileName {
+  color: var(--accent-blue);
+  text-decoration: underline;
+}
+
+.assetSidebarProfileRow .assetAvatar {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+}
+
+.assetSidebarProfileName {
+  min-width: 0;
+}
+
+.assetSidebarLink {
+  font-size: 0.875rem;
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+
+.assetSidebarLink:hover {
+  text-decoration: underline;
+}
+
+.assetSidebarLinkBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.assetSidebarAvatars {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.assetAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.assetClassTag {
+  display: inline-block;
+  padding: 6px 12px;
+  background: var(--success-green);
+  color: white;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border-radius: 6px;
+  margin-top: 4px;
+}
+
+.assetExploreBucketBtn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.assetExploreBucketBtn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+

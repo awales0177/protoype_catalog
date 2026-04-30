@@ -1,0 +1,41 @@
+/* Top-of-page summary: description + governance (no tabs) */
+
+.assetMain--summaryCard .assetMainPane {
+  padding-top: 20px;
+}
+
+.assetSummaryPanel {
+  width: 100%;
+}
+
+.assetSummaryGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+  gap: 28px 36px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .assetSummaryGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.assetSummaryHeading {
+  margin: 0 0 12px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+}
+
+.assetSummaryDescriptionText {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--text-primary);
+}
+
+.assetSummaryGovernanceGrid {
+  margin-bottom: 0;
+}

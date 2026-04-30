@@ -1,0 +1,619 @@
+/* Overview — catalog-style layout */
+.overviewCatalog {
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 20px 24px;
+  width: 100%;
+}
+
+.overviewCatalogHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.overviewCatalogTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.overviewCatalogToggle .assetToggleLabel {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.overviewMetaGrid {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 10px 24px;
+  margin-bottom: 20px;
+}
+
+.overviewMetaRow {
+  display: contents;
+}
+
+.overviewMetaRow > .overviewMetaKey {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  padding: 4px 0;
+}
+
+.overviewMetaRow > .overviewMetaValue {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  padding: 4px 0;
+}
+
+.overviewMetaValue a {
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+
+.overviewMetaValue a:hover {
+  text-decoration: underline;
+}
+
+.overviewFeedBadge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: rgba(40, 167, 69, 0.15);
+  color: var(--success-green);
+  border-radius: 4px;
+}
+
+.overviewStatusPill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.overviewStatusPill.approved {
+  background: rgba(34, 139, 34, 0.12);
+  color: #1a6b1a;
+}
+
+.overviewBlock {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+/* S3 location copyable box (product detail) */
+.overviewS3CopyBox {
+  margin-bottom: 12px;
+}
+.overviewS3CopyLabel {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+.overviewS3CopyInner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
+  font-size: 0.75rem;
+}
+.overviewS3CopyPath {
+  flex: 1;
+  min-width: 0;
+  color: #c2410c;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.overviewS3CopyBtn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.overviewS3CopyBtn svg {
+  width: 14px;
+  height: 14px;
+}
+.overviewS3CopyBtn:hover {
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.06);
+}
+.overviewS3CopyBtn:focus {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+/* Data Volume (Last 30 Days) chart */
+.dataTrackerVolumeChart {
+  margin-bottom: 24px;
+}
+
+.dataVolumeChartWrap {
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+}
+
+.dataVolumeChartHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.dataVolumeChartTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.dataVolumeChartRealtimeBtn {
+  padding: 6px 14px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #0a325d;
+  background: #e6f2f8;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.dataVolumeChartRealtimeBtn:hover {
+  background: #b8dcee;
+}
+
+.dataVolumeChartInner {
+  min-height: 200px;
+}
+
+.overviewBlockTitle {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 8px;
+}
+
+.overviewBlockText {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.overviewBlockText.overviewLinks a {
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+
+.overviewBlockText.overviewLinks a:hover {
+  text-decoration: underline;
+}
+
+.overviewTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.overviewTag {
+  padding: 4px 10px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+}
+
+/* Product-only overview blocks (data products) */
+.overviewProductScores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.overviewScoreItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 140px;
+}
+
+.overviewScoreRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.overviewScoreLabel {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.overviewScoreValue {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.overviewScoreBar {
+  height: 6px;
+  background: var(--border-light);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.overviewScoreBarFill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.25s ease;
+}
+
+.overviewScoreBarFill--good {
+  background: var(--success-green, #22c55e);
+}
+
+.overviewScoreBarFill--medium {
+  background: #eab308;
+}
+
+.overviewScoreBarFill--low {
+  background: #ef4444;
+}
+
+.overviewMetaValue.overviewMonospace {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.8125rem;
+  word-break: break-all;
+}
+
+.overviewMetaValue.overviewMonospace a {
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+
+.overviewMetaValue.overviewMonospace a:hover {
+  text-decoration: underline;
+}
+
+.overviewLinkCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.overviewLinkCard {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.overviewLinkCard:hover {
+  border-color: var(--accent-blue);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.overviewLinkCardTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.overviewLinkCardDesc {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.overviewLinkCardArrow {
+  margin-top: auto;
+  font-size: 0.875rem;
+  color: var(--accent-blue);
+}
+
+.overviewProducerConsumers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.overviewProducerConsumersCol {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.overviewProducerConsumersLabel {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.overviewProducerConsumersList {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.overviewProducerConsumersList a {
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+
+.overviewProducerConsumersList a:hover {
+  text-decoration: underline;
+}
+
+.overviewReadme {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+  padding: 16px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+}
+
+.overviewReadme h1,
+.overviewReadme h2,
+.overviewReadme h3,
+.overviewReadme h4,
+.overviewReadme h5,
+.overviewReadme h6 {
+  margin: 1em 0 0.35em;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.overviewReadme h1:first-child { margin-top: 0; }
+.overviewReadme h1 { font-size: 1.25rem; }
+.overviewReadme h2 { font-size: 1.0625rem; }
+.overviewReadme h3 { font-size: 1rem; }
+
+.overviewReadme p {
+  margin: 0 0 0.75em;
+}
+
+.overviewReadme p:last-child {
+  margin-bottom: 0;
+}
+
+.overviewReadme ul,
+.overviewReadme ol {
+  margin: 0.5em 0 0.75em;
+  padding-left: 1.5em;
+}
+
+.overviewReadme li {
+  margin: 0.2em 0;
+}
+
+.overviewReadme code {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.8125rem;
+  padding: 2px 6px;
+  background: var(--card-bg);
+  border-radius: 4px;
+}
+
+.overviewReadme pre {
+  margin: 0.75em 0;
+  padding: 12px;
+  background: var(--card-bg);
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+.overviewReadme pre code {
+  padding: 0;
+  background: none;
+}
+
+.overviewReadme a {
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+
+.overviewReadme a:hover {
+  text-decoration: underline;
+}
+
+.overviewReadme blockquote {
+  margin: 0.75em 0;
+  padding-left: 1em;
+  border-left: 3px solid var(--border-light);
+  color: var(--text-muted);
+}
+
+.overviewReadme table {
+  width: 100%;
+  margin: 0.75em 0;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.overviewReadme th,
+.overviewReadme td {
+  padding: 8px 12px;
+  text-align: left;
+  border: 1px solid var(--border-light);
+}
+
+.overviewReadme th {
+  font-weight: 600;
+  background: var(--card-bg);
+  color: var(--text-primary);
+}
+
+.overviewReadme td {
+  color: var(--text-primary);
+}
+
+.overviewReadme hr {
+  margin: 1.25em 0;
+  border: none;
+  border-top: 1px solid var(--border-light);
+}
+
+.readmeMermaidDiagram {
+  margin: 1em 0;
+  padding: 16px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.readmeMermaidContainer {
+  min-height: 80px;
+}
+
+.readmeMermaidDiagram svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.readmeMermaidLoading {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin: 8px 0 0;
+}
+
+.readmeMermaidError {
+  margin: 1em 0;
+  padding: 12px;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  background: var(--card-bg);
+  border-radius: 6px;
+}
+
+@media (max-width: 640px) {
+  .overviewProducerConsumers {
+    grid-template-columns: 1fr;
+  }
+}
+
+.assetStatistics {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light);
+}
+
+.assetStatTabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.assetStatTab {
+  padding: 6px 12px;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.assetStatTab:hover {
+  background: var(--card-bg);
+  color: var(--text-primary);
+}
+
+.assetStatTab.active {
+  background: var(--tab-active-bg);
+  color: var(--accent-blue);
+  font-weight: 500;
+}
+
+.assetStatValues {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+}
+
+.assetStatRow strong {
+  font-weight: 600;
+}
+
+/* Dark: overview pills, chart chrome, hovers */
+html[data-catalog-theme='dark'] .overviewStatusPill.approved {
+  background: rgba(34, 197, 94, 0.15);
+  color: #86efac;
+}
+
+html[data-catalog-theme='dark'] .overviewS3CopyBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+html[data-catalog-theme='dark'] .dataVolumeChartRealtimeBtn {
+  color: #7dd3fc;
+  background: rgba(56, 189, 248, 0.12);
+}
+
+html[data-catalog-theme='dark'] .dataVolumeChartRealtimeBtn:hover {
+  background: rgba(56, 189, 248, 0.2);
+}
+
+html[data-catalog-theme='dark'] .overviewLinkCard:hover {
+  box-shadow: var(--ui-shadow-card);
+}
+
+html[data-catalog-theme='dark'] .overviewS3CopyPath {
+  color: #fdba74;
+}
+

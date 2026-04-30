@@ -1,0 +1,422 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+
+.homePage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  background: var(--bg-white);
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-optical-sizing: auto;
+  color: var(--text-primary);
+}
+
+.homePage *,
+.homePage *::before,
+.homePage *::after {
+  font-family: inherit;
+}
+
+/* Blue hero band behind toolbar + first sections (tokens in index.css) */
+.homePage::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: min(30rem, 55vh);
+  background: var(--hero-band-gradient);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Centered logo slot passed into CatalogHeroToolbar */
+.homeHeroBrandMark {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: min(560px, calc(100vw - 48px));
+  margin: 0;
+  line-height: 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.homeHeroBrandMark:focus {
+  outline: none;
+}
+
+.homeHeroBrandMark:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+.homeHeroBrandImg {
+  height: clamp(3.25rem, 10vw, 4.5rem);
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.18));
+}
+
+/* Main — transparent so hero band shows in gutters behind cards */
+.homeMain {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  padding: 24px;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.homeSection {
+  margin-bottom: 28px;
+}
+
+.homeSection:last-child {
+  margin-bottom: 0;
+}
+
+/* Section titles — align with .assetSectionTitle */
+.homeSectionTitle {
+  margin: 0 0 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0;
+}
+
+.homeMain > .homeSection:first-of-type .homeSectionTitle {
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.homeDiscoverGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* Cards — single horizontal gutter: 24px (--home-card-inline) everywhere */
+.homeCard {
+  --home-card-inline: 24px;
+  --home-chevron-col: 1.375rem;
+  height: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  box-shadow: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.homeCardTabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px 12px;
+  padding: 12px var(--home-card-inline) 0;
+  margin: 0;
+  border-bottom: 1px solid var(--border-light);
+  flex-shrink: 0;
+  background: var(--card-bg);
+}
+
+/* Tabs: no extra horizontal padding so labels line up with body at 24px */
+.homeCardTab {
+  padding: 10px 0 11px;
+  margin-bottom: -1px;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-family: inherit;
+  position: relative;
+}
+
+.homeCardTab:hover {
+  color: var(--text-primary);
+}
+
+.homeCardTab--active {
+  color: var(--text-primary);
+  font-weight: 600;
+  border-bottom-color: var(--tab-underline-active);
+}
+
+.homeDiscoverSplit {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  padding: 16px var(--home-card-inline) 20px;
+  align-items: start;
+  align-content: start;
+  background: var(--card-bg);
+}
+
+.homeDiscoverList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* List directly under tabs (Trending): grows to fill row height */
+.homeCard > ul.homeDiscoverList {
+  flex: 1;
+  min-height: 0;
+  padding: 0 var(--home-card-inline);
+}
+
+.homeDiscoverSplit .homeDiscoverList {
+  padding: 0;
+}
+
+.homeDiscoverRowLead {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  flex-shrink: 0;
+}
+
+.homeDiscoverRow {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) 5.5rem var(--home-chevron-col);
+  column-gap: 10px;
+  align-items: center;
+  padding: 10px 0;
+  border-radius: 4px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.12s;
+}
+
+.homeDiscoverRow:hover {
+  background: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+}
+
+.homeTypeDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.homeTypeDot--blue {
+  background: var(--accent-blue);
+}
+
+.homeTypeDot--violet {
+  background: #7c6cf0;
+}
+
+.homeTypeDot--sky {
+  background: #5eb3e8;
+}
+
+.homeTypeDot--teal {
+  background: #2a9d8f;
+}
+
+.homeDiscoverRowLabel {
+  min-width: 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+.homeDiscoverRowMeta {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  justify-self: end;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.homeRowChevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1;
+  font-weight: 400;
+}
+
+.homeDonutWrap {
+  flex-shrink: 0;
+  padding: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.homeDonut {
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--accent-blue) 0deg 252deg,
+    var(--border-light) 252deg 360deg
+  );
+  position: relative;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+.homeDonut::after {
+  content: '';
+  position: absolute;
+  inset: 34px;
+  background: var(--card-bg);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.homeCardFooter {
+  margin-top: auto;
+  flex-shrink: 0;
+  padding: 12px var(--home-card-inline) 20px;
+  border-top: 1px solid var(--border-light);
+  background: var(--card-bg);
+}
+
+.homeCardFooterLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+
+.homeCardFooterLink:hover {
+  text-decoration: underline;
+}
+
+.homeThreeCol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.homeTwoCol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.homeCardHeadTitle {
+  margin: 0;
+  flex-shrink: 0;
+  padding: 16px var(--home-card-inline) 12px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--card-bg);
+}
+
+.homeSimpleList {
+  list-style: none;
+  margin: 0;
+  flex: 1;
+  min-height: 0;
+  padding: 0 var(--home-card-inline) 16px;
+  background: var(--card-bg);
+}
+
+.homeSimpleRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--home-chevron-col);
+  column-gap: 12px;
+  align-items: center;
+  padding: 11px 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.homeSimpleRow:last-child {
+  border-bottom: none;
+}
+
+.homeSimpleRow:hover {
+  background: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+}
+
+.homeSimpleRowText {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.homeSimpleRowPrimary {
+  font-weight: 400;
+}
+
+.homeSimpleRowDesc {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+@media (max-width: 1100px) {
+  .homeDiscoverGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .homeThreeCol {
+    grid-template-columns: 1fr;
+  }
+
+  .homeTwoCol {
+    grid-template-columns: 1fr;
+  }
+
+  .homeDiscoverSplit {
+    grid-template-columns: 1fr;
+  }
+
+  .homeDonutWrap {
+    justify-content: flex-start;
+    padding-top: 12px;
+  }
+}
+
+@media (max-width: 840px) {
+  .homeMain {
+    padding: 16px;
+  }
+}

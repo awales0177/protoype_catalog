@@ -1,0 +1,111 @@
+/* Wrapper so the flow has a bounded height and fits the tab content */
+.assetRelationshipFlowWrap {
+  height: 420px;
+  width: 100%;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-page, #fafafa);
+}
+
+.assetRelationshipFlowWrap--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+}
+
+.assetRelationshipFlowEmpty {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* Custom asset node: card with link */
+.assetFlowNode {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: 200px;
+  max-width: 220px;
+  padding: 10px 14px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.assetFlowNode:hover {
+  border-color: var(--accent-blue);
+  box-shadow: 0 2px 8px rgba(46, 154, 208, 0.15);
+}
+
+.assetFlowNode--current {
+  background: var(--accent-blue);
+  border-color: var(--accent-blue);
+  color: #fff;
+}
+
+.assetFlowNode--current:hover {
+  filter: brightness(1.05);
+  border-color: var(--accent-blue);
+}
+
+.assetFlowNode--selected {
+  box-shadow: 0 0 0 2px var(--accent-blue);
+}
+
+.assetFlowNodeName {
+  font-weight: 600;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.assetFlowNodeType {
+  font-size: 0.75rem;
+  opacity: 0.85;
+}
+
+.assetFlowNode--current .assetFlowNodeType {
+  opacity: 0.9;
+}
+
+/* Connection handles - minimal visible styling */
+.assetFlowHandle {
+  width: 8px;
+  height: 8px;
+  background: var(--border-light);
+  border: 2px solid var(--bg-white);
+}
+
+.assetFlowNode--current .assetFlowHandle {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: var(--accent-blue);
+}
+
+.react-flow__edge-path {
+  stroke: var(--border-mid, #ccc);
+  stroke-width: 1.5;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: var(--accent-blue);
+}
+
+html[data-catalog-theme='dark'] .assetRelationshipFlowWrap {
+  background: var(--bg-page);
+  border-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .react-flow__edge-path {
+  stroke: rgba(255, 255, 255, 0.22);
+}

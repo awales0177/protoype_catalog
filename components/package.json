@@ -1,0 +1,23 @@
+{
+  "name": "@uux/components",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Catalog shell components (hero header, ecosystem menu, search chrome)",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "node -e \"process.exit(0)\"",
+    "test": "node -e \"process.exit(0)\""
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "*.css",
+    "**/*.css"
+  ],
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "react-router-dom": "^6.0.0 || ^7.0.0"
+  }
+}

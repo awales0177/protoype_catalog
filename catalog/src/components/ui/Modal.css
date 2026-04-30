@@ -1,0 +1,111 @@
+.uiModalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--ui-backdrop);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--ui-space-md);
+  box-sizing: border-box;
+}
+
+.uiModalPanel {
+  background: var(--bg-white);
+  border-radius: var(--ui-radius-lg);
+  box-shadow: var(--ui-shadow-modal);
+  width: 100%;
+  max-height: min(90vh, 900px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.uiModalPanel--sm {
+  max-width: 440px;
+  max-height: 80vh;
+}
+
+.uiModalPanel--md {
+  max-width: 520px;
+}
+
+.uiModalPanel--lg {
+  max-width: 640px;
+}
+
+.uiModalPanel--xl {
+  max-width: min(960px, 100vw - 2 * var(--ui-space-md));
+  max-height: min(92vh, 920px);
+}
+
+.uiModalHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--ui-space-md);
+  padding: 22px var(--ui-space-lg) 18px;
+  border-bottom: 1px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+.uiModalHeaderText {
+  min-width: 0;
+}
+
+.uiModalTitle {
+  margin: 0 0 6px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.uiModalSubtitle {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.uiModalClose {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: var(--card-bg);
+  border-radius: var(--ui-radius-md);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.uiModalClose:hover {
+  background: var(--border-light);
+  color: var(--text-primary);
+}
+
+.uiModalBody {
+  padding: 0 var(--ui-space-lg) var(--ui-space-lg);
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.uiModalBody--flushTop {
+  padding-top: var(--ui-space-lg);
+}
+
+.uiModalFooter {
+  flex-shrink: 0;
+  padding: var(--ui-space-md) var(--ui-space-lg) var(--ui-space-lg);
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}

@@ -1,0 +1,183 @@
+/**
+ * Demo file rows for the asset Lineage → Data tracker tab (search + system filter + expandable pizza tracker).
+ */
+
+function slugPrefix(name) {
+  return (
+    String(name || 'entity')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '_')
+      .replace(/^_|_$/g, '') || 'entity'
+  );
+}
+
+export function buildDataTrackerFileRows(assetName) {
+  const p = slugPrefix(assetName);
+  const lake = 's3://data-lake-prod';
+
+  return [
+    {
+      id: 'dt-bronze-part',
+      label: `bronze/${p}_orders/dt=2024-03-18/part-00000.parquet`,
+      system: 'S3 Lakehouse',
+      lineage: [
+        {
+          stage: 'Landing',
+          detail: 'CSV batches from partner SFTP (hourly drop)',
+          uri: `${lake}/landing/${p}_orders/in/dt=2024-03-18/*.csv`,
+          checks: [
+            { label: 'Virus scan', outcome: 'pass' },
+            { label: 'Arrival SLA', outcome: 'warn', note: 'Batch landed 12m after window' },
+          ],
+        },
+        {
+          stage: 'Bronze',
+          detail: 'Converted to Snappy Parquet · contract v3',
+          uri: `${lake}/bronze/${p}_orders/dt=2024-03-18/part-00000.parquet`,
+          isCurrent: true,
+          checks: [
+            { label: 'Schema v3 contract', outcome: 'pass' },
+            { label: 'Null rate thresholds', outcome: 'pass' },
+          ],
+        },
+        {
+          stage: 'Silver',
+          detail: 'Keyed merge and dedupe on order_id + tenant_id',
+          uri: `${lake}/silver/${p}_orders/merged/`,
+          checks: [{ label: 'Job status', outcome: 'pending', note: 'Queued after bronze commit' }],
+        },
+        {
+          stage: 'Curated',
+          detail: 'Published grain for this data product',
+          uri: `${lake}/curated/${p}_curated/`,
+          checks: [{ label: 'Publish gate', outcome: 'pending', note: 'Waiting on silver snapshot' }],
+        },
+      ],
+    },
+    {
+      id: 'dt-silver-merge',
+      label: `silver/${p}_orders/merged/snapshot-2024-03-18.parquet`,
+      system: 'Databricks',
+      lineage: [
+        {
+          stage: 'Bronze',
+          detail: 'Daily partitions through 2024-03-18',
+          uri: `${lake}/bronze/${p}_orders/dt=2024-03-18/`,
+          checks: [
+            { label: 'Partition completeness', outcome: 'pass' },
+            { label: 'File size anomalies', outcome: 'pass' },
+          ],
+        },
+        {
+          stage: 'Silver',
+          detail: 'Compaction job · snapshot artifact',
+          uri: `${lake}/silver/${p}_orders/merged/snapshot-2024-03-18.parquet`,
+          isCurrent: true,
+          checks: [
+            { label: 'Compaction checksum', outcome: 'pass' },
+            { label: 'Row count vs bronze', outcome: 'warn', note: '−0.4% vs prior day' },
+          ],
+        },
+        {
+          stage: 'Curated',
+          detail: 'Downstream transform reads snapshot URI',
+          uri: `${lake}/curated/${p}_curated/`,
+          checks: [{ label: 'Consumer freshness', outcome: 'pending', note: 'Next DAG tick 02:00 UTC' }],
+        },
+      ],
+    },
+    {
+      id: 'dt-manifest',
+      label: `_manifests/${p}_curated/run_id=7f2a9c/manifest.json`,
+      system: 'Airflow',
+      lineage: [
+        {
+          stage: 'Pipeline run',
+          detail: 'Orchestrator run 7f2a9c · Airflow DAG',
+          uri: `${lake}/_runs/${p}_curated/7f2a9c/`,
+          checks: [
+            { label: 'Task success', outcome: 'pass' },
+            { label: 'Duration budget', outcome: 'warn', note: 'Run 8% over p95' },
+          ],
+        },
+        {
+          stage: 'Manifest',
+          detail: 'Partition list + checksums for publish gate',
+          uri: `${lake}/_manifests/${p}_curated/run_id=7f2a9c/manifest.json`,
+          isCurrent: true,
+          checks: [
+            { label: 'Checksum match', outcome: 'pass' },
+            { label: 'All partitions present', outcome: 'fail', note: 'Missing dt=2024-03-17/_SUCCESS' },
+          ],
+        },
+        {
+          stage: 'Curated',
+          detail: 'Files listed in manifest promoted to read path',
+          uri: `${lake}/curated/${p}_curated/dt=2024-03-18/`,
+          checks: [{ label: 'Promotion blocked', outcome: 'pending', note: 'Resolve manifest failure first' }],
+        },
+      ],
+    },
+    {
+      id: 'dt-export-csv',
+      label: `exports/${p}_curated/customer_slice_2024-Q1.csv.gz`,
+      system: 'Snowflake',
+      lineage: [
+        {
+          stage: 'Curated',
+          detail: 'Internal Parquet layout (source of truth)',
+          uri: `${lake}/curated/${p}_curated/`,
+          checks: [
+            { label: 'ACL snapshot', outcome: 'pass' },
+            { label: 'Column allow-list', outcome: 'pass' },
+          ],
+        },
+        {
+          stage: 'Export job',
+          detail: 'Ad hoc extract · PII columns redacted',
+          uri: `${lake}/exports/${p}_curated/customer_slice_2024-Q1.csv.gz`,
+          isCurrent: true,
+          checks: [
+            { label: 'PII policy scan', outcome: 'pass' },
+            { label: 'Export row cap', outcome: 'fail', note: 'Cap 5M exceeded' },
+          ],
+        },
+        {
+          stage: 'Consumer share',
+          detail: 'Signed URL handed to downstream team',
+          uri: 'https://share.example.internal/delivery/…',
+          checks: [{ label: 'Signed URL issuance', outcome: 'pending', note: 'Blocked until export succeeds' }],
+        },
+      ],
+    },
+    {
+      id: 'dt-stream-ingest',
+      label: `kafka/${p}_events/hourly/2024-03-18T14.parquet`,
+      system: 'Kafka Connect',
+      lineage: [
+        {
+          stage: 'Stream buffer',
+          detail: 'Hourly micro-batch landed from Kafka topic',
+          uri: `kafka://ingest/${p}_events`,
+          checks: [{ label: 'Lag SLA', outcome: 'pass' }],
+        },
+        {
+          stage: 'Bronze stream',
+          detail: 'Converted Avro → Parquet with schema registry',
+          uri: `${lake}/bronze_stream/${p}_events/2024-03-18T14.parquet`,
+          isCurrent: true,
+          checks: [
+            { label: 'Schema evolution', outcome: 'pass' },
+            { label: 'Poison pill quarantine', outcome: 'pass' },
+          ],
+        },
+        {
+          stage: 'Silver merge',
+          detail: 'Upsert into hourly silver table',
+          uri: `${lake}/silver/${p}_events/hourly/`,
+          checks: [{ label: 'Merge job', outcome: 'pending' }],
+        },
+      ],
+    },
+  ];
+}

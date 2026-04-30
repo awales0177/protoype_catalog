@@ -1,0 +1,21 @@
+/**
+ * Design tokens — layout, radii, shadows (colors remain in index.css :root for now).
+ * Import once from src/index.js before index.css, or merge into index.css.
+ */
+:root {
+  --ui-radius-sm: 4px;
+  --ui-radius-md: 8px;
+  --ui-radius-lg: 12px;
+  --ui-radius-pill: 999px;
+  --ui-space-xs: 6px;
+  --ui-space-sm: 12px;
+  --ui-space-md: 16px;
+  --ui-space-lg: 24px;
+  --ui-space-xl: 32px;
+  --ui-shadow-card: 0 1px 4px rgba(0, 0, 0, 0.08);
+  --ui-shadow-modal: 0 12px 48px rgba(0, 0, 0, 0.18);
+  --ui-backdrop: rgba(0, 0, 0, 0.45);
+  --ui-page-gutter: 24px;
+  --ui-card-padding-inline: 22px;
+  --ui-card-padding-block: 16px;
+}

@@ -1,0 +1,131 @@
+/* Data lake section — dropdown with icons */
+.dataLakeSection .assetSubNavLabel {
+  margin-bottom: 8px;
+}
+
+.dataLakeDropdown {
+  position: relative;
+}
+
+.dataLakeDropdownTrigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 0.8125rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease;
+}
+
+.dataLakeDropdownTrigger:hover {
+  border-color: var(--text-muted);
+}
+
+.dataLakeDropdownTrigger:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+}
+
+.dataLakeDropdownChevron {
+  margin-left: auto;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  transform: scaleY(0.7);
+}
+
+.dataLakeDropdownList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 4px 0 0;
+  padding: 4px 0;
+  list-style: none;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.dataLakeDropdownList li {
+  margin: 0;
+}
+
+.dataLakeOption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 0.8125rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+
+.dataLakeOption:hover {
+  background: var(--card-bg);
+}
+
+.dataLakeOption.active {
+  background: rgba(0, 102, 204, 0.08);
+  color: var(--accent-blue);
+}
+
+.dataLakeOptionIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dataLakeOption.active .dataLakeOptionIcon {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.dataLakeOptionIcon .dataLakeIcon,
+.dataLakeOptionIcon img.dataLakeIcon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.dataLakeOptionLabel {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+html[data-catalog-theme='dark'] .dataLakeDropdownList {
+  box-shadow: var(--ui-shadow-card);
+}
+
+html[data-catalog-theme='dark'] .dataLakeOption.active .dataLakeOptionIcon {
+  background: rgba(50, 119, 211, 0.2);
+}
+
+html[data-catalog-theme='dark'] .dataLakeOption.active {
+  background: rgba(50, 119, 211, 0.12);
+}
+

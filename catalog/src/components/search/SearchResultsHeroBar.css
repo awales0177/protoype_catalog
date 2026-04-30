@@ -1,0 +1,341 @@
+/* Hero + sub-bar — same blue hero band as HomePage (::before uses --hero-band-gradient). */
+
+.searchResultsStack {
+  flex-shrink: 0;
+  background: var(--hero-band-gradient-stacked);
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.searchResultsGlobalBar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px 20px;
+  padding: 10px 24px;
+  background: transparent;
+  color: inherit;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.searchResultsGlobalBarStart {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+@media (min-width: 600px) {
+  .searchResultsGlobalBarStart {
+    gap: 8px;
+  }
+}
+
+.searchResultsGlobalActions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.searchResultsGlobalActions svg,
+.searchResultsGlobalActions img {
+  flex-shrink: 0;
+}
+
+.searchResultsGlobalChevron svg {
+  width: 14px;
+  height: 14px;
+  opacity: 0.85;
+  display: block;
+}
+
+.searchResultsGlobalSearch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 6px 8px 6px 14px;
+  background: var(--bg-white);
+  border-radius: 6px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  box-sizing: border-box;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.searchResultsGlobalSearch:hover {
+  border-color: color-mix(in srgb, var(--accent-blue) 28%, var(--border-light));
+}
+
+.searchResultsGlobalSearch:focus-within {
+  border-color: color-mix(in srgb, var(--accent-blue) 45%, var(--border-light));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-blue) 18%, transparent);
+}
+
+.searchResultsGlobalSearchIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: color 0.12s ease, background 0.12s ease;
+}
+
+.searchResultsGlobalSearchIcon:hover {
+  color: var(--accent-blue);
+  background: var(--tab-active-bg);
+}
+
+.searchResultsGlobalSearchIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.searchResultsGlobalSearchInput {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  outline: none;
+}
+
+.searchResultsGlobalSearchInput::placeholder {
+  color: var(--text-muted);
+}
+
+.searchResultsGlobalSearchClear {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.125rem;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 1;
+  transition: color 0.12s ease, background 0.12s ease;
+}
+
+.searchResultsGlobalSearchClear:hover {
+  color: var(--text-primary);
+  background: var(--tab-active-bg);
+}
+
+.searchResultsGlobalTray {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  justify-self: end;
+}
+
+.searchResultsTrayIcon {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 0;
+}
+
+.searchResultsTrayIcon:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+html[data-catalog-theme='dark'] .searchResultsTrayIcon:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.searchResultsTrayIcon--profile {
+  border-radius: 8px;
+}
+
+.searchResultsTrayIcon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.searchResultsTrayIcon--profile svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.searchResultsTrayBadge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  color: #fff;
+  background: var(--alert-red);
+  border-radius: 8px;
+}
+
+.searchResultsSubBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 10px 24px;
+  background: transparent;
+  color: inherit;
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  font-size: 0.875rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.searchResultsSubBarLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.searchResultsSubLogoLink {
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 4px;
+}
+
+.searchResultsSubLogoLink:focus {
+  outline: none;
+}
+
+.searchResultsSubLogoLink:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.65);
+  outline-offset: 3px;
+}
+
+.searchResultsSubLogo {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
+.searchResultsJumpLabel {
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.searchResultsJump a {
+  color: rgba(255, 255, 255, 0.96);
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.searchResultsJump a:hover {
+  color: #fff;
+}
+
+.searchResultsSubBarTools {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.searchResultsToolBtn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 0;
+}
+
+.searchResultsToolBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+html[data-catalog-theme='dark'] .searchResultsToolBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.searchResultsToolBtn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.searchResultsTitleBandOuter {
+  flex-shrink: 0;
+  padding: 18px 24px 0;
+  /* Neutral strip behind the white title card — not the blue hero (bars above stay gradient). */
+  background: #eef1f4;
+}
+
+html[data-catalog-theme='dark'] .searchResultsTitleBandOuter {
+  background: var(--bg-canvas);
+}
+
+.searchResultsTitleBand {
+  background: var(--bg-white);
+  border-radius: 10px;
+  padding: 26px 28px 28px;
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.06),
+    0 6px 20px rgba(15, 23, 42, 0.07);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.searchResultsPageTitle {
+  margin: 0;
+  font-family: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.45rem, 2.6vw, 1.95rem);
+  font-weight: 400;
+  line-height: 1.35;
+  color: #1c1d21;
+  letter-spacing: -0.02em;
+}
+
+html[data-catalog-theme='dark'] .searchResultsTitleBand {
+  border-color: var(--border-light);
+  box-shadow: var(--ui-shadow-card);
+}
+
+html[data-catalog-theme='dark'] .searchResultsPageTitle {
+  color: var(--text-primary);
+}

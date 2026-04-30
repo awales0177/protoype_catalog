@@ -1,0 +1,125 @@
+/* Comments tab */
+.assetCommentsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.assetCommentCard {
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+.assetCommentMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.assetCommentAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary-dark);
+  color: white;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.assetCommentMetaText {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 12px;
+  min-width: 0;
+}
+
+.assetCommentAuthor {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.assetCommentTime {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.assetCommentBody {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.assetCommentForm {
+  border-top: 1px solid var(--border-light);
+  padding-top: 20px;
+}
+
+.assetCommentFormLabel {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.assetCommentTextarea {
+  width: 100%;
+  max-width: 560px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 80px;
+  margin-bottom: 12px;
+  background: var(--bg-white);
+  color: var(--text-primary);
+  caret-color: var(--text-primary);
+}
+
+.assetCommentTextarea:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+}
+
+.assetCommentTextarea::placeholder {
+  color: var(--text-muted);
+}
+
+.assetCommentSubmit {
+  display: block;
+  margin-top: 12px;
+  padding: 8px 18px;
+  background: var(--primary-dark);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.assetCommentSubmit:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.assetCommentSubmit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+

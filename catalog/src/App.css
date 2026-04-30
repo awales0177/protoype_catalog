@@ -1,0 +1,625 @@
+/* Layout */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-white);
+}
+
+/* Slim top bar on routes other than home (logo + essentials) */
+.appMinimalHeader {
+  height: var(--header-height);
+  background: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  flex-shrink: 0;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.headerDivider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.logoBlock {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logoImg {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
+.brandName {
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.headerBrandIcon {
+  height: 22px;
+  width: auto;
+  display: block;
+  opacity: 0.95;
+}
+
+.headerBrandIconDna {
+  height: 30px;
+}
+
+.headerBrandIconBow {
+  height: 25px;
+  margin-left: -6px;
+  margin-top: 0;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+}
+
+.headerRegisterBtn {
+  padding: 6px 14px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.headerRegisterBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: white;
+}
+
+.headerRegisterBtn:focus {
+  outline: none;
+}
+
+.headerRegisterBtn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
+}
+
+.headerBellBtn {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: white;
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 6px;
+}
+
+.headerBellBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.headerBellBtn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.headerBellBadge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 16px;
+  text-align: center;
+  color: white;
+  background: var(--accent-blue, #2e9ad0);
+  border-radius: 8px;
+}
+
+.headerIcon {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: white;
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 6px;
+}
+
+.headerIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.headerIcon:hover {
+  opacity: 0.9;
+}
+
+.headerIcon:focus {
+  outline: none;
+}
+
+.headerIcon:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
+}
+
+.headerIcon--active {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.headerAppsWrap {
+  position: relative;
+}
+
+.headerAppsPanel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 220px;
+  padding: 16px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 200;
+}
+
+.headerAppsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.headerAppsTile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 4px;
+  border-radius: 8px;
+  color: var(--text-primary);
+}
+
+.headerAppsTile:hover {
+  background: var(--card-bg);
+}
+
+.headerAppsLogo {
+  display: block;
+  width: auto;
+  object-fit: contain;
+}
+
+.headerAppsLogo--lotus {
+  height: 36px;
+}
+
+.headerAppsLogo--dna {
+  height: 44px;
+}
+
+.headerAppsLogo--bow {
+  height: 36px;
+  margin-left: -4px;
+}
+
+.headerAppsTileLabel {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.2;
+  max-width: 72px;
+}
+
+.badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: var(--alert-red);
+  color: white;
+  font-size: 10px;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.homePage--dashboard {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  background: #e8e9eb;
+}
+
+.homeToolbar {
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: 1fr minmax(200px, 480px) 1fr;
+  align-items: center;
+  gap: 16px 24px;
+  padding: 14px 28px;
+  background: var(--bg-white);
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.homeToolbarWelcome {
+  justify-self: start;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.homeToolbarSearchForm {
+  justify-self: center;
+  width: 100%;
+  max-width: 480px;
+  margin: 0;
+}
+
+.homeToolbarSearchPill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.homeToolbarSearchIconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.homeToolbarSearchIconBtn:hover {
+  color: var(--text-primary);
+}
+
+.homeToolbarSearchIconBtn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.homeToolbarSearchInput {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  font-size: 0.9375rem;
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.homeToolbarSearchInput::placeholder {
+  color: var(--text-muted);
+}
+
+.homeToolbarActions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.homeToolbarAvatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #adb5bd, #868e96);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.homeDashboard {
+  flex: 1;
+  padding: 28px 32px 40px;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.homeSection {
+  margin-bottom: 36px;
+}
+
+.homeSection:last-child {
+  margin-bottom: 0;
+}
+
+.homeSectionHeading {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #1a1d21;
+  margin: 0 0 18px;
+}
+
+/* Home card layout lives in HomePage.css — legacy home* rules removed to avoid white/#fafbfc overrides */
+
+.checkIcon {
+  width: 14px;
+  height: 14px;
+  color: var(--success-green);
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .homeToolbar {
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+  }
+
+  .homeToolbarWelcome {
+    justify-self: start;
+  }
+
+  .homeToolbarSearchForm {
+    justify-self: stretch;
+    max-width: none;
+  }
+
+  .homeToolbarActions {
+    justify-self: stretch;
+    justify-content: flex-end;
+  }
+}
+/* Chatbot floating action button */
+.chatbotFab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  background: var(--primary-dark);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.chatbotFab:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.chatbotFab svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Chat panel */
+.chatPanel {
+  position: fixed;
+  bottom: 88px;
+  right: 24px;
+  z-index: 999;
+  width: 340px;
+  max-height: 420px;
+  background: var(--bg-white);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-light);
+}
+
+.chatPanelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+.chatPanelTitle {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.chatPanelClose {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.chatPanelClose:hover {
+  color: var(--text-primary);
+}
+
+.chatMessages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chatPlaceholder {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.chatBubble {
+  max-width: 85%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.chatBubbleUser {
+  align-self: flex-end;
+  background: var(--primary-dark);
+  color: white;
+}
+
+.chatBubbleBot {
+  align-self: flex-start;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+}
+
+.chatInputRow {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+.chatInput {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.chatInput:focus {
+  outline: none;
+  border-color: var(--primary-dark);
+}
+
+.chatSend {
+  padding: 8px 16px;
+  background: var(--primary-dark);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.chatSend:hover {
+  opacity: 0.9;
+}
+
+/* Error boundary fallback */
+.errorBoundary {
+  padding: 2rem;
+  max-width: 480px;
+  margin: 2rem auto;
+  text-align: center;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+}
+
+.errorBoundary h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.errorBoundary p {
+  margin: 0 0 1rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.errorBoundaryDetails {
+  text-align: left;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: #b02a37;
+  background: #fff5f5;
+  border: 1px solid #f5c2c7;
+  border-radius: 6px;
+  padding: 12px;
+  margin: 0 0 1rem;
+  overflow: auto;
+  max-height: 240px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.errorBoundary button {
+  padding: 8px 16px;
+  background: var(--accent-blue);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.errorBoundary button:hover {
+  opacity: 0.9;
+}

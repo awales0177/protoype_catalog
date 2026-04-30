@@ -1,0 +1,213 @@
+.uiModalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--ui-backdrop);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--ui-space-md);
+  box-sizing: border-box;
+  /* Typographic isolation from MUI / host body so rem/em inside modals don’t drift */
+  font-family: var(--ui-font-sans);
+  font-size: var(--ui-font-size-modal);
+  line-height: var(--ui-line-height-modal);
+}
+
+.uiModalPanel {
+  background: var(--bg-white);
+  border-radius: var(--ui-radius-lg);
+  box-shadow: var(--ui-shadow-modal);
+  width: 100%;
+  max-height: min(90vh, 900px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: var(--ui-font-sans);
+  font-size: var(--ui-font-size-modal);
+  line-height: var(--ui-line-height-modal);
+}
+
+.uiModalPanel--sm {
+  max-width: 440px;
+  max-height: 80vh;
+}
+
+.uiModalPanel--md {
+  max-width: 520px;
+}
+
+.uiModalPanel--lg {
+  max-width: 640px;
+}
+
+.uiModalPanel--xl {
+  max-width: min(960px, 100vw - 2 * var(--ui-space-md));
+  max-height: min(92vh, 920px);
+}
+
+.uiModalHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--ui-space-md);
+  padding: 22px var(--ui-space-lg) 18px;
+  border-bottom: 1px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+.uiModalHeaderText {
+  min-width: 0;
+}
+
+.uiModalTitle {
+  margin: 0 0 6px;
+  font-size: var(--ui-font-size-modal);
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: var(--ui-letter-spacing-modal-title);
+  line-height: var(--ui-line-height-modal);
+}
+
+.uiModalSubtitle {
+  margin: 0;
+  font-size: var(--ui-font-size-modal);
+  color: var(--text-muted);
+  line-height: var(--ui-line-height-modal);
+}
+
+.uiModalClose {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: var(--card-bg);
+  border-radius: var(--ui-radius-md);
+  /* em: scales with modal text, not document root (unlike rem) */
+  font-size: 1.65em;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.uiModalClose:hover {
+  background: var(--border-light);
+  color: var(--text-primary);
+}
+
+.uiModalBody {
+  padding: 0 var(--ui-space-lg) var(--ui-space-lg);
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.uiModalBody--flushTop {
+  padding-top: var(--ui-space-lg);
+}
+
+.uiModalFooter {
+  flex-shrink: 0;
+  padding: var(--ui-space-md) var(--ui-space-lg) var(--ui-space-lg);
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/*
+ * Typography lock: MUI/emotion + host globals load in different orders per app.
+ * Render via portal under body + !important so modal copy matches catalog_ds everywhere.
+ */
+.uiModalBackdrop[role='dialog'] .uiModalPanel {
+  font-family: var(--ui-font-sans) !important;
+  font-size: var(--ui-font-size-modal) !important;
+  line-height: var(--ui-line-height-modal) !important;
+}
+
+.uiModalBackdrop[role='dialog'] .uiModalTitle {
+  font-family: var(--ui-font-sans) !important;
+  font-size: var(--ui-font-size-modal) !important;
+  font-weight: 600 !important;
+  letter-spacing: var(--ui-letter-spacing-modal-title) !important;
+  line-height: var(--ui-line-height-modal) !important;
+}
+
+.uiModalBackdrop[role='dialog'] .uiModalSubtitle {
+  font-family: var(--ui-font-sans) !important;
+  font-size: var(--ui-font-size-modal) !important;
+  line-height: var(--ui-line-height-modal) !important;
+}
+
+.uiModalBackdrop[role='dialog'] .uiModalClose {
+  font-family: var(--ui-font-sans) !important;
+  font-size: 1.65em !important;
+  line-height: 1 !important;
+}
+
+.headerFeedbackPanel .headerFeedbackLabel {
+  font-family: var(--ui-font-sans) !important;
+  font-size: var(--ui-font-size-modal) !important;
+  font-weight: 600 !important;
+  line-height: var(--ui-line-height-modal) !important;
+}
+
+.headerFeedbackPanel .headerFeedbackModalTitle {
+  font-family: Georgia, 'Times New Roman', Times, serif !important;
+  font-size: 1.5rem !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.25 !important;
+}
+
+.headerFeedbackPanel .headerFeedbackSatisfactionQuestion,
+.headerFeedbackPanel .headerFeedbackRangeLabels,
+.headerFeedbackPanel .headerFeedbackPanelIntro {
+  font-family: var(--ui-font-sans) !important;
+  line-height: var(--ui-line-height-modal) !important;
+}
+
+.headerFeedbackPanel .headerFeedbackInput,
+.headerFeedbackPanel .headerFeedbackSelect,
+.headerFeedbackPanel .headerFeedbackTextarea,
+.headerFeedbackPanel .headerFeedbackError {
+  font-family: var(--ui-font-sans) !important;
+  font-size: var(--ui-font-size-modal) !important;
+  line-height: var(--ui-line-height-modal) !important;
+}
+
+.headerFeedbackPanel .headerFeedbackSubmit {
+  font-family: var(--ui-font-sans) !important;
+  font-size: var(--ui-font-size-modal) !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+}
+
+.uiModalBackdrop[role='dialog'] .uiBtn {
+  font-family: var(--ui-font-sans) !important;
+  font-size: var(--ui-font-size-modal) !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+}
+
+/* Panel dimensions: stable across hosts (CSS chunk order / late globals). */
+.uiModalBackdrop[role='dialog'] .uiModalPanel.uiModalPanel--sm {
+  max-width: 440px !important;
+  max-height: 80vh !important;
+}
+
+.uiModalBackdrop[role='dialog'] .uiModalPanel.uiModalPanel--md {
+  max-width: 520px !important;
+}
+
+.uiModalBackdrop[role='dialog'] .uiModalPanel.uiModalPanel--lg {
+  max-width: 640px !important;
+}
+
+.uiModalBackdrop[role='dialog'] .uiModalPanel.uiModalPanel--xl {
+  max-width: min(960px, calc(100vw - 2 * var(--ui-space-md))) !important;
+  max-height: min(92vh, 920px) !important;
+}

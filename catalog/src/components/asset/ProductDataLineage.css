@@ -1,0 +1,1167 @@
+.productLineageValidationHeading {
+  margin: 0 0 10px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a1a);
+}
+
+.productValidationSummary {
+  border: 1px solid var(--border-light, #e2e2e2);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fafaf8 0%, #f4f4f1 100%);
+  padding: 12px 14px 10px;
+  margin-bottom: 16px;
+}
+
+.productValidationSummaryMain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+}
+
+.productValidationSummaryTitle {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #2a2a28;
+}
+
+.productValidationPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.productValidationPill {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-weight: 500;
+}
+
+.productValidationPillValue {
+  font-weight: 700;
+  margin-right: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.productValidationPill--pass {
+  background: #ecfdf3;
+  border-color: #bbf7d0;
+  color: #166534;
+}
+
+.productValidationPill--warn {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #92400e;
+}
+
+.productValidationPill--fail {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #991b1b;
+}
+
+.productValidationPill--pending {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #475569;
+}
+
+.productValidationRollup {
+  margin: 10px 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: #2a2a28;
+}
+
+.productValidationRollupAlert {
+  color: #991b1b;
+  font-weight: 600;
+}
+
+.productValidationRollupAlert--warn {
+  color: #92400e;
+}
+
+.productValidationRollupPending {
+  color: #475569;
+  font-weight: 500;
+}
+
+.productValidationMeta {
+  margin: 6px 0 0;
+  font-size: 0.6875rem;
+  color: var(--text-muted, #666);
+}
+
+.productValidationExpandBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 8px 14px;
+  border: 1px solid var(--border-light, #d8d8d4);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary, #2a2a28);
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.productValidationExpandBtn:hover {
+  border-color: var(--accent-blue, #2e9ad0);
+  color: var(--accent-blue, #2e9ad0);
+  background: #fafcfe;
+}
+
+.productValidationExpandBtn:focus-visible {
+  outline: 2px solid var(--accent-blue, #2e9ad0);
+  outline-offset: 2px;
+}
+
+.productValidationExpandBtnIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: var(--accent-blue, #2e9ad0);
+  transition: transform 0.2s ease;
+}
+
+.productValidationExpandBtnIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.productValidationExpandBtn--expanded .productValidationExpandBtnIcon {
+  transform: rotate(180deg);
+}
+
+.productValidationExpandBtnLabel {
+  line-height: 1.2;
+}
+
+.productValidationByNode {
+  margin-bottom: 16px;
+}
+
+.productValidationByNodeTitle {
+  margin: 0 0 12px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a1a);
+}
+
+.productValidationNodeList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.productValidationNodeCard {
+  border: 1px solid var(--border-light, #e2e2e2);
+  border-radius: 8px;
+  background: var(--bg-white, #fff);
+  padding: 12px 14px;
+}
+
+.productValidationNodeCardHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
+  margin-bottom: 8px;
+}
+
+.productValidationNodeName {
+  font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1a1a18;
+}
+
+.productValidationNodeCatalog {
+  font-size: 0.75rem;
+  color: var(--text-muted, #666);
+}
+
+.productValidationNodeBadge {
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #0369a1;
+  background: #e0f2fe;
+  border: 1px solid #bae6fd;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.productValidationNodeCounts {
+  margin-left: auto;
+  font-size: 0.625rem;
+  font-variant-numeric: tabular-nums;
+  color: #555;
+}
+
+.productValidationCountSep {
+  margin: 0 3px;
+  color: #bbb;
+}
+
+.productValidationCount--pass {
+  color: #15803d;
+  font-weight: 600;
+}
+
+.productValidationCount--warn {
+  color: #b45309;
+  font-weight: 600;
+}
+
+.productValidationCount--fail {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.productValidationCount--pending {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.productValidationCheckList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.productValidationCheckRow {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.productValidationCheckBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.productValidationCheckDetail {
+  font-size: 0.6875rem;
+  color: var(--text-muted, #666);
+}
+
+.productValidationCheckDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-top: 4px;
+}
+
+.productValidationCheckRow--pass .productValidationCheckDot {
+  background: #22c55e;
+  box-shadow: 0 0 0 1px #bbf7d0;
+}
+
+.productValidationCheckRow--warn .productValidationCheckDot {
+  background: #f59e0b;
+  box-shadow: 0 0 0 1px #fde68a;
+}
+
+.productValidationCheckRow--fail .productValidationCheckDot {
+  background: #ef4444;
+  box-shadow: 0 0 0 1px #fecaca;
+}
+
+.productValidationCheckRow--pending .productValidationCheckDot {
+  background: #94a3b8;
+  box-shadow: 0 0 0 1px #e2e8f0;
+}
+
+.productValidationCheckLabel {
+  font-weight: 500;
+  color: #2a2a28;
+}
+
+@media (max-width: 640px) {
+  .productValidationSummaryMain {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .productValidationNodeCounts {
+    margin-left: 0;
+  }
+}
+
+.lineageSchemaTableStack {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lineageSchemaTableCard {
+  border: 1px solid var(--border-light, #e2e2e2);
+  border-radius: 10px;
+  background: var(--bg-white, #fff);
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.lineageSchemaTableCardToggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  margin: 0;
+  padding: 12px 14px;
+  border: none;
+  background: #fafaf9;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+
+.lineageSchemaTableCardToggle:hover {
+  background: #f3f6f9;
+}
+
+.lineageSchemaTableCardToggle:focus-visible {
+  outline: 2px solid var(--accent-blue, #2e9ad0);
+  outline-offset: -2px;
+}
+
+.lineageSchemaTableCardToggle--open {
+  background: #f6f9fc;
+  box-shadow: inset 0 -1px 0 var(--border-light, #e8e8e4);
+}
+
+.lineageSchemaTableCardToggleIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  color: var(--accent-blue, #2e9ad0);
+  transition: transform 0.2s ease;
+}
+
+.lineageSchemaTableCardToggleIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.lineageSchemaTableCardToggle--open .lineageSchemaTableCardToggleIcon {
+  transform: rotate(180deg);
+}
+
+.lineageSchemaTableCardToggleMain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.lineageSchemaTableCardToggleMeta {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted, #666);
+  margin-top: 2px;
+}
+
+.lineageSchemaCode {
+  font-size: 0.8125rem;
+  padding: 2px 6px;
+  background: #f4f4f2;
+  border-radius: 4px;
+  border: 1px solid #e8e8e4;
+  color: var(--alert-red, #dc3545);
+}
+
+.lineageSchemaCode--tableName {
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--text-primary, #1a1a1a);
+}
+
+.lineageSchemaTableDesc {
+  font-size: 0.8125rem;
+  color: var(--text-muted, #666);
+  line-height: 1.35;
+}
+
+.lineageSchemaTableCardPanel {
+  border-top: 1px solid var(--border-light, #eaeae8);
+  background: #fff;
+}
+
+.lineageSchemaTableCardPanelInner {
+  padding: 12px 14px 14px;
+  overflow-x: auto;
+}
+
+.lineageSchemaMappingTable {
+  width: 100%;
+  min-width: 320px;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.lineageSchemaMappingTable th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted, #666);
+  padding: 8px 10px 8px 0;
+  border-bottom: 1px solid var(--border-light, #e8e8e4);
+  white-space: nowrap;
+}
+
+.lineageSchemaMappingTable th:last-child {
+  padding-right: 0;
+}
+
+.lineageSchemaMappingTable td {
+  padding: 10px 12px 10px 0;
+  vertical-align: top;
+  border-bottom: 1px solid #f0f0ee;
+  line-height: 1.4;
+}
+
+.lineageSchemaMappingTable td:last-child {
+  padding-right: 0;
+}
+
+.lineageSchemaMappingTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.lineageSchemaMappingCode {
+  font-size: 0.75rem;
+  padding: 2px 5px;
+  background: #f6f6f4;
+  border-radius: 3px;
+  border: 1px solid #e8e8e4;
+  word-break: break-word;
+  color: var(--alert-red, #dc3545);
+}
+
+.lineageFileSearchWrap {
+  margin: 18px 0 12px;
+  max-width: 100%;
+}
+
+.dataTrackerToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  margin: 12px 0 12px;
+}
+
+.dataTrackerSearch {
+  flex: 1;
+  min-width: 11rem;
+  font: inherit;
+  font-size: 0.875rem;
+  padding: 8px 11px;
+  border: 1px solid var(--border-light, #d8d8d4);
+  border-radius: 6px;
+  background: var(--bg-white, #fff);
+  color: var(--text-primary, #1a1a1a);
+}
+
+.dataTrackerSearch:focus {
+  outline: 2px solid var(--accent-blue, #2e9ad0);
+  outline-offset: 1px;
+}
+
+.dataTrackerSystemSelect {
+  font: inherit;
+  font-size: 0.875rem;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border-light, #d8d8d4);
+  background: var(--bg-white, #fff);
+  color: var(--text-primary, #1a1a1a);
+  min-width: 10rem;
+  max-width: 14rem;
+  cursor: pointer;
+}
+
+.dataTrackerSystemSelect:focus {
+  outline: 2px solid var(--accent-blue, #2e9ad0);
+  outline-offset: 1px;
+}
+
+.dataTrackerPath {
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  word-break: break-all;
+  color: var(--text-primary, #1a1a1a);
+}
+
+.dataTrackerCell {
+  font-size: 0.8125rem;
+  color: var(--text-primary, #1a1a1a);
+}
+
+.dataTrackerCell--muted {
+  color: var(--text-muted, #666);
+}
+
+.lineageFileTableColSystem {
+  vertical-align: middle;
+  padding: 10px 12px;
+  width: 1%;
+  white-space: nowrap;
+}
+
+.lineageFileTableSystemPill {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: color-mix(in srgb, var(--accent-blue, #3277d3) 12%, var(--card-bg, #f8f9fa));
+  color: var(--text-primary, #2a403a);
+  border: 1px solid color-mix(in srgb, var(--accent-blue, #3277d3) 22%, var(--border-light, #e2e2e2));
+}
+
+.lineageFileTableEmpty {
+  margin-top: 12px;
+}
+
+.lineageFileTableSrOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.lineageFileTableShell {
+  margin-top: 4px;
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid var(--border-light, #e2e2e2);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg-white, #fff);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.lineageFileTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.lineageFileTable thead th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-muted, #555);
+  background: #f4f5f7;
+  border-bottom: 1px solid var(--border-light, #e2e2e2);
+  padding: 10px 12px;
+  white-space: nowrap;
+}
+
+.lineageFileTable tbody .lineageFileTableDataRow {
+  border-bottom: 1px solid var(--border-light, #e8e8e4);
+  background: var(--bg-white, #fff);
+  transition: background 0.12s ease;
+}
+
+.lineageFileTable tbody .lineageFileTableDataRow:hover {
+  background: #fafbfc;
+}
+
+.lineageFileTable tbody .lineageFileTableDataRow--open {
+  background: #f6f7f9;
+  border-bottom: none;
+}
+
+.lineageFileTable tbody tr:last-child {
+  border-bottom: none;
+}
+
+.lineageFileTableColExpand {
+  width: 44px;
+  vertical-align: middle;
+  padding: 8px 4px 8px 10px;
+}
+
+.lineageFileTableColPath {
+  vertical-align: middle;
+  padding: 10px 12px 10px 4px;
+  min-width: 12rem;
+}
+
+.lineageFileTableColStage {
+  vertical-align: middle;
+  padding: 10px 12px;
+  width: 1%;
+}
+
+.lineageFileTablePath {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  word-break: break-all;
+  color: var(--text-primary, #1a1a1a);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+.lineageFileTableStagePill {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-blue, #1e5a96);
+  background: rgba(50, 119, 211, 0.1);
+  border-radius: 999px;
+  white-space: nowrap;
+  max-width: 12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lineageFileTableExpandBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted, #555);
+  cursor: pointer;
+}
+
+.lineageFileTableExpandBtn:hover {
+  background: rgba(50, 119, 211, 0.1);
+  color: var(--accent-blue, #1e5a96);
+}
+
+.lineageFileTableExpandBtnIcon {
+  display: flex;
+  transition: transform 0.2s ease;
+}
+
+.lineageFileTableExpandBtnIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.lineageFileTableExpandBtn--open .lineageFileTableExpandBtnIcon {
+  transform: rotate(-180deg);
+}
+
+.lineageFileTableDetailRow {
+  border-bottom: 1px solid var(--border-light, #e8e8e4);
+}
+
+.lineageFileTableDetailRow:last-child {
+  border-bottom: none;
+}
+
+.lineageFileTableDetailCell {
+  padding: 0;
+  vertical-align: top;
+  background: #f0f2f5;
+}
+
+.lineageFileTableProgressPanel {
+  padding: 16px 18px 18px;
+  border-top: 1px solid var(--border-light, #e2e2e2);
+}
+
+.lineageFileTableProgressLabel {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted, #666);
+  margin-bottom: 12px;
+}
+
+.dataTrackerFilesPanel .lineageFileTableShell {
+  margin-top: 0;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.dataTrackerFilesPanel .lineageFileTable thead th {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 8px 12px;
+  background: transparent;
+  color: var(--text-muted, #666);
+}
+
+.dataTrackerFilesPanel .lineageFileTable tbody .lineageFileTableDataRow {
+  border-bottom: 1px solid #ebebea;
+}
+
+.dataTrackerFilesPanel .lineageFileTable tbody .lineageFileTableDataRow:hover {
+  background: rgba(0, 0, 0, 0.025);
+}
+
+.dataTrackerFilesPanel .lineageFileTable tbody .lineageFileTableDataRow--open {
+  background: rgba(0, 0, 0, 0.035);
+}
+
+.dataTrackerFilesPanel .lineageFileTableDetailCell {
+  background: var(--bg-white, #fff);
+}
+
+.dataTrackerFilesPanel .lineageFileTableProgressPanel {
+  padding: 12px 14px 14px;
+  border-top: 1px solid var(--border-light, #ebebea);
+  background: #fafaf9;
+}
+
+.dataTrackerFilesPanel .lineageFileTableProgressLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: normal;
+  margin-bottom: 10px;
+}
+
+.dataTrackerFilesPanel .lineageFileTableExpandBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+}
+
+.dataTrackerFilesPanel .lineageFileTableExpandBtnIcon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.dataTrackerFilesPanel .lineageFileTableColExpand {
+  width: 38px;
+  padding-left: 8px;
+}
+
+.dataTrackerFilesPanel .lineageFileTableColPath {
+  padding-top: 9px;
+  padding-bottom: 9px;
+}
+
+/* Compact read-only pizza tracker inside file rows (reuses AssetPage pizzaTracker tokens) */
+.pizzaTracker--lineageFile {
+  margin-top: 0;
+  padding: 0;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  row-gap: 8px;
+}
+
+.pizzaTracker--lineageFile .pizzaTrackerConnector {
+  min-width: 12px;
+  max-width: 48px;
+  height: 28px;
+}
+
+.pizzaTracker--lineageFile .pizzaTrackerDot {
+  width: 26px;
+  height: 26px;
+  border-width: 2px;
+}
+
+.pizzaTracker--lineageFile .pizzaTrackerLabel {
+  margin-top: 6px;
+  font-size: 0.6875rem;
+  max-width: 76px;
+  white-space: normal;
+  line-height: 1.25;
+  hyphens: auto;
+}
+
+.lineageFileTrackerStepWrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 6px;
+  margin: -6px;
+  z-index: 1;
+}
+
+.lineageFileTrackerStepWrap:hover,
+.lineageFileTrackerStepWrap:focus-within {
+  z-index: 50;
+}
+
+.lineageFileTrackerStep {
+  cursor: pointer;
+}
+
+.lineageFileTrackerTip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  min-width: 220px;
+  max-width: min(320px, 92vw);
+  padding: 12px 14px;
+  background: var(--bg-white, #fff);
+  border: 1px solid var(--border-light, #d8d8d4);
+  border-radius: 10px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.18s ease, visibility 0.18s ease, transform 0.18s ease;
+}
+
+.lineageFileTrackerStepWrap:hover .lineageFileTrackerTip,
+.lineageFileTrackerStepWrap:focus-within .lineageFileTrackerTip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.lineageFileTrackerTipTitle {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-primary, #1a1a1a);
+  margin: 0 0 8px;
+}
+
+.lineageFileTrackerTipDesc {
+  margin: 0 0 8px;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: #3a3a38;
+}
+
+.lineageFileTrackerTipUri {
+  display: block;
+  font-size: 0.6875rem;
+  padding: 6px 8px;
+  margin: 0 0 10px;
+  background: #f4f4f2;
+  border: 1px solid #e8e8e4;
+  border-radius: 4px;
+  word-break: break-all;
+  line-height: 1.35;
+  color: var(--text-muted, #555);
+}
+
+.lineageFileTrackerTipChecks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lineageFileTrackerTipCheck {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border-left: 3px solid var(--border-light, #ccc);
+  background: #fafaf9;
+  font-size: 0.75rem;
+}
+
+.lineageFileTrackerTipCheck--pass {
+  border-left-color: var(--success-green, #198754);
+}
+
+.lineageFileTrackerTipCheck--warn {
+  border-left-color: #ca8a04;
+  background: #fffbeb;
+}
+
+.lineageFileTrackerTipCheck--fail {
+  border-left-color: var(--alert-red, #dc3545);
+  background: #fef2f2;
+}
+
+.lineageFileTrackerTipCheck--pending {
+  border-left-color: #64748b;
+  background: #f1f5f9;
+}
+
+.lineageFileTrackerTipCheckLabel {
+  font-weight: 600;
+  color: var(--text-primary, #1a1a1a);
+}
+
+.lineageFileTrackerTipCheckNote {
+  font-size: 0.6875rem;
+  color: var(--text-muted, #666);
+  line-height: 1.35;
+}
+
+/* Dark: validation banner, schema tables, file search (catalog tokens) */
+html[data-catalog-theme='dark'] .productValidationSummary {
+  background: var(--card-bg);
+  border-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .productValidationSummaryTitle,
+html[data-catalog-theme='dark'] .productValidationRollup {
+  color: var(--text-primary);
+}
+
+html[data-catalog-theme='dark'] .productValidationPill--pass {
+  background: rgba(34, 197, 94, 0.12);
+  border-color: rgba(34, 197, 94, 0.35);
+  color: #86efac;
+}
+
+html[data-catalog-theme='dark'] .productValidationPill--warn {
+  background: rgba(251, 191, 36, 0.12);
+  border-color: rgba(251, 191, 36, 0.35);
+  color: #fcd34d;
+}
+
+html[data-catalog-theme='dark'] .productValidationPill--fail {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+}
+
+html[data-catalog-theme='dark'] .productValidationPill--pending {
+  background: rgba(148, 163, 184, 0.12);
+  border-color: var(--border-light);
+  color: var(--text-muted);
+}
+
+html[data-catalog-theme='dark'] .productValidationExpandBtn {
+  background: var(--bg-white);
+  border-color: var(--border-light);
+  color: var(--text-primary);
+  box-shadow: none;
+}
+
+html[data-catalog-theme='dark'] .productValidationExpandBtn:hover {
+  background: var(--tab-active-bg);
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+
+html[data-catalog-theme='dark'] .productValidationNodeCard {
+  background: var(--bg-white);
+  border-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .productValidationNodeName {
+  color: var(--text-primary);
+}
+
+html[data-catalog-theme='dark'] .productValidationNodeBadge {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #7dd3fc;
+}
+
+html[data-catalog-theme='dark'] .productValidationNodeCounts,
+html[data-catalog-theme='dark'] .productValidationCountSep {
+  color: var(--text-muted);
+}
+
+html[data-catalog-theme='dark'] .productValidationCheckLabel {
+  color: var(--text-primary);
+}
+
+html[data-catalog-theme='dark'] .lineageSchemaTableCard {
+  background: var(--bg-white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+html[data-catalog-theme='dark'] .lineageSchemaTableCardToggle {
+  background: var(--card-bg);
+}
+
+html[data-catalog-theme='dark'] .lineageSchemaTableCardToggle:hover {
+  background: var(--tab-active-bg);
+}
+
+html[data-catalog-theme='dark'] .lineageSchemaTableCardToggle--open {
+  background: var(--card-bg);
+  box-shadow: inset 0 -1px 0 var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .lineageSchemaCode {
+  background: var(--card-bg);
+  border-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .lineageSchemaCode--tableName {
+  color: var(--text-primary);
+}
+
+html[data-catalog-theme='dark'] .lineageSchemaTableCardPanel {
+  background: var(--bg-white);
+  border-top-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .lineageSchemaMappingTable td {
+  border-bottom-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .lineageSchemaMappingCode {
+  background: var(--card-bg);
+  border-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .lineageFileTableShell {
+  background: var(--bg-white);
+  border-color: var(--border-light);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+html[data-catalog-theme='dark'] .lineageFileTable thead th {
+  background: var(--card-bg);
+  color: var(--text-muted);
+  border-bottom-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .lineageFileTable tbody .lineageFileTableDataRow {
+  background: var(--bg-white);
+  border-bottom-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .lineageFileTable tbody .lineageFileTableDataRow:hover {
+  background: var(--card-bg);
+}
+
+html[data-catalog-theme='dark'] .lineageFileTable tbody .lineageFileTableDataRow--open {
+  background: var(--card-bg);
+  border-bottom: none;
+}
+
+html[data-catalog-theme='dark'] .lineageFileTablePath {
+  color: var(--text-primary);
+}
+
+html[data-catalog-theme='dark'] .lineageFileTableStagePill {
+  background: rgba(96, 165, 250, 0.15);
+  color: #93c5fd;
+}
+
+html[data-catalog-theme='dark'] .lineageFileTableSystemPill {
+  background: rgba(96, 165, 250, 0.12);
+  color: #bae6fd;
+  border-color: rgba(96, 165, 250, 0.35);
+}
+
+html[data-catalog-theme='dark'] .dataTrackerSearch,
+html[data-catalog-theme='dark'] .dataTrackerSystemSelect {
+  background: var(--bg-white);
+  border-color: var(--border-light);
+  color: var(--text-primary);
+}
+
+html[data-catalog-theme='dark'] .dataTrackerFilesPanel .lineageFileTableShell {
+  box-shadow: none;
+}
+
+html[data-catalog-theme='dark'] .dataTrackerFilesPanel .lineageFileTable thead th {
+  background: transparent;
+}
+
+html[data-catalog-theme='dark'] .dataTrackerFilesPanel .lineageFileTableDetailCell {
+  background: var(--bg-white);
+}
+
+html[data-catalog-theme='dark'] .dataTrackerFilesPanel .lineageFileTableProgressPanel {
+  background: var(--card-bg);
+  border-top-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .dataTrackerFilesPanel .lineageFileTableProgressLabel {
+  color: var(--text-muted);
+}
+
+html[data-catalog-theme='dark'] .dataTrackerPath {
+  color: var(--text-primary);
+}
+
+html[data-catalog-theme='dark'] .lineageFileTrackerTip {
+  background: var(--bg-white);
+  border-color: var(--border-light);
+  box-shadow: var(--ui-shadow-card);
+}
+
+html[data-catalog-theme='dark'] .lineageFileTrackerTipTitle {
+  color: var(--text-primary);
+}
+
+html[data-catalog-theme='dark'] .lineageFileTrackerTipDesc {
+  color: var(--text-muted);
+}
+
+html[data-catalog-theme='dark'] .lineageFileTrackerTipUri {
+  background: var(--card-bg);
+  border-color: var(--border-light);
+  color: var(--text-muted);
+}
+
+html[data-catalog-theme='dark'] .lineageFileTrackerTipCheck {
+  background: var(--card-bg);
+  border-left-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .lineageFileTrackerTipCheck--warn {
+  background: rgba(251, 191, 36, 0.1);
+}
+
+html[data-catalog-theme='dark'] .lineageFileTrackerTipCheck--fail {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+html[data-catalog-theme='dark'] .lineageFileTrackerTipCheck--pending {
+  background: rgba(148, 163, 184, 0.1);
+}

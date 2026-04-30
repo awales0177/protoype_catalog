@@ -1,0 +1,632 @@
+/* Data Tracker (pizza tracker) */
+.pizzaTracker {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 24px;
+  padding: 0 16px;
+  gap: 0;
+}
+
+.pizzaTrackerConnector {
+  flex: 1;
+  min-width: 24px;
+  max-width: 80px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 1;
+}
+
+.pizzaTrackerConnector::before {
+  content: '';
+  width: 100%;
+  height: 3px;
+  background: var(--border-light);
+  border-radius: 2px;
+}
+
+.pizzaTrackerConnector--done::before {
+  background: var(--success-green);
+}
+
+/* Feed: animated flow along connectors */
+.pizzaTracker--feed .pizzaTrackerConnector {
+  position: relative;
+  overflow: visible;
+}
+
+.pizzaTracker--feed .pizzaTrackerConnector::before {
+  background: var(--border-light);
+}
+
+/* Flow only on done connectors so the line after a failed step does not flow */
+.pizzaTracker--feed .pizzaTrackerConnector--done::before {
+  background: var(--success-green);
+}
+
+.pizzaTracker--feed .pizzaTrackerConnector--done::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 30%,
+    var(--success-green) 50%,
+    rgba(255, 255, 255, 0.4) 70%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: pizzaTrackerFlow 1.5s linear infinite;
+}
+
+@keyframes pizzaTrackerFlow {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.pizzaTrackerStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 6px;
+  margin: -6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  border-radius: 8px;
+}
+
+.pizzaTrackerStep:hover {
+  opacity: 0.9;
+}
+
+.pizzaTrackerStep--selected .pizzaTrackerDot {
+  box-shadow: 0 0 0 3px var(--bg-white), 0 0 0 6px var(--accent-blue);
+}
+
+.pizzaTrackerStep--selected .pizzaTrackerLabel {
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+
+.pizzaTrackerDot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 3px solid var(--border-light);
+  background: var(--bg-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.pizzaTrackerStep--done .pizzaTrackerDot {
+  background: var(--success-green);
+  border-color: var(--success-green);
+}
+
+.pizzaTrackerStep--current .pizzaTrackerDot {
+  background: var(--accent-blue);
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 2px var(--tab-active-bg);
+}
+
+.pizzaTrackerStep--pending .pizzaTrackerDot {
+  background: var(--bg-white);
+  border-color: var(--border-light);
+}
+
+.pizzaTrackerStep--failed .pizzaTrackerDot {
+  background: var(--alert-red);
+  border-color: var(--alert-red);
+}
+
+.pizzaTrackerFailed {
+  color: white;
+  font-size: 0.875rem;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.pizzaTrackerStep--failed .pizzaTrackerLabel {
+  color: var(--alert-red);
+}
+
+.pizzaTrackerCheck {
+  line-height: 1;
+}
+
+.pizzaTrackerSpinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: pizzaTrackerSpin 0.8s linear infinite;
+}
+
+@keyframes pizzaTrackerSpin {
+  to { transform: rotate(360deg); }
+}
+
+.pizzaTrackerLabel {
+  margin-top: 10px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.pizzaTrackerStep--current .pizzaTrackerLabel {
+  color: var(--accent-blue);
+}
+
+.pizzaTrackerStep--done .pizzaTrackerLabel {
+  color: var(--text-primary);
+}
+
+.pizzaTrackerEmpty {
+  margin-top: 24px;
+  padding: 20px 24px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+}
+
+.pizzaTrackerEmptyDesc {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
+
+.pizzaTrackerEmptyAction {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.pizzaTrackerDetails {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light);
+}
+
+.pizzaTrackerDetailsTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 12px;
+}
+
+.pizzaTrackerSearchWrap {
+  margin-bottom: 12px;
+}
+
+.pizzaTrackerSearch {
+  width: 100%;
+  max-width: 320px;
+  padding: 8px 12px 8px 36px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--bg-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236C757D' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") no-repeat 10px center;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+}
+
+.pizzaTrackerSearch::placeholder {
+  color: var(--text-muted);
+}
+
+.pizzaTrackerSearch:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+}
+
+.pizzaTrackerTableWrap {
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-white);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.pizzaTrackerTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.pizzaTrackerTable th,
+.pizzaTrackerTable td {
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: middle;
+}
+
+.pizzaTrackerTable thead tr {
+  background: var(--card-bg);
+}
+
+.pizzaTrackerTable th {
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.pizzaTrackerTable tbody tr {
+  transition: background 0.12s ease;
+}
+
+.pizzaTrackerTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.pizzaTrackerTable tbody tr:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.pizzaTrackerTableColFile {
+  max-width: 0;
+  width: 55%;
+  font-family: ui-monospace, monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pizzaTrackerTableColSize,
+.pizzaTrackerTableColDate {
+  font-family: ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  white-space: nowrap;
+  width: 10%;
+}
+
+.pizzaTrackerTableColStatus {
+  width: 14%;
+  white-space: nowrap;
+}
+
+.pizzaTrackerStatus {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pizzaTrackerStatus--completed,
+.pizzaTrackerStatus--passed,
+.pizzaTrackerStatus--profiled,
+.pizzaTrackerStatus--accessed {
+  background: rgba(40, 167, 69, 0.12);
+  color: var(--success-green);
+  border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.pizzaTrackerStatus--in-progress {
+  background: rgba(50, 119, 211, 0.12);
+  color: var(--accent-blue);
+  border: 1px solid rgba(50, 119, 211, 0.2);
+}
+
+.pizzaTrackerStatus--pending {
+  background: var(--card-bg);
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
+}
+
+.bucketViewToolbar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.bucketStatisticsPane {
+  padding-top: 8px;
+}
+
+.assetContentArea {
+  flex: 1;
+  min-width: 0;
+}
+
+.assetSection {
+  margin-bottom: 20px;
+}
+
+.assetSectionTopRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.assetSectionTopRow .assetSectionTags {
+  margin-bottom: 0;
+}
+
+.assetSectionTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.assetTag {
+  padding: 4px 10px;
+  background: var(--card-bg);
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.assetToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.assetToggleInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.assetToggleSwitch {
+  position: relative;
+  width: 32px;
+  height: 18px;
+  flex-shrink: 0;
+  background: var(--border-light);
+  border-radius: 9px;
+  transition: background 0.2s ease;
+}
+
+.assetToggleInput:checked ~ .assetToggleSwitch {
+  background: var(--accent-blue);
+}
+
+.assetToggleThumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg-white);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.assetToggleInput:checked ~ .assetToggleSwitch .assetToggleThumb {
+  transform: translateX(14px);
+}
+
+.assetToggleLabel {
+  font-weight: 400;
+}
+
+.assetFieldLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 6px;
+}
+
+.assetFieldValue {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+
+.assetFieldValue a {
+  color: var(--accent-blue);
+}
+
+.assetTextBtn {
+  background: none;
+  border: none;
+  color: var(--accent-blue);
+  font-size: 0.875rem;
+  cursor: pointer;
+  margin-right: 16px;
+}
+
+.assetSectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 12px;
+}
+
+.assetSectionDesc {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+.relationshipsSubTitle {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 12px;
+}
+
+.relationshipsChipStrip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+}
+
+.relationshipsChipGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.relationshipsChipGroupTitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.relationshipsChipList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.relationshipsChipEmpty {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.relationshipsChipItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.relationshipsChipItem:hover {
+  border-color: var(--accent-blue);
+  box-shadow: 0 1px 4px rgba(46, 154, 208, 0.15);
+}
+
+.relationshipsChipItem--current {
+  border-color: var(--accent-blue);
+  background: rgba(46, 154, 208, 0.08);
+}
+
+.relationshipsChipName {
+  font-weight: 500;
+  font-size: inherit;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+.relationshipsTypeChip {
+  flex-shrink: 0;
+  min-width: 26px;
+  padding: 2px 4px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  border-radius: 3px;
+  text-align: center;
+  color: white;
+}
+
+.relationshipsTypeChip.dataset {
+  background: var(--success-green);
+}
+
+.relationshipsTypeChip.dataProduct {
+  background: #E6B800;
+  color: #1a1a1a;
+}
+
+.relationshipsTypeChip.derivedDataset {
+  background: var(--accent-blue);
+  color: white;
+}
+
+.relationshipsTypeChip.parentDataset {
+  background: #6f42c1;
+  color: white;
+}
+
+.relationshipsTypeChip.childDataset {
+  background: #0dcaf0;
+  color: #000;
+}
+
+.relationshipsTypeChip.adoptionRecord {
+  background: #20c997;
+  color: white;
+}
+
+.relationshipsTypeChip.aggregatedDataProduct {
+  background: #fd7e14;
+  color: white;
+}
+
+.relationshipsTypeChip.derivedDataProduct {
+  background: #20c997;
+  color: white;
+}
+
+.relationshipsTypeChip.childDataProduct {
+  background: #6c757d;
+  color: white;
+}
+
+.relationshipsTypeChip.transferRecord {
+  background: #64748b;
+  color: white;
+}
+
+.relationshipsTypeChip.topic {
+  background: #6610f2;
+  color: white;
+}
+

@@ -1,0 +1,291 @@
+.dataProfilesSourceBanner {
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+  background: var(--tab-active-bg);
+  border: 1px solid color-mix(in srgb, var(--accent-blue) 18%, var(--border-light));
+  border-radius: 8px;
+}
+
+/* Data profiles — card full of map */
+.dataProfilesCard {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  height: 424px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.dataProfilesCardTitle {
+  flex-shrink: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.dataProfilesMapWrap {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.dataProfilesMap {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.dataProfilesMapWrap svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.dataProfilesSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.dataProfilesRow {
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+  width: 100%;
+}
+
+.dataProfilesFileTypesCard {
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.dataProfilesFileTypesCard .dataProfilesCardTitle {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.dataProfilesFileTypesRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 12px;
+  flex-wrap: wrap;
+}
+
+.dataProfilesBlockLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.dataProfilesEntityGroups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.dataProfilesEntityBox {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 5px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
+}
+
+.dataProfilesEntityLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-family: ui-monospace, monospace;
+}
+
+.dataProfilesFileTypesRow .dataProfilesEntityLabel {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.dataProfilesTagsRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--border-light);
+  flex-wrap: wrap;
+}
+
+.dataProfilesLanguagesRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--border-light);
+  flex-wrap: wrap;
+}
+
+.dataProfilesSchemasRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--border-light);
+  flex-wrap: wrap;
+}
+
+.dataProfilesSchemasRow .dataProfilesBlockLabel {
+  flex-shrink: 0;
+}
+
+.dataProfilesSchemaGroups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dataProfilesSchemaBox {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  padding: 6px 10px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 5px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
+}
+
+.dataProfilesSchemaChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.dataProfilesSchemaBoxSep {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.dataProfilesSchemaBoxCount {
+  flex-shrink: 0;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  background: var(--card-bg);
+  border-radius: 4px;
+  border: 1px solid var(--border-light);
+}
+
+.dataProfilesSchemaChip {
+  padding: 2px 6px;
+  background: rgba(180, 0, 0, 0.06);
+  border: 1px solid rgba(180, 0, 0, 0.15);
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-family: ui-monospace, monospace;
+  color: #a00;
+  font-weight: 500;
+}
+
+.dataProfilesLanguagesRow .dataProfilesEntityLabel {
+  font-family: inherit;
+}
+
+.dataProfilesIsosCard {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 200px;
+  height: 424px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.dataProfilesIsosCard .dataProfilesCardTitle {
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.dataProfilesIsosList {
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;
+  overflow-y: auto;
+  font-size: 0.8125rem;
+}
+
+.dataProfilesIsosItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px;
+  color: var(--text-primary);
+}
+
+.dataProfilesFlag {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--border-light);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.dataProfilesFlag.fi-xx {
+  background-color: var(--card-bg);
+}
+
+.dataProfilesIsosItem:hover {
+  background: var(--border-light);
+}
+
+.dataProfilesIsosName {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dataProfilesIsosCode {
+  flex-shrink: 0;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.dataProfilesIsosEmpty {
+  padding: 16px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+

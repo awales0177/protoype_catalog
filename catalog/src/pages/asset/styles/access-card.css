@@ -1,0 +1,212 @@
+/* Access / request card — right rail above Quick View */
+
+.assetRightColumn {
+  width: 272px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-self: flex-start;
+}
+
+.assetRightColumn .assetSidebar {
+  width: 100%;
+}
+
+/* Project value — feedback (right rail, above Your Access) */
+.assetProjectValueCard {
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.assetProjectValueTitle {
+  margin: 0;
+  padding: 16px 16px 12px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.assetProjectValueText {
+  margin: 0;
+  padding: 14px 16px 12px;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--text-primary);
+}
+
+.assetProjectValueActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 16px 16px;
+}
+
+.assetProjectValueBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: var(--bg-white);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.assetProjectValueBtn:hover {
+  border-color: color-mix(in srgb, var(--accent-blue) 50%, var(--border-light));
+  color: var(--accent-blue);
+  background: var(--tab-active-bg);
+}
+
+.assetProjectValueBtn--active {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  background: var(--tab-active-bg);
+}
+
+.assetProjectValueBtn:focus {
+  outline: none;
+}
+
+.assetProjectValueBtn:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+.assetAccessCard {
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.assetAccessCardTitle {
+  margin: 0;
+  padding: 16px 16px 12px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.assetAccessCardPanel {
+  padding: 14px 14px 16px;
+  flex: 1;
+  min-height: 0;
+}
+
+.assetAccessBanners {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.assetAccessBanner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.assetAccessBannerIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+.assetAccessBanner--success {
+  background: color-mix(in srgb, var(--success-green) 12%, var(--bg-white));
+  color: color-mix(in srgb, var(--success-green) 55%, var(--text-primary));
+  border: 1px solid color-mix(in srgb, var(--success-green) 28%, var(--border-light));
+}
+
+.assetAccessBanner--success .assetAccessBannerSvg {
+  color: var(--success-green);
+}
+
+.assetAccessBanner--denied {
+  background: color-mix(in srgb, var(--alert-red) 10%, var(--bg-white));
+  color: color-mix(in srgb, var(--alert-red) 45%, var(--text-primary));
+  border: 1px solid color-mix(in srgb, var(--alert-red) 25%, var(--border-light));
+}
+
+.assetAccessBanner--denied .assetAccessBannerSvg {
+  color: var(--alert-red);
+}
+
+.assetAccessCardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 14px 16px;
+  border-top: 1px solid var(--border-light);
+  background: var(--card-bg);
+}
+
+.assetAccessCardFooterCopy {
+  min-width: 0;
+  flex: 1;
+}
+
+.assetAccessCardNextTitle {
+  margin: 0 0 6px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.assetAccessCardNextText {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.assetAccessCardRequestBtn {
+  flex-shrink: 0;
+  padding: 10px 22px;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #fff;
+  background: #111;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.assetAccessCardRequestBtn:hover {
+  background: #333;
+}
+
+.assetAccessCardRequestBtn:focus {
+  outline: none;
+}
+
+.assetAccessCardRequestBtn:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}

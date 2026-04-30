@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none">
+  <!-- Bow: white, clean crescent-style arc -->
+  <path
+    d="M56 126
+       C60 92, 84 70, 128 70
+       C172 70, 196 92, 200 126
+       C192 103, 170 88, 128 88
+       C86 88, 64 103, 56 126Z"
+    fill="#FFFFFF"/>
+
+  <!-- Arrow shaft -->
+  <rect x="123" y="44" width="10" height="132" rx="5" fill="#2CA9BC"/>
+
+  <!-- Arrowhead -->
+  <path
+    d="M128 24
+       L118 48
+       H124
+       V60
+       H132
+       V48
+       H138
+       Z"
+    fill="#2CA9BC"/>
+
+  <!-- Arrow nock / lower shaft -->
+  <rect x="123" y="176" width="10" height="26" rx="3" fill="#2CA9BC"/>
+
+  <!-- Fletching -->
+  <path d="M128 188 L116 196 L116 212 L128 204 Z" fill="#2CA9BC"/>
+  <path d="M128 188 L140 196 L140 212 L128 204 Z" fill="#2CA9BC"/>
+</svg>

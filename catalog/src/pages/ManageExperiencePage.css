@@ -1,0 +1,272 @@
+.manageExpPage {
+  min-height: 100vh;
+  background: #e8eaee;
+  display: flex;
+  flex-direction: column;
+}
+
+.manageExpPageHeader {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 28px clamp(16px, 3vw, 40px) 0;
+}
+
+.manageExpPageTitle {
+  margin: 0;
+  padding: 28px 32px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary, #1a1a1a);
+  background: var(--bg-white, #fff);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.manageExpMain {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 20px clamp(16px, 3vw, 40px) 48px;
+}
+
+.manageExpCard {
+  background: var(--bg-white, #fff);
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  border: 1px solid var(--border-light, #e2e2e2);
+}
+
+.manageExpTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border-bottom: 1px solid var(--border-light, #e2e2e2);
+  padding: 0 8px;
+  background: #fafbfc;
+}
+
+.manageExpTab {
+  position: relative;
+  margin: 0;
+  padding: 14px 18px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  font-weight: 500;
+  color: var(--text-muted, #555);
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.manageExpTab:hover {
+  color: var(--accent-blue, #1e5a96);
+}
+
+.manageExpTab--active {
+  color: var(--accent-blue, #1e5a96);
+  font-weight: 600;
+  border-bottom-color: var(--accent-blue, #1e5a96);
+}
+
+.manageExpPanel {
+  padding: 28px 32px 36px;
+}
+
+.manageExpPanelTitle {
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary, #1a1a1a);
+}
+
+.manageExpPanelIntro {
+  margin: 0 0 24px;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--text-muted, #444);
+}
+
+.manageExpField {
+  margin-bottom: 22px;
+}
+
+.manageExpField--select {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.manageExpLabel {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a1a);
+  margin-bottom: 6px;
+}
+
+.manageExpHint {
+  margin: 0 0 8px;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--text-muted, #666);
+}
+
+.manageExpInput,
+.manageExpSelect {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  border: 1px solid var(--border-light, #c8c8c4);
+  border-radius: 8px;
+  background: var(--bg-white, #fff);
+  color: var(--text-primary, #1a1a1a);
+}
+
+.manageExpInput:focus,
+.manageExpSelect:focus {
+  outline: none;
+  border-color: var(--accent-blue, #3277d3);
+  box-shadow: 0 0 0 3px rgba(50, 119, 211, 0.15);
+}
+
+.manageExpSelect {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 36px;
+}
+
+.manageExpSelectRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+  .manageExpSelectRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+.manageExpInterests {
+  margin-top: 8px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border-light, #e8e8e4);
+}
+
+.manageExpInterestsTitle {
+  margin: 0 0 20px;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--text-primary, #1a1a1a);
+}
+
+.manageExpInterestGroup {
+  margin-bottom: 22px;
+}
+
+.manageExpInterestGroupTitle {
+  margin: 0 0 10px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted, #555);
+}
+
+.manageExpPillRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.manageExpPill {
+  padding: 7px 12px;
+  font-size: 0.8125rem;
+  font-family: inherit;
+  font-weight: 500;
+  color: var(--text-primary, #333);
+  background: var(--bg-white, #fff);
+  border: 1px solid var(--border-light, #d0d0cc);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.manageExpPill:hover {
+  border-color: var(--accent-blue, #3277d3);
+  color: var(--accent-blue, #1e5a96);
+}
+
+.manageExpPill--accent {
+  background: rgba(50, 119, 211, 0.12);
+  border-color: rgba(50, 119, 211, 0.35);
+  color: var(--accent-blue, #1e5a96);
+}
+
+.manageExpPlaceholderBlock {
+  margin: 0;
+  padding: 20px;
+  font-size: 0.875rem;
+  color: var(--text-muted, #666);
+  background: #f4f5f7;
+  border-radius: 8px;
+  border: 1px dashed var(--border-light, #ccc);
+}
+
+html[data-catalog-theme='dark'] .manageExpPage {
+  background: var(--app-bg, #1a1d24);
+}
+
+html[data-catalog-theme='dark'] .manageExpPageTitle,
+html[data-catalog-theme='dark'] .manageExpCard {
+  background: var(--bg-white, #22262e);
+  border-color: var(--border-light, #3d4450);
+  color: var(--text-primary, #e8eaed);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+html[data-catalog-theme='dark'] .manageExpTabs {
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom-color: var(--border-light, #3d4450);
+}
+
+html[data-catalog-theme='dark'] .manageExpPanelIntro,
+html[data-catalog-theme='dark'] .manageExpHint {
+  color: var(--text-muted, #aeb4bc);
+}
+
+html[data-catalog-theme='dark'] .manageExpInput,
+html[data-catalog-theme='dark'] .manageExpSelect {
+  background: var(--card-bg, #2a2f38);
+  border-color: var(--border-light, #3d4450);
+  color: var(--text-primary, #e8eaed);
+}
+
+html[data-catalog-theme='dark'] .manageExpPill {
+  background: var(--card-bg, #2a2f38);
+  border-color: var(--border-light, #3d4450);
+  color: var(--text-primary, #e8eaed);
+}
+
+html[data-catalog-theme='dark'] .manageExpPill--accent {
+  background: rgba(96, 165, 250, 0.15);
+  border-color: rgba(96, 165, 250, 0.4);
+  color: #93c5fd;
+}
+
+html[data-catalog-theme='dark'] .manageExpPlaceholderBlock {
+  background: rgba(0, 0, 0, 0.25);
+  border-color: var(--border-light, #3d4450);
+}

@@ -1,0 +1,121 @@
+.searchRecordTypesModalBody {
+  max-height: min(70vh, 520px);
+  overflow-y: auto;
+}
+
+.searchRecordTypesModalGroups {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.searchRecordTypesModalGroupTitle {
+  margin: 0 0 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted, #555);
+}
+
+.searchRecordTypesModalList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.searchRecordTypesModalItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-light, #e8e8e4);
+}
+
+.searchRecordTypesModalItemHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.searchRecordTypesModalItemHeader .searchResultLabel {
+  flex-shrink: 0;
+}
+
+.searchRecordTypesModalGroup:last-child .searchRecordTypesModalItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.searchRecordTypesModalName {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a1a);
+}
+
+.searchRecordTypesModalDesc {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--text-muted, #555);
+}
+
+html[data-catalog-theme='dark'] .searchRecordTypesModalGroupTitle,
+html.dark-mode .searchRecordTypesModalGroupTitle {
+  color: var(--text-muted, #aeb4bc);
+}
+
+html[data-catalog-theme='dark'] .searchRecordTypesModalName,
+html.dark-mode .searchRecordTypesModalName {
+  color: var(--text-primary, #e8eaed);
+}
+
+html[data-catalog-theme='dark'] .searchRecordTypesModalDesc,
+html.dark-mode .searchRecordTypesModalDesc {
+  color: var(--text-muted, #aeb4bc);
+}
+
+html[data-catalog-theme='dark'] .searchRecordTypesModalItem,
+html.dark-mode .searchRecordTypesModalItem {
+  border-bottom-color: var(--border-light, #3d4450);
+}
+
+.searchRecordTypesModalGroup--status {
+  padding-top: 0.25rem;
+}
+
+.searchRecordTypesModalStatusIntro {
+  margin: 0 0 0.75rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--text-muted, #555);
+}
+
+.searchRecordTypesModalStatusList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.searchRecordTypesModalStatusItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.searchRecordTypesModalStatusItem .searchResultStatusBadge {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+html[data-catalog-theme='dark'] .searchRecordTypesModalStatusIntro,
+html.dark-mode .searchRecordTypesModalStatusIntro {
+  color: var(--text-muted, #aeb4bc);
+}

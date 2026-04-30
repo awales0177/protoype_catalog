@@ -1,0 +1,309 @@
+/* Bucket explore modal */
+.bucketModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+}
+
+.bucketModal {
+  background: var(--bg-white);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 560px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.bucketModalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.bucketModalTitle {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.bucketModalClose {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  border-radius: 4px;
+}
+
+.bucketModalClose:hover {
+  color: var(--text-primary);
+  background: var(--card-bg);
+}
+
+.bucketViewToggle {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.bucketPathRow .bucketViewToggle {
+  flex-shrink: 0;
+  margin-left: 4px;
+}
+
+.bucketViewToggleBtn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-light);
+  background: var(--bg-white);
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 0;
+}
+
+.bucketViewToggleBtn:first-child {
+  border-radius: 4px 0 0 4px;
+}
+
+.bucketViewToggleBtn:last-child {
+  border-radius: 0 4px 4px 0;
+  margin-left: -1px;
+}
+
+.bucketViewToggleBtn:hover {
+  color: var(--text-primary);
+  background: var(--card-bg);
+}
+
+.bucketViewToggleBtn.active {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  color: white;
+}
+
+.bucketViewToggleBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.bucketModalPath {
+  padding: 12px 20px;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.8125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.bucketPathRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bucketPathLabel {
+  color: var(--text-muted);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.bucketPathInput {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 10px;
+  font-size: inherit;
+  font-family: inherit;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  background: var(--bg-white);
+  color: var(--text-primary);
+}
+
+.bucketPathInput:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+}
+
+.bucketPathBack,
+.bucketPathCopy {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  background: var(--bg-white);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.bucketPathBack:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.bucketPathBack:not(:disabled):hover,
+.bucketPathCopy:hover {
+  background: var(--card-bg);
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+
+.bucketPathBack svg,
+.bucketPathCopy svg {
+  width: 16px;
+  height: 16px;
+}
+
+.bucketPathBreadcrumb {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bucketPathPart {
+  background: none;
+  border: none;
+  padding: 0 2px;
+  color: var(--accent-blue);
+  cursor: pointer;
+  font-size: inherit;
+}
+
+.bucketPathPart:hover {
+  text-decoration: underline;
+}
+
+.bucketPathSep {
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.bucketPathEmpty {
+  color: var(--text-muted);
+}
+
+.bucketModalList {
+  padding: 12px 20px 20px;
+  overflow: auto;
+  flex: 1;
+  min-height: 200px;
+}
+
+.bucketRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  width: 100%;
+  text-align: left;
+  font-size: 0.875rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.bucketRow:hover {
+  background: var(--card-bg);
+}
+
+.bucketRowFolder {
+  font-weight: 500;
+}
+
+.bucketRowFile {
+  cursor: default;
+  pointer-events: none;
+}
+
+.bucketRowFile .bucketRowIcon {
+  color: var(--accent-blue);
+}
+
+.bucketFolderCountChip {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-left: auto;
+}
+
+.bucketFolderIconWrap {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bucketIconTileFolder .bucketFolderCount {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.bucketRowIcon {
+  flex-shrink: 0;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bucketRowIcon svg {
+  width: 1em;
+  height: 1em;
+}
+
+.bucketRowName {
+  word-break: break-all;
+}
+
+.bucketEmpty {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  padding: 16px 0;
+}
+

@@ -1,0 +1,22 @@
+{
+  "name": "uux",
+  "private": true,
+  "packageManager": "pnpm@9.15.4",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "pnpm --filter catalog_ds dev",
+    "start": "pnpm --filter catalog_ds dev",
+    "dev:catalog-ds": "pnpm --filter catalog_ds dev",
+    "dev:all": "turbo run dev --parallel",
+    "test": "turbo run test"
+  },
+  "devDependencies": {
+    "turbo": "^2.4.4"
+  },
+  "pnpm": {
+    "overrides": {
+      "nth-check": "^2.1.1",
+      "postcss": "^8.5.6"
+    }
+  }
+}
