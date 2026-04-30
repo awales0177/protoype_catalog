@@ -1,5 +1,11 @@
 /** Presentation-only fields for product data lineage (Dagster-style graph). */
 
+import { getDataTrackerFileRowCount } from '../data/dataTrackerFiles';
+
+function fileCountForCatalogAsset(asset) {
+  return getDataTrackerFileRowCount(asset?.name || asset?.title);
+}
+
 function toSnakeCaseLabel(name) {
   return (
     String(name || 'asset')
@@ -39,6 +45,8 @@ const TECH_TO_LOGO = {
   jupyter: 'jupyter',
   Kubeflow: 'kubeflow',
   kubeflow: 'kubeflow',
+  'Vision OCR': 'scan',
+  PDF: 'write',
   'JSON Schema': 'validation',
   'Great Expectations': 'validation',
 };
@@ -67,6 +75,7 @@ export function getTechTagLogoId(tag) {
   if (n.includes('delta')) return 'delta';
   if (n.includes('parquet')) return 'warehouse';
   if (n.includes('scikit') || n.includes('sklearn')) return 'sklearn';
+  if (n.includes('ocr')) return 'scan';
   if (n.includes('json schema') || n.includes('great expectations')) return 'validation';
   return 'default';
 }
@@ -193,7 +202,7 @@ const LINEAGE_OVERRIDES = {
     ],
   },
   'adp-2024-001': {
-    lineageName: 'monthly_sales_summary',
+    lineageName: 'Data Conditioning (Silver +)',
     techTags: ['Kubeflow', 'Spark', 'S3'],
     logoId: 'kubeflow',
     validations: [
@@ -307,7 +316,7 @@ const LINEAGE_OVERRIDES = {
 const PIPELINE_STEP_PRESENTATION = {
   data_bucket: {
     lineageName: 'data_bucket',
-    description: 'Landing intake for this upstream feed before scanning.',
+    description: 'Landing intake for this upstream feed before aggregated dataset creation.',
     techTags: ['S3', 'Landing zone'],
     logoId: 's3',
     logoLabel: 'Data bucket',
@@ -320,68 +329,75 @@ const PIPELINE_STEP_PRESENTATION = {
     materializedSuffix: 'bucket',
   },
   scanning: {
-    lineageName: 'scanning',
-    description: 'Format detection, malware scan, and schema sniff on landed objects.',
-    techTags: ['ClamAV', 'Apache Tika'],
-    logoId: 'scan',
-    logoLabel: 'Scanning',
-    footerStatusLabel: 'Scanned',
+    lineageName: 'Aggregated dataset creation',
+    description:
+      'Build the aggregated dataset from landed inputs: choose grain, roll up metrics, assign stable keys, and emit partitioned artifacts before Data Movement.',
+    techTags: ['Spark', 'Delta', 'S3'],
+    logoId: 'spark',
+    logoLabel: 'Spark',
+    footerStatusLabel: 'Aggregated',
     validations: [
-      { key: 'malware', label: 'Malware scan', status: 'pass' },
-      { key: 'mime', label: 'MIME vs extension', status: 'pass' },
-      { key: 'sample', label: 'Header sample parse', status: 'warn', detail: 'Nested variant inferred' },
+      { key: 'grain', label: 'Aggregation grain', status: 'pass', detail: 'Partition scheme aligned to SLA' },
+      { key: 'roll', label: 'Metric rollups', status: 'pass', detail: 'Sum / count / distinct approx stable vs raw' },
+      { key: 'keys', label: 'Surrogate keys', status: 'pass', detail: 'Deterministic IDs for conformed dims' },
+      { key: 'card', label: 'Cardinality watch', status: 'warn', detail: 'High-cardinality dim flagged for review' },
     ],
-    materializedSuffix: 'scan',
+    materializedSuffix: 'aggregate',
   },
   conditioning: {
-    lineageName: 'conditioning',
-    description: 'Normalize encodings, trim headers, cast primitives, and dedupe batch keys.',
-    techTags: ['Spark', 'Delta'],
-    logoId: 'condition',
-    logoLabel: 'Conditioning',
-    footerStatusLabel: 'Conditioned',
+    lineageName: 'Data Movement',
+    description:
+      'Orchestrated moves between zones and clusters: bandwidth-aware copies, integrity checks at rest, and handoff into OCR.',
+    techTags: ['Spark', 'Delta', 'S3'],
+    logoId: 'spark',
+    logoLabel: 'Data Movement',
+    footerStatusLabel: 'Moved',
     validations: [
-      { key: 'utf', label: 'Encoding normalization', status: 'pass' },
-      { key: 'dedupe', label: 'Batch dedupe keys', status: 'pass' },
-      { key: 'nulls', label: 'Coercion rules', status: 'pass' },
+      { key: 'copy', label: 'Cross-zone copy', status: 'pass', detail: 'Incremental sync completed within window' },
+      { key: 'integrity', label: 'Checksum verification', status: 'pass', detail: 'Object ETags matched source' },
+      { key: 'route', label: 'Routing / ACL handoff', status: 'pass', detail: 'Destination bucket policies applied' },
+      { key: 'burst', label: 'Throughput variance', status: 'warn', detail: 'Burst throttled per egress policy' },
     ],
-    materializedSuffix: 'condition',
+    materializedSuffix: 'movement',
   },
   data_validation: {
-    lineageName: 'data_validation',
-    description: 'Contract checks, null thresholds, and schema drift vs. registered model before materialization.',
-    techTags: ['Great Expectations', 'JSON Schema'],
-    logoId: 'validation',
-    logoLabel: 'Data validation',
-    footerStatusLabel: 'Validated',
+    lineageName: 'OCR',
+    description:
+      'Optical character recognition and layout extraction from scans and PDFs: deskew, language detection, and structured field candidates.',
+    techTags: ['Vision OCR', 'PDF'],
+    logoId: 'scan',
+    logoLabel: 'OCR',
+    footerStatusLabel: 'Parsed',
     validations: [
-      { key: 'contract', label: 'Dataset contract', status: 'pass', detail: 'v2.4 schema hash match' },
-      { key: 'nulls', label: 'Null rate gates', status: 'pass' },
-      { key: 'fk', label: 'Referential checks', status: 'pass' },
-      { key: 'vol', label: 'Volume vs. baseline', status: 'warn', detail: '−8% vs 7d avg (within band)' },
+      { key: 'deskew', label: 'Deskew & DPI', status: 'pass', detail: 'Pages normalized for OCR engine' },
+      { key: 'language', label: 'Language detection', status: 'pass', detail: 'Primary locale en-US (0.94)' },
+      { key: 'layout', label: 'Layout regions', status: 'pass', detail: 'Tables and running text segmented' },
+      { key: 'conf', label: 'Low-confidence spans', status: 'warn', detail: '3 blocks below 85% confidence' },
     ],
-    materializedSuffix: 'validation',
+    materializedSuffix: 'ocr',
   },
   write: {
-    lineageName: 'write_curated_output',
-    description: 'Idempotent merge into curated zone; partition alignment and post-write verification.',
-    techTags: ['Delta Lake', 'S3', 'ACID'],
-    logoId: 'write',
-    logoLabel: 'Write step',
-    footerStatusLabel: 'Written',
+    lineageName: 'Data Conditioning (Bronze)',
+    description:
+      'Bronze-layer conditioning on landed objects: standard layouts, typed columns, partition keys, and lineage stamps before OCR.',
+    techTags: ['Kubeflow', 'Spark', 'Delta', 'S3'],
+    logoId: 'kubeflow',
+    logoLabel: 'Kubeflow',
+    footerStatusLabel: 'Bronze written',
     validations: [
-      { key: 'merge', label: 'Merge predicate', status: 'pass' },
-      { key: 'acl', label: 'Target ACL / KMS', status: 'pass' },
-      { key: 'rows', label: 'Post-write row count', status: 'pass' },
-      { key: 'manifest', label: 'Manifest & checksum', status: 'pass' },
+      { key: 'layout', label: 'Bronze path layout', status: 'pass', detail: 'Hive-style partitions enforced' },
+      { key: 'types', label: 'Raw → bronze types', status: 'pass', detail: 'Casts + nullable rules applied' },
+      { key: 'lineage', label: 'Bronze lineage stamp', status: 'pass', detail: 'Source URI + ingest batch id recorded' },
+      { key: 'dup', label: 'Late-batch overlap', status: 'warn', detail: '1 partition overlap resolved by ingest_time' },
     ],
-    materializedSuffix: 'write',
+    materializedSuffix: 'bronze',
   },
 };
 
 /** Synthetic pipeline nodes inserted before the focal asset in the lineage graph. */
 export function getPipelineStepLineagePresentation(step, focusAsset, opts = {}) {
   const upstreamAsset = opts?.upstreamAsset;
+  const pipelineFileCount = fileCountForCatalogAsset(focusAsset);
 
   if (step === 'data_bucket') {
     const cfg = PIPELINE_STEP_PRESENTATION.data_bucket;
@@ -400,6 +416,7 @@ export function getPipelineStepLineagePresentation(step, focusAsset, opts = {}) 
       logoLabel: cfg.logoLabel,
       footerStatusLabel: cfg.footerStatusLabel,
       validations: cfg.validations,
+      fileCount: pipelineFileCount,
     };
   }
 
@@ -415,6 +432,7 @@ export function getPipelineStepLineagePresentation(step, focusAsset, opts = {}) 
       logoLabel: 'Step',
       footerStatusLabel: 'Completed',
       validations: [],
+      fileCount: pipelineFileCount,
     };
   }
   const fid = focusAsset?.id || 'asset';
@@ -429,6 +447,7 @@ export function getPipelineStepLineagePresentation(step, focusAsset, opts = {}) 
     logoLabel: cfg.logoLabel,
     footerStatusLabel: cfg.footerStatusLabel,
     validations: cfg.validations,
+    fileCount: pipelineFileCount,
   };
 }
 
@@ -442,8 +461,9 @@ export function getLineagePresentation(asset) {
       materializedLabel: '—',
       logoId: 'default',
       logoLabel: 'Catalog',
-      footerStatusLabel: 'Materialized',
+      footerStatusLabel: 'Written',
       validations: [],
+      fileCount: 0,
     };
   }
   const override = LINEAGE_OVERRIDES[asset.id] || {};
@@ -465,8 +485,9 @@ export function getLineagePresentation(asset) {
     materializedLabel: materializedLabelForId(asset.id),
     logoId,
     logoLabel,
-    footerStatusLabel: 'Materialized',
+    footerStatusLabel: 'Written',
     validations,
+    fileCount: fileCountForCatalogAsset(asset),
   };
 }
 

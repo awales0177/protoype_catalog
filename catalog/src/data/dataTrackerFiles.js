@@ -11,6 +11,11 @@ function slugPrefix(name) {
   );
 }
 
+/** Row count for lineage nodes / summaries (matches Data tracker tab list). */
+export function getDataTrackerFileRowCount(assetName) {
+  return buildDataTrackerFileRows(assetName).length;
+}
+
 export function buildDataTrackerFileRows(assetName) {
   const p = slugPrefix(assetName);
   const lake = 's3://data-lake-prod';

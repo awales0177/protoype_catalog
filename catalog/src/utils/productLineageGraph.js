@@ -38,7 +38,7 @@ function edgeKeyPair(source, target) {
 
 /**
  * Inserts Data P&L synthetic steps before the focal asset:
- * upstream → (per-feed) data bucket → scanning → conditioning → validation → write → focal.
+ * upstream → (per-feed) data bucket → aggregated dataset creation → Data Movement → OCR → write → focal.
  */
 function injectDataPnLPipelineSteps(focusId, nodeMap, edges) {
   const incomingIndices = edges

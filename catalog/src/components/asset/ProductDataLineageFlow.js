@@ -82,6 +82,7 @@ function LineageFlowNode({ data, selected }) {
     logoId,
     logoLabel,
     validations,
+    fileCount = 0,
   } = data;
   const baseClass = `lineageFlowNodeCard ${isCurrent ? 'lineageFlowNodeCard--current' : ''} ${selected ? 'lineageFlowNodeCard--selected' : ''} ${isPipelineStep ? 'lineageFlowNodeCard--pipeline' : ''}`;
   const vsum = summarizeLineageValidations(validations);
@@ -104,17 +105,11 @@ function LineageFlowNode({ data, selected }) {
         </div>
         <p className="lineageFlowNodeDesc">{description}</p>
         {validations.length > 0 && (
-          <div className="lineageValidationBlock" aria-label="Validation checks">
+          <div className="lineageValidationBlock" aria-label="Pipeline steps">
             <div className="lineageValidationBlockHead">
-              <span className="lineageValidationBlockTitle">Checks</span>
-              <span className="lineageValidationBlockCounts" title="Pass / warn / fail / pending">
-                <span className="lineageCount lineageCount--pass">{vsum.pass}</span>
-                <span className="lineageCountSep">·</span>
-                <span className="lineageCount lineageCount--warn">{vsum.warn}</span>
-                <span className="lineageCountSep">·</span>
-                <span className="lineageCount lineageCount--fail">{vsum.fail}</span>
-                <span className="lineageCountSep">·</span>
-                <span className="lineageCount lineageCount--pending">{vsum.pending}</span>
+              <span className="lineageValidationBlockTitle">Steps</span>
+              <span className="lineageStepsFileCount" title="Files listed in Data tracker for this asset">
+                {fileCount} {fileCount === 1 ? 'file' : 'files'}
               </span>
             </div>
             <ul className="lineageValidationList">
@@ -128,12 +123,12 @@ function LineageFlowNode({ data, selected }) {
               ))}
             </ul>
             {validations.length > 5 && (
-              <p className="lineageValidationMore">+{validations.length - 5} more checks</p>
+              <p className="lineageValidationMore">+{validations.length - 5} more steps</p>
             )}
           </div>
         )}
         <div className={`lineageFlowNodeFooter ${footerMods.join(' ')}`}>
-          <span className="lineageFlowNodeFooterStatus">{footerStatusLabel || 'Materialized'}</span>
+          <span className="lineageFlowNodeFooterStatus">{footerStatusLabel || 'Written'}</span>
           <span className="lineageFlowNodeFooterTime">{materializedLabel}</span>
         </div>
       </div>
@@ -188,6 +183,7 @@ LineageFlowNode.propTypes = {
     footerStatusLabel: PropTypes.string,
     logoId: PropTypes.string.isRequired,
     logoLabel: PropTypes.string.isRequired,
+    fileCount: PropTypes.number,
     validations: PropTypes.arrayOf(
       PropTypes.shape({
         key: PropTypes.string.isRequired,

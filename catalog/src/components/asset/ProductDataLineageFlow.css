@@ -218,6 +218,14 @@
   color: #6b6b66;
 }
 
+.lineageStepsFileCount {
+  font-size: 0.5625rem;
+  font-variant-numeric: tabular-nums;
+  color: #555;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
 .lineageValidationBlockCounts {
   font-size: 0.5625rem;
   font-variant-numeric: tabular-nums;
@@ -461,7 +469,8 @@ html[data-catalog-theme='dark'] .lineageValidationBlockTitle {
 }
 
 html[data-catalog-theme='dark'] .lineageValidationBlockCounts,
-html[data-catalog-theme='dark'] .lineageCountSep {
+html[data-catalog-theme='dark'] .lineageCountSep,
+html[data-catalog-theme='dark'] .lineageStepsFileCount {
   color: var(--text-muted);
 }
 
