@@ -35,7 +35,12 @@ function ProductDataLineage({
       <h3 className="assetSectionTitle">{'Data P&L'}</h3>
       <p className="assetSectionDesc">{graphSectionDesc}</p>
 
-      <ProductDataLineageFlow assetId={assetId} assetsById={assetsById} getAssetUrl={getAssetUrl} />
+      <ProductDataLineageFlow
+        assetId={assetId}
+        assetsById={assetsById}
+        getAssetUrl={getAssetUrl}
+        showLineageValidation={!isDatasetVariant}
+      />
     </div>
   );
 
@@ -81,14 +86,15 @@ function ProductDataLineage({
               isDatasetVariant ? (
                 <>
                   Direct parent and child catalog relationships in the catalog. Open <strong>Data P&amp;L</strong> for
-                  validate → write steps and graph; use the card <strong>Validation</strong> tab for lineage checks;
-                  open <strong>Data tracker</strong> for files by system with stage trackers.
+                  validate → write steps and graph; open <strong>Data tracker</strong> for files by system with stage
+                  trackers.
                 </>
               ) : (
                 <>
                   Direct parent and child catalog relationships in the catalog. Open <strong>Data P&amp;L</strong> for
-                  validate → write steps and graph; use the card <strong>Validation</strong> tab for lineage checks;
-                  open <strong>Data tracker</strong> for files by system with stage trackers.
+                  validate → write steps and graph; use the card <strong>Validation</strong> tab for lineage checks,{' '}
+                  <strong>Tooling</strong> for transform stack versions; open <strong>Data tracker</strong> for files by
+                  system with stage trackers.
                 </>
               )
             }

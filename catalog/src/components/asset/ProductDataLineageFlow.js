@@ -83,12 +83,15 @@ function LineageFlowNode({ data, selected }) {
     logoLabel,
     validations,
     fileCount = 0,
+    showLineageValidation = true,
   } = data;
   const baseClass = `lineageFlowNodeCard ${isCurrent ? 'lineageFlowNodeCard--current' : ''} ${selected ? 'lineageFlowNodeCard--selected' : ''} ${isPipelineStep ? 'lineageFlowNodeCard--pipeline' : ''}`;
   const vsum = summarizeLineageValidations(validations);
   const footerMods = [];
-  if (vsum.fail > 0) footerMods.push('lineageFlowNodeFooter--risk');
-  if (vsum.pending > 0 && vsum.fail === 0) footerMods.push('lineageFlowNodeFooter--pending');
+  if (showLineageValidation) {
+    if (vsum.fail > 0) footerMods.push('lineageFlowNodeFooter--risk');
+    if (vsum.pending > 0 && vsum.fail === 0) footerMods.push('lineageFlowNodeFooter--pending');
+  }
 
   const inner = (
     <>
@@ -104,7 +107,7 @@ function LineageFlowNode({ data, selected }) {
           </div>
         </div>
         <p className="lineageFlowNodeDesc">{description}</p>
-        {validations.length > 0 && (
+        {showLineageValidation && validations.length > 0 && (
           <div className="lineageValidationBlock" aria-label="Pipeline steps">
             <div className="lineageValidationBlockHead">
               <span className="lineageValidationBlockTitle">Steps</span>
@@ -192,6 +195,7 @@ LineageFlowNode.propTypes = {
         detail: PropTypes.string,
       })
     ).isRequired,
+    showLineageValidation: PropTypes.bool,
   }).isRequired,
   selected: PropTypes.bool,
 };
@@ -204,7 +208,7 @@ const defaultEdgeOptions = {
   markerEnd: { type: MarkerType.ArrowClosed, color: '#5a5a5a', width: 12, height: 12 },
 };
 
-function ProductDataLineageFlow({ assetId, assetsById, getAssetUrl }) {
+function ProductDataLineageFlow({ assetId, assetsById, getAssetUrl, showLineageValidation = true }) {
   const resolveUrl = getAssetUrl || assetDetail;
 
   const { nodes: initialNodes, edges: initialEdges } = useMemo(() => {
@@ -228,6 +232,7 @@ function ProductDataLineageFlow({ assetId, assetsById, getAssetUrl }) {
           isCurrent: id === assetId,
           isPipelineStep: isPipeline,
           href: isPipeline ? '' : resolveUrl(id),
+          showLineageValidation,
         },
       };
     });
@@ -238,7 +243,7 @@ function ProductDataLineageFlow({ assetId, assetsById, getAssetUrl }) {
       ...defaultEdgeOptions,
     }));
     return layoutNodesEdges(rfNodes, rfEdges);
-  }, [assetId, assetsById, resolveUrl]);
+  }, [assetId, assetsById, resolveUrl, showLineageValidation]);
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -288,6 +293,7 @@ ProductDataLineageFlow.propTypes = {
   assetId: PropTypes.string.isRequired,
   assetsById: PropTypes.object.isRequired,
   getAssetUrl: PropTypes.func,
+  showLineageValidation: PropTypes.bool,
 };
 
 export default ProductDataLineageFlow;

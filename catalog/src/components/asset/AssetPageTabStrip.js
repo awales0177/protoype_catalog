@@ -15,13 +15,24 @@ function AssetPageTabStrip({ activeTab, setActiveTab, isDataProductType, isDatas
       >
         Lineage
       </button>
-      <button
-        type="button"
-        className={`${recordLayout ? 'assetRecordTab' : 'assetTab'} ${activeTab === 'validation' ? 'active' : ''}`}
-        onClick={() => setActiveTab('validation')}
-      >
-        Validation
-      </button>
+      {isDataProductType && (
+        <button
+          type="button"
+          className={`${recordLayout ? 'assetRecordTab' : 'assetTab'} ${activeTab === 'validation' ? 'active' : ''}`}
+          onClick={() => setActiveTab('validation')}
+        >
+          Validation
+        </button>
+      )}
+      {isDataProductType && (
+        <button
+          type="button"
+          className={`${recordLayout ? 'assetRecordTab' : 'assetTab'} ${activeTab === 'tooling' ? 'active' : ''}`}
+          onClick={() => setActiveTab('tooling')}
+        >
+          Tooling
+        </button>
+      )}
       <button
         type="button"
         className={`${recordLayout ? 'assetRecordTab' : 'assetTab'} ${activeTab === 'data-profiles' ? 'active' : ''}`}

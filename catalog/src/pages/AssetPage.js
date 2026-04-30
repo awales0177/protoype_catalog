@@ -19,6 +19,7 @@ import ExploreBucket from '../components/asset/ExploreBucket';
 import DataProfilesTab from '../components/asset/DataProfilesTab';
 import DataVolumeChart from '../components/DataVolumeChart';
 import ReadmeTab from '../components/asset/ReadmeTab';
+import ProductToolingTab from '../components/asset/ProductToolingTab';
 import AssetPageTabStrip from '../components/asset/AssetPageTabStrip';
 import AssetProjectValueCard from '../components/asset/AssetProjectValueCard';
 import AssetAccessCard from '../components/asset/AssetAccessCard';
@@ -26,6 +27,7 @@ import AssetRecordChrome from '../components/asset/AssetRecordChrome';
 import AssetRecordTitleCard from '../components/asset/AssetRecordTitleCard';
 import AssetCuratedListsCard from '../components/asset/AssetCuratedListsCard';
 import { publicAssetUrl } from '../utils/publicAssetUrl';
+import { getProductToolingForAsset } from '../data/productTooling';
 import './AssetPage.css';
 
 const WORLD_MAP_TOPOLOGY = publicAssetUrl('world-countries-110m.json');
@@ -74,6 +76,17 @@ function AssetPage() {
     setComments(getInitialAssetComments(assetId));
   }, [assetId]);
 
+  useEffect(() => {
+    if (!isDataProductType && (secondaryTab === 'validation' || secondaryTab === 'tooling')) {
+      setSecondaryTab('data-lineage');
+    }
+  }, [assetId, isDataProductType, secondaryTab]);
+
+  const productToolingRows = useMemo(
+    () => (isDataProductType ? getProductToolingForAsset(assetId) : []),
+    [assetId, isDataProductType]
+  );
+
   function postComment() {
     const text = newCommentText.trim();
     if (!text) return;
@@ -119,13 +132,14 @@ function AssetPage() {
   const categoryLabel = [breadcrumbCategory, asset.type].join(' · ');
 
   const usjaActiveIndices = useMemo(() => {
-    const lineageRelated = secondaryTab === 'data-lineage' || secondaryTab === 'validation';
+    const lineageRelated =
+      secondaryTab === 'data-lineage' || (isDataProductType && secondaryTab === 'validation');
     const tabIdx = USJA_SECONDARY_TABS.indexOf(lineageRelated ? 'data-lineage' : secondaryTab);
     if (tabIdx < 0) return [];
     const set = new Set([tabIdx]);
     if (tabIdx > 0) set.add(0);
     return [...set].sort((a, b) => a - b);
-  }, [secondaryTab]);
+  }, [secondaryTab, isDataProductType]);
 
   const descSecondary =
     'Operational notes, steward contacts, and compliance context can be expanded here as the record matures in the catalog.';
@@ -150,14 +164,16 @@ function AssetPage() {
         </div>
       )}
 
-      {secondaryTab === 'validation' && (
+      {secondaryTab === 'validation' && isDataProductType && (
         <LineageValidationPanel
           assetId={assetId}
           asset={asset}
           assetsById={assetsById}
-          variant={isDataProductType ? 'product' : 'dataset'}
+          variant="product"
         />
       )}
+
+      {secondaryTab === 'tooling' && isDataProductType && <ProductToolingTab tools={productToolingRows} />}
 
       {secondaryTab === 'data-profiles' && (
         <DataProfilesTab
