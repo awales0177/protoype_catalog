@@ -12,10 +12,8 @@ function FlowGlyphImg() {
   );
 }
 
-/** Actions launcher — `variant` reserved for layout tweaks (e.g. global bar vs hero). */
-export function CatalogHeroActionsMenu({ variant: _variant = 'toolbar' }) {
-  void _variant;
-
+/** Actions launcher — `variant` toggles trigger layout (e.g. global bar vs hero). */
+export function CatalogHeroActionsMenu({ variant = 'toolbar' }) {
   const btnRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState('');
