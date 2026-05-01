@@ -1,3 +1,4 @@
+```mermaid
 graph TD
   Catalog[Data Catalog]
 
@@ -32,7 +33,7 @@ graph TD
   DataTool -->|transforms / produces| DataProduct
   DataTool -->|processes| Dataset
 
-  %% System relationships (UPDATED)
+  %% System relationships
   System -->|hosts / runs| DataTool
   System -->|stores / serves| DataProduct
   Dataset -->|approved for| System
@@ -47,3 +48,4 @@ graph TD
   DataAction -->|acts on| DataArtifact
   DataAction -->|uses| DataTool
   DataAction -->|executed in| System
+```
