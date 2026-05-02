@@ -3,9 +3,9 @@ import { Routes, Route, Outlet, useNavigate, Navigate } from 'react-router-dom';
 import { CatalogShellProvider } from './catalog-shell';
 import { CATALOG_FEEDBACK_SUBTITLE } from './constants/shellCopy';
 import { submitFeedback } from './services/submitFeedback';
-import { ChatbotIcon } from './icons';
 import ErrorBoundary from './components/ErrorBoundary';
 import SubscriptionsModal from './components/SubscriptionsModal';
+import CatalogChatbot from './components/CatalogChatbot';
 import { SubscriptionsProvider, useSubscriptions } from './context/SubscriptionsContext';
 import HomePage from './pages/HomePage';
 import AssetPage from './pages/AssetPage';
@@ -30,7 +30,6 @@ function Layout() {
   const navigate = useNavigate();
   const { subscribedIds } = useSubscriptions();
   const [subscriptionsModalOpen, setSubscriptionsModalOpen] = useState(false);
-  const [chatOpen, setChatOpen] = useState(false);
   const [darkMode, setDarkModeState] = useState(readStoredDarkMode);
 
   useLayoutEffect(() => {
@@ -68,56 +67,13 @@ function Layout() {
     }),
     [openNotifications, subscribedIds.length, darkMode, toggleDarkMode, setDarkMode, navigate]
   );
-  const [messages, setMessages] = useState([]);
-  const [chatInput, setChatInput] = useState('');
-
-  function sendChatMessage() {
-    const text = chatInput.trim();
-    if (!text) return;
-    setChatInput('');
-    const userMsgId = Date.now();
-    const botMsgId = userMsgId + 1;
-    setMessages((prev) => [...prev, { id: userMsgId, role: 'user', text }]);
-    const reply = text.toLowerCase() === 'hi' ? 'Hi back!' : "I'm a simple bot — say hi and I'll say hi back.";
-    setMessages((prev) => [...prev, { id: botMsgId, role: 'bot', text: reply }]);
-  }
 
   return (
     <CatalogShellProvider value={catalogShellValue}>
       <div className="app">
         <Outlet context={outletContext} />
       {subscriptionsModalOpen && <SubscriptionsModal onClose={() => setSubscriptionsModalOpen(false)} />}
-      {chatOpen && (
-        <div className="chatPanel">
-          <div className="chatPanelHeader">
-            <span className="chatPanelTitle">Chat</span>
-            <button type="button" className="chatPanelClose" aria-label="Close chat" onClick={() => setChatOpen(false)}>×</button>
-          </div>
-          <div className="chatMessages">
-            {messages.length === 0 && <p className="chatPlaceholder">Say hi!</p>}
-            {messages.map((m) => (
-              <div key={m.id} className={`chatBubble chatBubble${m.role === 'user' ? 'User' : 'Bot'}`}>
-                {m.text}
-              </div>
-            ))}
-          </div>
-          <div className="chatInputRow">
-            <input
-              type="text"
-              className="chatInput"
-              placeholder="Type a message..."
-              value={chatInput}
-              onChange={(e) => setChatInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && sendChatMessage()}
-              aria-label="Chat message"
-            />
-            <button type="button" className="chatSend" onClick={sendChatMessage} aria-label="Send">Send</button>
-          </div>
-        </div>
-      )}
-      <button type="button" className="chatbotFab" aria-label={chatOpen ? 'Close chatbot' : 'Open chatbot'} title="Chatbot" onClick={() => setChatOpen((o) => !o)}>
-        <ChatbotIcon />
-      </button>
+      <CatalogChatbot />
       </div>
     </CatalogShellProvider>
   );

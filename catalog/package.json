@@ -44,6 +44,7 @@
     "start": "react-scripts start",
     "dev": "react-scripts start",
     "build": "react-scripts build",
+    "typecheck": "tsc --noEmit",
     "test": "react-scripts test",
     "preview": "npx serve -s build"
   },

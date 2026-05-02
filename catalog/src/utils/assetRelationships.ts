@@ -1,10 +1,14 @@
 /** Relationship helpers for asset detail: parent/children and Mermaid diagram code. */
 
+import type { CatalogAssetDetail } from '../types/catalog';
+
 const MAX_NODES_FOR_DIAGRAM = 12;
 
+export type AssetsById = Record<string, CatalogAssetDetail | undefined>;
+
 /** Short type label for chips (PD, CD, DP, etc.). */
-export function getTypeLabel(type) {
-  const map = {
+export function getTypeLabel(type: string): string | null {
+  const map: Record<string, string> = {
     'Parent dataset': 'PD',
     'Child dataset': 'CD',
     'Adoption record': 'AR',
@@ -15,11 +19,11 @@ export function getTypeLabel(type) {
     'Transfer record': 'TR',
     'Curated list': 'LIST',
   };
-  return map[type] || null;
+  return map[type] ?? null;
 }
 
 /** CSS class for type chip color (matches search page). */
-export function getTypeLabelClass(type) {
+export function getTypeLabelClass(type: string): string {
   if (type === 'Dataset') return 'dataset';
   if (type === 'Parent dataset') return 'parentDataset';
   if (type === 'Child dataset') return 'childDataset';
@@ -34,15 +38,30 @@ export function getTypeLabelClass(type) {
   return 'dataset';
 }
 
+export interface RelationshipRef {
+  id: string;
+  asset: CatalogAssetDetail;
+}
+
+export interface RelationshipData {
+  parent: CatalogAssetDetail | null;
+  parents: RelationshipRef[];
+  children: RelationshipRef[];
+  totalNodes: number;
+}
+
 /** Get parent and children for an asset from assets map (id -> detail shape). */
-export function getRelationshipData(assetId, assetsById) {
+export function getRelationshipData(assetId: string, assetsById: AssetsById): RelationshipData {
   const current = assetsById[assetId];
   if (!current) return { parent: null, parents: [], children: [], totalNodes: 0 };
   const parentId = current.parentId;
-  const parent = parentId ? assetsById[parentId] : null;
-  const parents = parent ? [{ id: parentId, asset: parent }] : [];
+  const parent = parentId ? assetsById[parentId] ?? null : null;
+  const parents = parent && parentId ? [{ id: parentId, asset: parent }] : [];
   const children = Object.entries(assetsById)
-    .filter(([, a]) => a.parentId === assetId)
+    .filter((entry): entry is [string, CatalogAssetDetail] => {
+      const [, a] = entry;
+      return a !== undefined && a.parentId === assetId;
+    })
     .map(([id, a]) => ({ id, asset: a }));
   const totalNodes = 1 + parents.length + children.length;
   return {
@@ -53,18 +72,33 @@ export function getRelationshipData(assetId, assetsById) {
   };
 }
 
+export interface RelationshipGraphNode {
+  id: string;
+  asset: CatalogAssetDetail;
+}
+
+export interface RelationshipGraphEdge {
+  source: string;
+  target: string;
+}
+
+export interface FullRelationshipData {
+  nodes: RelationshipGraphNode[];
+  edges: RelationshipGraphEdge[];
+}
+
 /**
  * Full hierarchy: all ancestors up to root and all descendants down to leaves.
- * Returns { nodes: [{ id, asset }], edges: [{ source, target }] } for use in the graph.
+ * Returns { nodes, edges } for use in the graph.
  */
-export function getFullRelationshipData(assetId, assetsById) {
+export function getFullRelationshipData(assetId: string, assetsById: AssetsById): FullRelationshipData {
   const current = assetsById[assetId];
   if (!current) return { nodes: [], edges: [] };
 
-  const nodeMap = new Map(); // id -> asset
-  const edges = [];
+  const nodeMap = new Map<string, CatalogAssetDetail>();
+  const edges: RelationshipGraphEdge[] = [];
 
-  function addNode(id) {
+  function addNode(id: string): void {
     if (nodeMap.has(id)) return;
     const asset = assetsById[id];
     if (asset) nodeMap.set(id, asset);
@@ -72,23 +106,25 @@ export function getFullRelationshipData(assetId, assetsById) {
 
   addNode(assetId);
 
-  // Ancestors: walk up from current's parent to root
-  let cur = current;
-  while (cur.parentId) {
-    const parentId = cur.parentId;
+  let cur: CatalogAssetDetail | undefined = current;
+  while (cur?.parentId) {
+    const parentId: string = cur.parentId;
     addNode(parentId);
     edges.push({ source: parentId, target: cur.id });
     cur = assetsById[parentId];
-    if (!cur) break;
   }
 
-  // Descendants: BFS from current to all leaves
   const queue = [assetId];
-  const visited = new Set([assetId]);
+  const visited = new Set<string>([assetId]);
   while (queue.length) {
-    const id = queue.shift();
-    const children = Object.entries(assetsById).filter(([, a]) => a.parentId === id);
-    for (const [cid] of children) {
+    const id = queue.shift()!;
+    const childPairs = Object.entries(assetsById).filter(
+      (entry): entry is [string, CatalogAssetDetail] => {
+        const [, a] = entry;
+        return a !== undefined && a.parentId === id;
+      }
+    );
+    for (const [cid] of childPairs) {
       addNode(cid);
       edges.push({ source: id, target: cid });
       if (!visited.has(cid)) {
@@ -103,15 +139,19 @@ export function getFullRelationshipData(assetId, assetsById) {
 }
 
 /** Generate Mermaid flowchart code for relationship diagram; returns null if too many nodes. */
-export function getRelationshipDiagramCode(assetId, assetsById) {
+export function getRelationshipDiagramCode(assetId: string, assetsById: AssetsById): string | null {
   const { parents, children, totalNodes } = getRelationshipData(assetId, assetsById);
   if (totalNodes > MAX_NODES_FOR_DIAGRAM) return null;
   const current = assetsById[assetId];
   if (!current) return null;
-  const sanitize = (s) => String(s).replace(/["\\]/g, '').replace(/\s+/g, ' ').trim();
-  const nodeId = (id) => `N_${String(id).replace(/-/g, '_')}`;
-  const label = (name) => `["${sanitize(name)}"]`;
-  const lines = ['flowchart TB'];
+  const sanitize = (s: string) =>
+    String(s)
+      .replace(/["\\]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  const nodeId = (id: string) => `N_${String(id).replace(/-/g, '_')}`;
+  const label = (name: string) => `["${sanitize(name)}"]`;
+  const lines: string[] = ['flowchart TB'];
   const currentNodeId = 'ME';
   const currentLabel = label(current.name);
   parents.forEach(({ id: pid, asset: p }) => {

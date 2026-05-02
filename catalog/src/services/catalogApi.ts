@@ -17,12 +17,13 @@ import {
   getCuratedListById as dataGetCuratedListById,
   filterCuratedListsByQuery,
 } from '../data/curatedLists';
+import type { CuratedList } from '../types/catalog';
 
-/** @type {typeof DATA_ASSETS} */
-const assetsSnapshot = () => [...DATA_ASSETS];
+export type DataAssetRow = (typeof DATA_ASSETS)[number];
 
-/** @type {typeof CURATED_LISTS} */
-const listsSnapshot = () => [...CURATED_LISTS];
+const assetsSnapshot = (): DataAssetRow[] => [...DATA_ASSETS];
+
+const listsSnapshot = (): CuratedList[] => [...CURATED_LISTS];
 
 /**
  * Synchronous read API (same thread as React render). Prefer `catalogApi` when
@@ -35,9 +36,9 @@ export const catalogData = {
   CURATED_LISTS,
   getAssets: () => DATA_ASSETS,
   getAssetsMap: () => ASSETS_BY_ID,
-  getAssetById: (id) => dataGetAssetById((id || '').toLowerCase()),
+  getAssetById: (id: string | undefined | null) => dataGetAssetById((id ?? '').toLowerCase()),
   getCuratedLists: () => CURATED_LISTS,
-  getCuratedListById: (id) => dataGetCuratedListById((id || '').toLowerCase()),
+  getCuratedListById: (id: string | undefined | null) => dataGetCuratedListById((id ?? '').toLowerCase()),
   filterAssetsByQuery,
   filterCuratedListsByQuery,
   getRelatedAssets,
@@ -48,19 +49,21 @@ export const catalogData = {
  * Async facade — drop-in for fetch/XHR later.
  */
 export const catalogApi = {
-  async listAssets() {
+  async listAssets(): Promise<DataAssetRow[]> {
     return assetsSnapshot();
   },
-  async getAssetById(id) {
-    return dataGetAssetById(String(id || '').toLowerCase());
+  async getAssetById(id: string | undefined | null) {
+    return dataGetAssetById(String(id ?? '').toLowerCase());
   },
   async getAssetsMap() {
     return ASSETS_BY_ID;
   },
-  async listCuratedLists() {
+  async listCuratedLists(): Promise<CuratedList[]> {
     return listsSnapshot();
   },
-  async getCuratedListById(id) {
-    return dataGetCuratedListById(String(id || '').toLowerCase());
+  async getCuratedListById(id: string | undefined | null): Promise<CuratedList | null> {
+    return dataGetCuratedListById(String(id ?? '').toLowerCase());
   },
 };
+
+export type { CatalogAssetDetail, CuratedList } from '../types/catalog';

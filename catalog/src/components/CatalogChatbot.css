@@ -1,0 +1,384 @@
+/* Portal-aligned dataNerd chat (no Tailwind). z-index above main chrome. */
+.catalogPortalChatbotRoot {
+  pointer-events: none;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+.catalogPortalChatbotPanel {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: min(42rem, calc(100vw - 2rem));
+  height: min(28rem, calc(100dvh - 6rem));
+  min-width: 0;
+  border-radius: 1rem;
+  border: 1px solid var(--border-light, rgba(0, 0, 0, 0.12));
+  background: var(--bg-white, #fff);
+  box-shadow:
+    0 24px 80px -12px rgba(0, 0, 0, 0.22),
+    0 8px 24px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(12px);
+}
+
+.catalogPortalChatbotHeader {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--primary-dark, #1a365d);
+  color: #fff;
+}
+
+.catalogPortalChatbotHeaderLead {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.catalogPortalChatbotHeaderGlyph {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.catalogPortalChatbotHeaderTitles {
+  min-width: 0;
+}
+
+.catalogPortalChatbotTitle {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.catalogPortalChatbotSubtitle {
+  margin: 0;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.3;
+}
+
+.catalogPortalChatbotIconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+}
+
+.catalogPortalChatbotIconBtn--header:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.catalogPortalChatbotBody {
+  display: flex;
+  min-height: 0;
+  min-width: 0;
+  flex: 1;
+}
+
+.catalogPortalChatbotRail {
+  width: 11.5rem;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--primary-dark, #1a365d);
+  color: #fff;
+}
+
+@media (min-width: 640px) {
+  .catalogPortalChatbotRail {
+    width: 12rem;
+  }
+}
+
+.catalogPortalChatbotRailLabel {
+  margin: 0;
+  padding: 0.5rem 0.75rem 0.25rem;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.catalogPortalChatbotRailList {
+  list-style: none;
+  margin: 0;
+  padding: 0 0.5rem 0.5rem;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.catalogPortalChatbotRailBtn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 0.5rem 0.6rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.68);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.catalogPortalChatbotRailBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.catalogPortalChatbotRailBtn--selected {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+
+.catalogPortalChatbotRailBtnRow {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.catalogPortalChatbotRailIcon {
+  opacity: 0.85;
+}
+
+.catalogPortalChatbotRailBtnLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.catalogPortalChatbotRailHint {
+  padding-left: 1.4rem;
+  font-size: 10px;
+  line-height: 1.25;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.catalogPortalChatbotMain {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.catalogPortalChatbotMessages {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.catalogPortalChatbotRow {
+  display: flex;
+}
+
+.catalogPortalChatbotRow--user {
+  justify-content: flex-end;
+}
+
+.catalogPortalChatbotRow--assistant {
+  justify-content: flex-start;
+}
+
+.catalogPortalChatbotBubble {
+  max-width: 95%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.catalogPortalChatbotBubble--user {
+  border-bottom-right-radius: 0.35rem;
+  background: var(--primary-dark, #1a365d);
+  color: #fff;
+}
+
+.catalogPortalChatbotBubble--assistant {
+  border: 1px solid var(--border-light, rgba(0, 0, 0, 0.1));
+  border-bottom-left-radius: 0.35rem;
+  background: var(--card-bg, #f8fafc);
+  color: var(--text-primary, #1e293b);
+}
+
+.catalogPortalChatbotForm {
+  flex-shrink: 0;
+  border-top: 1px solid var(--border-light, rgba(0, 0, 0, 0.1));
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.catalogPortalChatbotFormHint {
+  margin: 0 0 0.35rem;
+  padding: 0 2px;
+  font-size: 10px;
+  color: var(--text-muted, #64748b);
+}
+
+.catalogPortalChatbotFormHintStrong {
+  font-weight: 600;
+  color: var(--text-primary, #334155);
+}
+
+.catalogPortalChatbotComposer {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-light, rgba(0, 0, 0, 0.12));
+  background: var(--bg-white, #fff);
+}
+
+.catalogPortalChatbotInput {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font-size: 0.875rem;
+  color: var(--text-primary, #0f172a);
+  outline: none;
+}
+
+.catalogPortalChatbotInput::placeholder {
+  color: var(--text-muted, #94a3b8);
+}
+
+.catalogPortalChatbotSend {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.5rem;
+  background: var(--primary-dark, #1a365d);
+  color: #fff;
+  cursor: pointer;
+}
+
+.catalogPortalChatbotSend:hover {
+  filter: brightness(1.08);
+}
+
+.catalogPortalChatbotFab {
+  pointer-events: auto;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: var(--primary-dark, #1a365d);
+  color: #fff;
+  cursor: pointer;
+  box-shadow:
+    0 12px 40px -8px rgba(0, 0, 0, 0.45),
+    0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+}
+
+.catalogPortalChatbotFab:hover {
+  transform: scale(1.03);
+  filter: brightness(1.05);
+}
+
+/* Dark theme */
+html[data-catalog-theme='dark'] .catalogPortalChatbotPanel {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(24, 24, 27, 0.97);
+  box-shadow:
+    0 24px 80px -12px rgba(0, 0, 0, 0.55),
+    0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+html[data-catalog-theme='dark'] .catalogPortalChatbotMessages {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+html[data-catalog-theme='dark'] .catalogPortalChatbotBubble--assistant {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(39, 39, 42, 0.95);
+  color: #f4f4f5;
+}
+
+html[data-catalog-theme='dark'] .catalogPortalChatbotForm {
+  border-top-color: rgba(255, 255, 255, 0.1);
+  background: rgba(24, 24, 27, 0.5);
+}
+
+html[data-catalog-theme='dark'] .catalogPortalChatbotFormHint {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+html[data-catalog-theme='dark'] .catalogPortalChatbotFormHintStrong {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+html[data-catalog-theme='dark'] .catalogPortalChatbotComposer {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(24, 24, 27, 0.9);
+}
+
+html[data-catalog-theme='dark'] .catalogPortalChatbotInput {
+  color: #fafafa;
+}
+
+html[data-catalog-theme='dark'] .catalogPortalChatbotInput::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+html[data-catalog-theme='dark'] .catalogPortalChatbotSend {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+html[data-catalog-theme='dark'] .catalogPortalChatbotSend:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+html[data-catalog-theme='dark'] .catalogPortalChatbotFab {
+  border-color: rgba(255, 255, 255, 0.2);
+}
