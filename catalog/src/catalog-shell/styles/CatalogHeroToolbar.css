@@ -154,13 +154,6 @@
   }
 }
 
-.catalogHeroIconBtn .gridViewIcon {
-  width: 1.35rem;
-  height: 1.35rem;
-  display: block;
-}
-
-/* Outer width + centering — same in catalog_ds + DH (see CatalogHeroSearchRegion). */
 .catalogHeroSearchRegion {
   width: min(560px, calc(100vw - 48px));
   max-width: 100%;

@@ -72,30 +72,115 @@ const SCHEMA_LINEAGE_BY_ASSET = {
     ],
   },
   'adp-2024-001': {
-    sourceLabel: 'Curated · pds-2024-001 / enterprise_customer_events',
-    sourceColumns: ['customer_id', 'event_type', 'event_ts', 'amount', 'sku', 'channel'],
-    transforms: [
+    tables: [
       {
-        id: 'month_bucket',
-        sources: ['event_ts'],
-        target: 'report_month',
-        expression: "date_trunc('month', event_ts)::date",
+        id: 'enterprise-customer-events',
+        sourceLabel: 'Curated · pds-2024-001 / enterprise_customer_events',
+        sourceColumns: ['customer_id', 'event_type', 'event_ts', 'amount', 'sku', 'channel'],
+        transforms: [
+          {
+            id: 'month_bucket',
+            sources: ['event_ts'],
+            target: 'report_month',
+            expression: "date_trunc('month', event_ts)::date",
+          },
+          {
+            id: 'rev',
+            sources: ['amount', 'channel'],
+            target: 'net_revenue',
+            expression: 'amount * channel_adjustment(channel)',
+          },
+        ],
+        addedColumns: [
+          { name: 'rolling_3m_spend', note: 'Window over customer_id' },
+          { name: 'data_quality_flag', note: 'Completeness vs contract' },
+        ],
       },
       {
-        id: 'rev',
-        sources: ['amount', 'channel'],
-        target: 'net_revenue',
-        expression: 'amount * channel_adjustment(channel)',
+        id: 'dim-product-catalog',
+        sourceLabel: 'Silver · pds-2024-002 / dim_product_catalog',
+        sourceColumns: ['sku', 'product_family', 'list_price', 'cost_to_serve', 'active_from', 'seasonality_tag'],
+        transforms: [
+          {
+            id: 'sku-norm',
+            sources: ['sku'],
+            target: 'sku_norm',
+            expression: "upper(trim(regexp_replace(sku, '\\\\s+', '')))",
+          },
+          {
+            id: 'margin',
+            sources: ['list_price', 'cost_to_serve'],
+            target: 'implied_margin_pct',
+            expression: '(list_price - coalesce(cost_to_serve, 0)) / nullif(list_price, 0)',
+          },
+          {
+            id: 'season',
+            sources: ['seasonality_tag'],
+            target: 'seasonality_bucket',
+            expression: "coalesce(nullif(trim(seasonality_tag), ''), 'CORE')",
+          },
+        ],
+        addedColumns: [
+          { name: 'product_tier', note: 'Ladder from product_family' },
+          { name: 'assortment_wave_id', note: 'Planning snapshot FK' },
+        ],
       },
-    ],
-    addedColumns: [
-      { name: 'rolling_3m_spend', note: 'Window over customer_id' },
-      { name: 'data_quality_flag', note: 'Completeness vs contract' },
+      {
+        id: 'dim-reporting-calendar',
+        sourceLabel: 'Reference · shared / dim_reporting_calendar',
+        sourceColumns: ['calendar_month', 'month_start_date', 'month_end_date', 'iso_week_year', 'fiscal_qtr'],
+        transforms: [
+          {
+            id: 'align-month',
+            sources: ['month_start_date'],
+            target: 'calendar_month_key',
+            expression: "to_char(month_start_date, 'YYYY-MM')",
+          },
+          {
+            id: 'bounds',
+            sources: ['month_start_date', 'month_end_date'],
+            target: 'month_bounds_valid',
+            expression: 'month_end_date >= month_start_date',
+          },
+        ],
+        addedColumns: [
+          { name: 'fiscal_period_id', note: 'Corp calendar surrogate key' },
+          { name: 'reporting_timezone', note: 'Anchor for month close' },
+        ],
+      },
+      {
+        id: 'bronze-regional-returns',
+        sourceLabel: 'Bronze · pds-2024-003 / regional_returns_feed',
+        sourceColumns: ['return_id', 'original_order_id', 'return_amount', 'reason_code', 'processed_at'],
+        transforms: [
+          {
+            id: 'returns-net',
+            sources: ['return_amount'],
+            target: 'return_amount_abs',
+            expression: 'abs(coalesce(return_amount, 0))',
+          },
+          {
+            id: 'reason',
+            sources: ['reason_code'],
+            target: 'return_reason_family',
+            expression: "case when reason_code like 'DEF%' then 'DEFECT' when reason_code like 'CX%' then 'CX' else 'OTHER' end",
+          },
+        ],
+        addedColumns: [
+          { name: 'matched_summary_order', note: 'Join to Monthly Sales grain' },
+          { name: 'return_aging_days', note: 'processed_at minus original ship date' },
+        ],
+      },
     ],
   },
 };
 
 export function getSchemaLineageForAsset(assetId) {
   if (!assetId) return null;
-  return SCHEMA_LINEAGE_BY_ASSET[assetId.toLowerCase()] ?? null;
+  const raw = SCHEMA_LINEAGE_BY_ASSET[assetId.toLowerCase()] ?? null;
+  if (!raw) return null;
+  if (Array.isArray(raw.tables)) {
+    return { tables: raw.tables };
+  }
+  return { tables: [raw] };
 }

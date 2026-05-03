@@ -755,17 +755,18 @@
 }
 
 .dataTrackerFilesPanel .lineageFileTableProgressPanel {
-  padding: 12px 14px 14px;
+  padding: 10px 12px 12px;
   border-top: 1px solid var(--border-light, #ebebea);
-  background: #fafaf9;
+  background: linear-gradient(180deg, rgba(0, 130, 150, 0.04) 0%, transparent 64%);
 }
 
 .dataTrackerFilesPanel .lineageFileTableProgressLabel {
-  font-size: 0.75rem;
-  font-weight: 500;
-  text-transform: none;
-  letter-spacing: normal;
-  margin-bottom: 10px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  color: var(--text-muted, #687078);
 }
 
 .dataTrackerFilesPanel .lineageFileTableExpandBtn {
@@ -789,34 +790,95 @@
   padding-bottom: 9px;
 }
 
-/* Compact read-only pizza tracker inside file rows (reuses AssetPage pizzaTracker tokens) */
-.pizzaTracker--lineageFile {
-  margin-top: 0;
-  padding: 0;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  row-gap: 8px;
+/* Compact lineage rail: smaller hexes, same geometry as main tracker */
+.pizzaTracker.pizzaTracker--lineageFile {
+  /* Room above the rail for .lineageFileTrackerTip (absolute, bottom: 100%). With
+     overflow-x: auto, overflow-y becomes auto (per spec), which clips overflow on both
+     axes unless the tooltip stays inside this box — padding expands the paint box upward
+     while negative margin keeps the visible rail aligned. */
+  --lineage-file-tip-gutter: 260px;
+  --pizza-hex-w: 23px;
+  --pizza-hex-h: 27px;
+  --pizza-line-y: calc(var(--pizza-hex-h) / 2 - 1px);
+
+  margin-top: calc(-1 * var(--lineage-file-tip-gutter));
+  padding: calc(8px + var(--lineage-file-tip-gutter)) 4px 4px;
+  justify-content: center;
+  justify-content: safe center;
+  flex-wrap: nowrap;
+  row-gap: 0;
+  column-gap: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
 }
 
 .pizzaTracker--lineageFile .pizzaTrackerConnector {
-  min-width: 12px;
-  max-width: 48px;
-  height: 28px;
+  min-width: 6px;
+  max-width: 40px;
+  flex: 1 1 20px;
+  height: 2px;
+  margin-top: var(--pizza-line-y);
 }
 
-.pizzaTracker--lineageFile .pizzaTrackerDot {
-  width: 26px;
-  height: 26px;
-  border-width: 2px;
+.pizzaTracker--lineageFile .pizzaTrackerConnector::before {
+  height: 2px;
+  opacity: 1;
+}
+
+.pizzaTracker--lineageFile .pizzaTrackerStep {
+  padding: 2px;
+  margin: -2px;
+  border-radius: 4px;
+}
+
+.pizzaTracker--lineageFile .pizzaTrackerStep--current .pizzaTrackerDot {
+  filter: drop-shadow(0 0 0 1px var(--pizza-current-ring))
+    drop-shadow(0 2px 5px rgba(13, 92, 179, 0.22));
+}
+
+.pizzaTracker--lineageFile .pizzaTrackerCheck {
+  font-size: 0.6rem;
+  line-height: 1;
+}
+
+.pizzaTracker--lineageFile .pizzaTrackerGlyph {
+  width: 10px;
+  height: 10px;
 }
 
 .pizzaTracker--lineageFile .pizzaTrackerLabel {
   margin-top: 6px;
-  font-size: 0.6875rem;
-  max-width: 76px;
-  white-space: normal;
-  line-height: 1.25;
-  hyphens: auto;
+  font-size: 0.625rem;
+  max-width: 4.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.pizzaTracker--lineageFile .pizzaTrackerStep--current .pizzaTrackerLabel {
+  color: #374151;
+  font-weight: 700;
+}
+
+.pizzaTracker--lineageFile .pizzaTrackerStep--done .pizzaTrackerLabel {
+  color: #374151;
+  font-weight: 700;
+}
+
+.pizzaTracker--lineageFile .pizzaTrackerStep--pending .pizzaTrackerLabel {
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+html[data-catalog-theme='dark'] .pizzaTracker--lineageFile .pizzaTrackerStep--done .pizzaTrackerLabel,
+html[data-catalog-theme='dark'] .pizzaTracker--lineageFile .pizzaTrackerStep--current .pizzaTrackerLabel {
+  color: #e5e7eb;
+}
+
+html[data-catalog-theme='dark'] .pizzaTracker--lineageFile .pizzaTrackerStep--pending .pizzaTrackerLabel {
+  color: #9ca3af;
 }
 
 .lineageFileTrackerStepWrap {
@@ -825,8 +887,8 @@
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
-  padding: 6px;
-  margin: -6px;
+  padding: 2px;
+  margin: -2px;
   z-index: 1;
 }
 
@@ -1117,7 +1179,7 @@ html[data-catalog-theme='dark'] .dataTrackerFilesPanel .lineageFileTableDetailCe
 }
 
 html[data-catalog-theme='dark'] .dataTrackerFilesPanel .lineageFileTableProgressPanel {
-  background: var(--card-bg);
+  background: linear-gradient(180deg, rgba(46, 154, 208, 0.1) 0%, var(--card-bg) 58%);
   border-top-color: var(--border-light);
 }
 
@@ -1164,4 +1226,423 @@ html[data-catalog-theme='dark'] .lineageFileTrackerTipCheck--fail {
 
 html[data-catalog-theme='dark'] .lineageFileTrackerTipCheck--pending {
   background: rgba(148, 163, 184, 0.1);
+}
+
+/* ----- Data tracker: Amplify Storage Browser–style chrome ----- */
+.storageBrowser {
+  --storage-teal: #008296;
+  --storage-teal-hover: #006577;
+}
+
+.dataTrackerFilesPanel.storageBrowser .storageBrowserBreadcrumbs {
+  margin: 0 0 12px;
+}
+
+.storageBrowserBreadcrumbs {
+  font-size: 0.8125rem;
+  color: var(--text-muted, #5c5c5c);
+  line-height: 1.4;
+  margin: 0 0 0.35rem;
+}
+
+.storageBrowserBreadcrumbSep {
+  margin: 0 0.35rem;
+  color: var(--text-muted, #8a8a8a);
+}
+
+.storageBrowserBreadcrumbCurrent {
+  color: var(--text-primary, #161616);
+  font-weight: 500;
+}
+
+.storageBrowserControlRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.storageBrowserSearchWrap {
+  display: flex;
+  flex: 1 1 220px;
+  min-width: 12rem;
+  max-width: 36rem;
+  align-items: stretch;
+  border: 1px solid var(--border-light, #d5d5d5);
+  border-radius: 6px;
+  background: var(--bg-white, #fff);
+  overflow: hidden;
+}
+
+.storageBrowserSearchInput {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  padding: 0.5rem 0.65rem;
+  font: inherit;
+  font-size: 0.875rem;
+  background: transparent;
+  color: var(--text-primary);
+  outline: none;
+}
+
+.storageBrowserSearchInput::placeholder {
+  color: var(--text-muted, #8c8c8c);
+}
+
+.storageBrowserSearchBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  border: none;
+  border-left: 1px solid var(--border-light, #e8e8e8);
+  background: var(--bg-white, #fff);
+  color: var(--storage-teal);
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.storageBrowserSearchBtn:hover {
+  background: #f7f9f9;
+}
+
+.storageBrowserSearchBtn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.storageBrowserToolbarEnd {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  position: relative;
+}
+
+.storageBrowserPagination {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin-right: 0.25rem;
+}
+
+.storageBrowserPaginationPage {
+  min-width: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.storageBrowserIconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--storage-teal);
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.storageBrowserIconBtn:hover:not(:disabled) {
+  background: rgba(0, 130, 150, 0.08);
+}
+
+.storageBrowserIconBtn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.storageBrowserIconBtn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.storageBrowserMenuWrap {
+  position: relative;
+}
+
+.storageBrowserActionsMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 11rem;
+  padding: 0.35rem 0;
+  background: var(--bg-white, #fff);
+  border: 1px solid var(--border-light, #d8d8d8);
+  border-radius: 8px;
+  box-shadow: 0 10px 28px rgba(15, 35, 52, 0.12);
+  z-index: 20;
+}
+
+.storageBrowserActionsMenuItem {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.9rem;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: 0.875rem;
+  color: var(--storage-teal);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s ease;
+}
+
+.storageBrowserActionsMenuItem:hover {
+  background: rgba(0, 130, 150, 0.06);
+}
+
+.storageBrowserActionsMenuItem svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.storageBrowserTableShell {
+  border: 1px solid var(--border-light, #e0e0e0);
+  border-radius: 4px;
+  background: var(--bg-white, #fff);
+  overflow: hidden;
+}
+
+.storageBrowserTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.storageBrowserTh {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--text-muted, #545b64);
+  background: #fafafa;
+  border-bottom: 1px solid var(--border-light, #e8e8e8);
+  padding: 0.65rem 0.75rem;
+  white-space: nowrap;
+}
+
+.storageBrowserTh--check {
+  width: 40px;
+  text-align: center;
+}
+
+.storageBrowserTh--expand {
+  width: 40px;
+}
+
+.storageBrowserTh--name {
+  width: 40%;
+}
+
+.storageBrowserTh--actions {
+  width: 52px;
+  text-align: center;
+}
+
+.storageBrowserSortBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  color: inherit;
+  cursor: pointer;
+}
+
+.storageBrowserSortBtn:hover {
+  color: var(--text-primary);
+}
+
+.storageBrowserSortIcon {
+  font-size: 0.7rem;
+  opacity: 0.75;
+}
+
+.storageBrowserRow {
+  border-bottom: 1px solid var(--border-light, #ececec);
+  background: var(--bg-white, #fff);
+  transition: background 0.1s ease;
+}
+
+.storageBrowserRow:hover {
+  background: #f8fafb;
+}
+
+.storageBrowserRow--open {
+  background: #f3f6f6;
+}
+
+.storageBrowserTd {
+  padding: 0.55rem 0.75rem;
+  vertical-align: middle;
+  color: var(--text-primary);
+}
+
+.storageBrowserTd--check {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.storageBrowserTd--expand {
+  vertical-align: middle;
+}
+
+.storageBrowserTd--name {
+  min-width: 12rem;
+}
+
+.storageBrowserTd--muted {
+  color: var(--text-muted, #687078);
+  font-size: 0.8125rem;
+}
+
+.storageBrowserTd--actions {
+  text-align: center;
+}
+
+.storageBrowserRowCheck {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--storage-teal);
+  cursor: pointer;
+}
+
+.storageBrowserNameLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: inherit;
+  color: var(--storage-teal);
+  cursor: pointer;
+  text-align: left;
+  max-width: 100%;
+}
+
+.storageBrowserNameLink:hover {
+  color: var(--storage-teal-hover);
+  text-decoration: underline;
+}
+
+.storageBrowserNameIcon {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.storageBrowserNameIcon svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.storageBrowserExpandBtn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.storageBrowserDownloadBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--storage-teal);
+  cursor: pointer;
+}
+
+.storageBrowserDownloadBtn:hover {
+  background: rgba(0, 130, 150, 0.08);
+}
+
+.storageBrowserDownloadBtn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.storageBrowserTdPad {
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+}
+
+.storageBrowserDetailRow {
+  border-bottom: 1px solid var(--border-light, #e8e8e8);
+}
+
+.storageBrowserDetailCell {
+  padding: 0;
+  background: #fafbfc;
+  border-top: 1px solid var(--border-light, #ececec);
+}
+
+.dataTrackerFilesPanel .storageBrowserDetailCell .lineageFileTableProgressPanel {
+  border-top: none;
+  background: transparent;
+}
+
+html[data-catalog-theme='dark'] .storageBrowserBreadcrumbs {
+  color: var(--text-muted);
+}
+
+html[data-catalog-theme='dark'] .storageBrowserSearchWrap {
+  background: var(--card-bg, #1e222a);
+  border-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .storageBrowserSearchInput {
+  color: var(--text-primary);
+}
+
+html[data-catalog-theme='dark'] .storageBrowserSearchBtn {
+  background: var(--card-bg, #1e222a);
+  border-left-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .storageBrowserActionsMenu {
+  background: var(--bg-white, #252a33);
+  border-color: var(--border-light);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+}
+
+html[data-catalog-theme='dark'] .storageBrowserTableShell {
+  border-color: var(--border-light);
+  background: var(--card-bg, #22262e);
+}
+
+html[data-catalog-theme='dark'] .storageBrowserTh {
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text-muted);
+  border-bottom-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .storageBrowserRow {
+  background: var(--card-bg, #22262e);
+  border-bottom-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .storageBrowserRow:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+html[data-catalog-theme='dark'] .storageBrowserDetailCell {
+  background: rgba(0, 0, 0, 0.2);
 }

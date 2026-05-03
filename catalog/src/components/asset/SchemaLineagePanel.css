@@ -19,6 +19,12 @@
   max-width: 52rem;
 }
 
+.schemaLineageTableStack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .schemaLineageTableCard {
   border: 1px solid var(--border-light, #e2e2e2);
   border-radius: 12px;
@@ -28,7 +34,7 @@
 
 .schemaLineageCardHeader {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
   width: 100%;
@@ -46,8 +52,22 @@
   background: color-mix(in srgb, var(--accent-blue, #3277d3) 6%, var(--bg-white));
 }
 
+.schemaLineageCardHeaderIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-blue, #3277d3);
+}
+
+.schemaLineageCardHeaderIcon svg {
+  width: 22px;
+  height: 22px;
+}
+
 .schemaLineageCardHeaderText {
   min-width: 0;
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 4px;

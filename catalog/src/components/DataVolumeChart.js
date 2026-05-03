@@ -7,10 +7,12 @@ const DEFAULT_DATA_VOLUME_30D = getDataVolumeLast30Days();
 function DataVolumeChart({ className = '', compact = false, data: dataProp }) {
   const chartData = dataProp != null && Array.isArray(dataProp) ? dataProp : DEFAULT_DATA_VOLUME_30D;
   return (
-    <div className={`dataVolumeChartWrap ${className}`}>
+    <div className={`dataVolumeChartWrap ${className}`.trim()}>
       <div className="dataVolumeChartHeader">
         <h4 className="dataVolumeChartTitle">Data Volume (Last 30 Days)</h4>
-        <button type="button" className="dataVolumeChartRealtimeBtn">Real-time</button>
+        <button type="button" className="dataVolumeChartRealtimeBtn">
+          Real-time
+        </button>
       </div>
       <div className="dataVolumeChartInner">
         <ResponsiveContainer width="100%" height={compact ? 200 : 260}>

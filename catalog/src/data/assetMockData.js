@@ -101,18 +101,32 @@ export function getBucketEntriesAtPath(assetId, pathSegments, lakeName = 'data-l
   return { ...entry, base };
 }
 
-/** Root folders of the bucket with recursive file count for data distribution. */
+/** Root folders of the bucket with recursive file count; each row may include one level of sub-prefix breakdown. */
 export function getBucketRootDistribution(assetId, lakeName = 'data-lake-prod') {
   const root = getBucketEntriesAtPath(assetId, [], lakeName);
-  return root.folders.map((folder) => {
+
+  const countUnderPath = (pathSegments) => {
     let fileCount = 0;
-    const countAt = (pathSegments) => {
-      const e = getBucketEntriesAtPath(assetId, pathSegments, lakeName);
+    const walk = (segs) => {
+      const e = getBucketEntriesAtPath(assetId, segs, lakeName);
       fileCount += e.files.length;
-      e.folders.forEach((f) => countAt([...pathSegments, f]));
+      e.folders.forEach((f) => walk([...segs, f]));
     };
-    countAt([folder]);
-    return { name: folder, fileCount };
+    walk(pathSegments);
+    return fileCount;
+  };
+
+  return root.folders.map((folder) => {
+    const entry = getBucketEntriesAtPath(assetId, [folder], lakeName);
+    const children = entry.folders.map((sub) => ({
+      name: sub,
+      fileCount: countUnderPath([folder, sub]),
+    }));
+    return {
+      name: folder,
+      fileCount: countUnderPath([folder]),
+      children,
+    };
   });
 }
 

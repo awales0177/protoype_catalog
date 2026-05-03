@@ -1,18 +1,31 @@
-/* Data Tracker (pizza tracker) */
+/* Data Tracker (pizza tracker) — hex stepper + blue progress rail */
 .pizzaTracker {
+  --pizza-hex-w: 30px;
+  --pizza-hex-h: 34px;
+  --pizza-line-y: calc(var(--pizza-hex-h) / 2 - 1px);
+  --pizza-line-pending: #d8dce3;
+  --pizza-line-done: #1b6cff;
+  --pizza-done-fill: #1b6cff;
+  --pizza-current-fill: #e8f4fc;
+  --pizza-current-ring: #0d5cb3;
+  --pizza-pending-fill: #f3f5f7;
+  --pizza-pending-ink: #6b7280;
+
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  margin-top: 24px;
-  padding: 0 16px;
+  margin-top: 18px;
+  padding: 0 12px;
   gap: 0;
 }
 
 .pizzaTrackerConnector {
   flex: 1;
-  min-width: 24px;
+  min-width: 20px;
   max-width: 80px;
-  height: 32px;
+  height: 2px;
+  margin-top: var(--pizza-line-y);
+  align-self: flex-start;
   display: flex;
   align-items: center;
   flex-shrink: 1;
@@ -21,13 +34,13 @@
 .pizzaTrackerConnector::before {
   content: '';
   width: 100%;
-  height: 3px;
-  background: var(--border-light);
-  border-radius: 2px;
+  height: 2px;
+  background: var(--pizza-line-pending);
+  border-radius: 0;
 }
 
 .pizzaTrackerConnector--done::before {
-  background: var(--success-green);
+  background: var(--pizza-line-done);
 }
 
 /* Feed: animated flow along connectors */
@@ -37,12 +50,12 @@
 }
 
 .pizzaTracker--feed .pizzaTrackerConnector::before {
-  background: var(--border-light);
+  background: var(--pizza-line-pending);
 }
 
 /* Flow only on done connectors so the line after a failed step does not flow */
 .pizzaTracker--feed .pizzaTrackerConnector--done::before {
-  background: var(--success-green);
+  background: var(--pizza-line-done);
 }
 
 .pizzaTracker--feed .pizzaTrackerConnector--done::after {
@@ -52,14 +65,14 @@
   top: 50%;
   transform: translateY(-50%);
   width: 100%;
-  height: 3px;
-  border-radius: 2px;
+  height: 2px;
+  border-radius: 0;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.4) 30%,
-    var(--success-green) 50%,
-    rgba(255, 255, 255, 0.4) 70%,
+    rgba(255, 255, 255, 0.55) 28%,
+    var(--pizza-line-done) 50%,
+    rgba(255, 255, 255, 0.55) 72%,
     transparent 100%
   );
   background-size: 200% 100%;
@@ -67,8 +80,12 @@
 }
 
 @keyframes pizzaTrackerFlow {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 .pizzaTrackerStep {
@@ -76,64 +93,75 @@
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
-  padding: 6px;
-  margin: -6px;
+  padding: 4px;
+  margin: -4px;
   background: none;
   border: none;
   cursor: pointer;
   font: inherit;
   color: inherit;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .pizzaTrackerStep:hover {
-  opacity: 0.9;
+  opacity: 0.92;
 }
 
 .pizzaTrackerStep--selected .pizzaTrackerDot {
-  box-shadow: 0 0 0 3px var(--bg-white), 0 0 0 6px var(--accent-blue);
+  filter: drop-shadow(0 0 0 2px var(--bg-white)) drop-shadow(0 0 0 4px var(--accent-blue));
 }
 
 .pizzaTrackerStep--selected .pizzaTrackerLabel {
   color: var(--accent-blue);
-  font-weight: 600;
+  font-weight: 700;
 }
 
+/* Flat-topped hexagon */
 .pizzaTrackerDot {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 3px solid var(--border-light);
-  background: var(--bg-white);
+  width: var(--pizza-hex-w);
+  height: var(--pizza-hex-h);
+  border-radius: 0;
+  border: none;
+  background: var(--pizza-pending-fill);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 0.7rem;
+  font-weight: 700;
   color: white;
   flex-shrink: 0;
   box-sizing: border-box;
+  position: relative;
+  z-index: 0;
 }
 
 .pizzaTrackerStep--done .pizzaTrackerDot {
-  background: var(--success-green);
-  border-color: var(--success-green);
+  background: var(--pizza-done-fill);
+  color: #fff;
+  filter: none;
 }
 
 .pizzaTrackerStep--current .pizzaTrackerDot {
-  background: var(--accent-blue);
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 2px var(--tab-active-bg);
+  background: var(--pizza-current-fill);
+  color: var(--pizza-current-ring);
+  transform: scale(1.14);
+  transform-origin: center 45%;
+  filter: drop-shadow(0 0 0 1.5px var(--pizza-current-ring))
+    drop-shadow(0 2px 6px rgba(13, 92, 179, 0.28));
 }
 
 .pizzaTrackerStep--pending .pizzaTrackerDot {
-  background: var(--bg-white);
-  border-color: var(--border-light);
+  background: var(--pizza-pending-fill);
+  color: var(--pizza-pending-ink);
+  filter: drop-shadow(0 0 0 0.5px rgba(0, 0, 0, 0.08));
 }
 
 .pizzaTrackerStep--failed .pizzaTrackerDot {
   background: var(--alert-red);
-  border-color: var(--alert-red);
+  color: #fff;
+  filter: none;
+  transform: none;
 }
 
 .pizzaTrackerFailed {
@@ -151,34 +179,68 @@
   line-height: 1;
 }
 
+.pizzaTrackerGlyph {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  display: block;
+}
+
 .pizzaTrackerSpinner {
-  width: 14px;
-  height: 14px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
   border-top-color: white;
   border-radius: 50%;
   animation: pizzaTrackerSpin 0.8s linear infinite;
 }
 
 @keyframes pizzaTrackerSpin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .pizzaTrackerLabel {
-  margin-top: 10px;
-  font-size: 0.8125rem;
+  margin-top: 8px;
+  font-size: 0.75rem;
   font-weight: 500;
-  color: var(--text-muted);
+  color: #9ca3af;
   text-align: center;
   white-space: nowrap;
+  line-height: 1.2;
 }
 
 .pizzaTrackerStep--current .pizzaTrackerLabel {
-  color: var(--accent-blue);
+  color: #374151;
+  font-weight: 700;
 }
 
 .pizzaTrackerStep--done .pizzaTrackerLabel {
-  color: var(--text-primary);
+  color: #374151;
+  font-weight: 700;
+}
+
+.pizzaTrackerStep--pending .pizzaTrackerLabel {
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+html[data-catalog-theme='dark'] .pizzaTracker {
+  --pizza-line-pending: #4b5563;
+  --pizza-pending-fill: #2a3038;
+  --pizza-pending-ink: #9ca3af;
+  --pizza-current-fill: rgba(59, 130, 246, 0.22);
+  --pizza-current-ring: #93c5fd;
+}
+
+html[data-catalog-theme='dark'] .pizzaTrackerStep--pending .pizzaTrackerLabel {
+  color: #9ca3af;
+}
+
+html[data-catalog-theme='dark'] .pizzaTrackerStep--done .pizzaTrackerLabel,
+html[data-catalog-theme='dark'] .pizzaTrackerStep--current .pizzaTrackerLabel {
+  color: #e5e7eb;
 }
 
 .pizzaTrackerEmpty {

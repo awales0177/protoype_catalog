@@ -1,4 +1,4 @@
-import { useLayoutEffect, useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useEffect, useRef, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 
 function clampPanelPosition(anchorEl, panelEl, margin = 8) {
@@ -21,24 +21,28 @@ function clampPanelPosition(anchorEl, panelEl, margin = 8) {
 
 /**
  * Fixed panel portaled to `document.body`, positioned under an anchor element.
+ *
+ * Note: do not depend on `children` for layout — its reference changes every render and
+ * would re-run positioning in a loop, causing flicker and stray compositor layers next to
+ * other fixed UI (e.g. chat / hero menus).
  */
 export function AnchoredPortalPanel({ open, onClose, anchorRef, children, className }) {
   const panelRef = useRef(null);
   const [pos, setPos] = useState({ top: 0, left: 0 });
 
-  const reposition = () => {
+  const reposition = useCallback(() => {
     const anchor = anchorRef?.current;
     const panel = panelRef.current;
     if (!anchor || !panel) return;
     setPos(clampPanelPosition(anchor, panel));
-  };
+  }, [anchorRef]);
 
   useLayoutEffect(() => {
     if (!open) return;
     reposition();
     const id = requestAnimationFrame(() => reposition());
     return () => cancelAnimationFrame(id);
-  }, [open, anchorRef, children]);
+  }, [open, anchorRef, reposition]);
 
   useEffect(() => {
     if (!open) return;
@@ -49,7 +53,16 @@ export function AnchoredPortalPanel({ open, onClose, anchorRef, children, classN
       window.removeEventListener('scroll', onWin, true);
       window.removeEventListener('resize', onWin);
     };
-  }, [open, anchorRef]);
+  }, [open, reposition]);
+
+  useEffect(() => {
+    if (!open || typeof ResizeObserver === 'undefined') return;
+    const panel = panelRef.current;
+    if (!panel) return;
+    const ro = new ResizeObserver(() => reposition());
+    ro.observe(panel);
+    return () => ro.disconnect();
+  }, [open, reposition]);
 
   useEffect(() => {
     if (!open) return;
@@ -69,7 +82,12 @@ export function AnchoredPortalPanel({ open, onClose, anchorRef, children, classN
     <div
       ref={panelRef}
       className={className}
-      style={{ position: 'fixed', top: pos.top, left: pos.left }}
+      style={{
+        position: 'fixed',
+        top: pos.top,
+        left: pos.left,
+        isolation: 'isolate',
+      }}
       role="presentation"
     >
       {children}

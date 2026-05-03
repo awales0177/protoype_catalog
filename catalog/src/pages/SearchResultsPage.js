@@ -400,7 +400,7 @@ function SearchResultsPage() {
                               )}
                               <div className="searchRefExpandedExtras">
                                 <div className="searchRefUSJA">
-                                  {['U', 'S', 'J', 'A'].map((letter) => (
+                                  {['U', 'S', 'J'].map((letter) => (
                                     <span key={letter} className="searchRefUSJABox">
                                       {letter}
                                     </span>

@@ -17,7 +17,6 @@ import ProductDataLineage from '../components/asset/ProductDataLineage';
 import LineageValidationPanel from '../components/asset/LineageValidationPanel';
 import ExploreBucket from '../components/asset/ExploreBucket';
 import DataProfilesTab from '../components/asset/DataProfilesTab';
-import DataVolumeChart from '../components/DataVolumeChart';
 import ReadmeTab from '../components/asset/ReadmeTab';
 import ProductToolingTab from '../components/asset/ProductToolingTab';
 import AssetPageTabStrip from '../components/asset/AssetPageTabStrip';
@@ -32,8 +31,8 @@ import './AssetPage.css';
 
 const WORLD_MAP_TOPOLOGY = publicAssetUrl('world-countries-110m.json');
 
-/** Maps title-card U/S/J/A chips to secondary pane tabs (Lineage → Metrics). */
-const USJA_SECONDARY_TABS = ['data-lineage', 'data-profiles', 'data-volume', 'metrics'];
+/** Maps title-card U/S/J chips to secondary pane tabs (Lineage → Data lake). */
+const USJA_SECONDARY_TABS = ['data-lineage', 'data-profiles', 'explore-bucket'];
 
 function LineageFullscreenIcon() {
   return (
@@ -81,6 +80,18 @@ function AssetPage() {
       setSecondaryTab('data-lineage');
     }
   }, [assetId, isDataProductType, secondaryTab]);
+
+  useEffect(() => {
+    if (secondaryTab === 'data-volume') {
+      setSecondaryTab('explore-bucket');
+    }
+    if (secondaryTab === 'metrics') {
+      setSecondaryTab('data-lineage');
+    }
+    if (secondaryTab === 'download') {
+      setSecondaryTab('data-lineage');
+    }
+  }, [secondaryTab]);
 
   const productToolingRows = useMemo(
     () => (isDataProductType ? getProductToolingForAsset(assetId) : []),
@@ -183,29 +194,11 @@ function AssetPage() {
         />
       )}
 
-      {secondaryTab === 'data-volume' && (
-        <div className="assetSection assetRecordDataVolumeTab">
-          <h3 className="assetSectionTitle">Data volume</h3>
-          <p className="assetSectionDesc">
-            Ingestion and processing volume over time for this record (illustrative series for the catalog prototype).
-          </p>
-          <div className="dataTrackerVolumeChart">
-            <DataVolumeChart />
-          </div>
-        </div>
-      )}
-
       {secondaryTab === 'readme' && isDataProductType && <ReadmeTab content={README_MARKDOWN} />}
 
-      {secondaryTab === 'metrics' && (
-        <p className="assetRecordPlaceholder">Usage, quality, and freshness metrics for this record will appear here.</p>
+      {secondaryTab === 'explore-bucket' && (isDataProductType || isDataset) && (
+        <ExploreBucket asset={asset} assetId={assetId} />
       )}
-
-      {secondaryTab === 'download' && (
-        <p className="assetRecordPlaceholder">Choose formats and partitions to download. Access rules apply per environment.</p>
-      )}
-
-      {secondaryTab === 'explore-bucket' && isDataset && <ExploreBucket asset={asset} assetId={assetId} />}
     </>
   );
 

@@ -74,7 +74,7 @@ function AssetAccessCard({ asset, isDataProductType, variant = 'default' }) {
                 </div>
                 <div className="assetAccessAppTrail">
                   <span className="assetAccessAppUSJA" aria-hidden>
-                    {['U', 'S', 'J', 'A'].map((letter, i) => (
+                    {['U', 'S', 'J'].map((letter, i) => (
                       <span key={letter} className={`assetAccessAppUSJADot assetAccessAppUSJADot--${i}`}>
                         {letter}
                       </span>

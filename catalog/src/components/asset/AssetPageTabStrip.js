@@ -40,22 +40,14 @@ function AssetPageTabStrip({ activeTab, setActiveTab, isDataProductType, isDatas
       >
         {isDataProductType ? 'Product Profiles' : 'Data Profiles'}
       </button>
-      <button
-        type="button"
-        className={`${recordLayout ? 'assetRecordTab' : 'assetTab'} ${activeTab === 'data-volume' ? 'active' : ''}`}
-        onClick={() => setActiveTab('data-volume')}
-      >
-        Data volume
-      </button>
-      {recordLayout && (
-        <>
-          <button type="button" className={`assetRecordTab ${activeTab === 'metrics' ? 'active' : ''}`} onClick={() => setActiveTab('metrics')}>
-            Metrics
-          </button>
-          <button type="button" className={`assetRecordTab ${activeTab === 'download' ? 'active' : ''}`} onClick={() => setActiveTab('download')}>
-            Download
-          </button>
-        </>
+      {(isDataProductType || isDataset) && (
+        <button
+          type="button"
+          className={`${recordLayout ? 'assetRecordTab' : 'assetTab'} ${activeTab === 'explore-bucket' ? 'active' : ''}`}
+          onClick={() => setActiveTab('explore-bucket')}
+        >
+          Data lake
+        </button>
       )}
       {isDataProductType && (
         <button
@@ -64,15 +56,6 @@ function AssetPageTabStrip({ activeTab, setActiveTab, isDataProductType, isDatas
           onClick={() => setActiveTab('readme')}
         >
           README
-        </button>
-      )}
-      {isDataset && (
-        <button
-          type="button"
-          className={`${recordLayout ? 'assetRecordTab' : 'assetTab'} ${activeTab === 'explore-bucket' ? 'active' : ''}`}
-          onClick={() => setActiveTab('explore-bucket')}
-        >
-          Explore Data
         </button>
       )}
     </div>

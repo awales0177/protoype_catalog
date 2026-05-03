@@ -10,7 +10,7 @@ function ProhibitedGlyph() {
   );
 }
 
-const USJA_LETTERS = ['U', 'S', 'J', 'A'];
+const USJA_LETTERS = ['U', 'S', 'J'];
 
 function AssetRecordTitleCard({ assetName, categoryLabel, assetId, onRequestAccess, usjaActiveIndices }) {
   const fmt = (s) => {

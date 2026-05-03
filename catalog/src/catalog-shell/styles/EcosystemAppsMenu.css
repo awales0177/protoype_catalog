@@ -128,6 +128,19 @@ html.dark-mode .ecosystemAppsMenu {
   background: var(--card-bg);
   border: 1px solid var(--border-light);
   color: var(--accent-blue);
+  overflow: hidden;
+}
+
+/* SVG + img imports must be capped: <img class="dataLakeIcon"> has no size outside data-lake.css context */
+.ecosystemAppsItemIcon svg,
+.ecosystemAppsItemIcon img {
+  width: 22px;
+  height: 22px;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
 }
 
 .ecosystemAppsItem--catalog .ecosystemAppsItemIcon {
@@ -173,8 +186,8 @@ html.dark-mode .ecosystemAppsMenu {
 }
 
 .ecosystemAppLogoImg {
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   object-fit: contain;
   display: block;
 }
@@ -263,12 +276,18 @@ html.dark-mode .ecosystemLogo7Img--dark {
   background: var(--bg-white, #fff);
   border: 1px solid var(--border-light);
   color: var(--accent-blue, #3277d3);
+  overflow: hidden;
 }
 
-.ecosystemAppsModalCardIcon .ecosystemAppLogoImg {
+.ecosystemAppsModalCardIcon svg,
+.ecosystemAppsModalCardIcon img {
   width: 56px;
   height: 56px;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
+  display: block;
+  flex-shrink: 0;
 }
 
 .ecosystemAppsModalCardIcon--catalog {

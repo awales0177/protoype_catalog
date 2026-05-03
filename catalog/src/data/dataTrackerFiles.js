@@ -11,6 +11,79 @@ function slugPrefix(name) {
   );
 }
 
+/** Breadcrumb + title chrome (Amplify Storage Browser–style). */
+export function getDataTrackerStorageContext(assetName) {
+  const p = slugPrefix(assetName);
+  const compact = (p + 'storagemedia').replace(/_/g, '');
+  const bucket = `amplify-${compact.slice(0, 10)}-${compact.slice(10, 18) || 'alstorage'}-testbucket-${compact.slice(0, 8)}`;
+  const folder = `${p}_media`;
+  return {
+    breadcrumbs: [
+      { id: 'home', label: 'Home' },
+      { id: 'bucket', label: bucket },
+      { id: 'cwd', label: `${folder}/` },
+    ],
+  };
+}
+
+function enrichDataTrackerRow(row, index) {
+  const label = row.label;
+  const displayName = label.replace(/\/$/, '').split('/').filter(Boolean).pop() || label;
+  let kind = row.kind;
+  let typeLabel = row.typeLabel;
+  let lastModifiedLabel = row.lastModifiedLabel;
+  let sizeLabel = row.sizeLabel;
+
+  if (kind == null) {
+    if (label.endsWith('/') && displayName.startsWith('_')) {
+      kind = 'hidden';
+      typeLabel = 'hidden';
+    } else if (label.endsWith('/')) {
+      kind = 'folder';
+      typeLabel = 'Folder';
+    } else if (displayName.startsWith('.')) {
+      kind = 'hidden';
+      typeLabel = 'hidden';
+    } else {
+      kind = 'file';
+      const m = displayName.match(/\.([a-z0-9]+)(?:\.([a-z0-9]+))?$/i);
+      if (m) {
+        typeLabel = m[2] ? `${m[1]}.${m[2]}`.toLowerCase() : m[1].toLowerCase();
+      } else {
+        typeLabel = '-';
+      }
+    }
+  }
+
+  if (typeLabel == null) {
+    typeLabel = '-';
+  }
+
+  if (lastModifiedLabel == null) {
+    const hh = String(8 + (index % 14)).padStart(2, '0');
+    const dd = String(12 + (index % 16)).padStart(2, '0');
+    lastModifiedLabel = `${dd}/11/2024, ${hh}:55:42`;
+  }
+
+  if (sizeLabel == null) {
+    if (kind === 'folder' || kind === 'hidden') {
+      sizeLabel = '0 B';
+    } else {
+      const sizes = ['128 B', '2.4 KB', '152.9 KB', '1.1 MB', '4.2 MB', '890 KB', '56 KB'];
+      sizeLabel = sizes[index % sizes.length];
+    }
+  }
+
+  return {
+    ...row,
+    displayName,
+    kind,
+    typeLabel,
+    lastModifiedLabel,
+    sizeLabel,
+  };
+}
+
 /** Row count for lineage nodes / summaries (matches Data tracker tab list). */
 export function getDataTrackerFileRowCount(assetName) {
   return buildDataTrackerFileRows(assetName).length;
@@ -20,7 +93,7 @@ export function buildDataTrackerFileRows(assetName) {
   const p = slugPrefix(assetName);
   const lake = 's3://data-lake-prod';
 
-  return [
+  const coreRows = [
     {
       id: 'dt-bronze-part',
       label: `bronze/${p}_orders/dt=2024-03-18/part-00000.parquet`,
@@ -185,4 +258,32 @@ export function buildDataTrackerFileRows(assetName) {
       ],
     },
   ];
+
+  const prefixRows = [
+    { id: 'dt-folder-incoming', label: 'incoming/', system: 'S3', lineage: [] },
+    {
+      id: 'dt-hidden-sc',
+      label: '_sc_h/',
+      kind: 'hidden',
+      typeLabel: 'hidden',
+      system: 'S3',
+      lineage: [],
+    },
+    {
+      id: 'dt-jpg-thumb',
+      label: `previews/${p}_hero_banner.jpg`,
+      system: 'S3',
+      lineage: [
+        {
+          stage: 'Published',
+          detail: 'Derivative image for catalog previews',
+          uri: `${lake}/previews/${p}_hero_banner.jpg`,
+          isCurrent: true,
+          checks: [{ label: 'MIME check', outcome: 'pass' }],
+        },
+      ],
+    },
+  ];
+
+  return [...prefixRows, ...coreRows].map((r, i) => enrichDataTrackerRow(r, i));
 }

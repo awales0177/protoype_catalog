@@ -480,6 +480,66 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
+.bucketDataLakeVolumeShell {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bucketDataLakeVolumeToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.bucketQueryTablesBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.bucketQueryTablesBtn:hover {
+  background: var(--card-bg);
+  border-color: color-mix(in srgb, var(--accent-blue) 35%, var(--border-light));
+  color: var(--accent-blue);
+}
+
+.bucketDataLakeVolumeBlock {
+  flex: 0 0 auto;
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  background: var(--bg-white);
+  padding: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.bucketDataLakeVolumeBlock .dataVolumeChartWrap--dataLakeFlat {
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+}
+
+.bucketDataLakeVolumeBlock .dataTrackerVolumeChart,
+.bucketDataLakeVolumeChart.dataTrackerVolumeChart {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 .bucketAwsConsoleCard {
   padding: 20px 16px;
   flex: 0 0 auto;
@@ -571,55 +631,322 @@
   color: var(--text-muted);
 }
 
-.bucketDistribution {
+/* —— Storage distribution (explore bucket) —— Apple-adjacent flat chrome —— */
+.bucketDistributionHeader {
+  margin-bottom: 0;
+}
+
+.bucketDistributionTitle {
+  margin: 0 0 4px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.bucketDistributionSubtitle {
+  margin: 0 0 18px;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  max-width: 40rem;
+  letter-spacing: -0.011em;
+}
+
+.bucketDistributionSubtitleCode {
+  font-size: 0.75rem;
+}
+
+.bucketDistributionSummary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.bucketDistributionStat {
+  flex: 1 1 auto;
+  min-width: 7.5rem;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  box-shadow: none;
+}
+
+.bucketDistributionStatValue {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.bucketDistributionStatLabel {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--text-muted);
+}
+
+.bucketDistributionList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  background: var(--bg-white);
+  box-shadow: none;
 }
 
 .bucketDistributionRow {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  border-bottom: 1px solid var(--border-light);
+  transition: background-color 0.12s ease;
 }
 
-.bucketDistributionLabel {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 0.875rem;
+.bucketDistributionRow:last-child {
+  border-bottom: none;
 }
 
-.bucketDistributionFolder {
-  font-weight: 600;
+.bucketDistributionRow:hover {
+  background: color-mix(in srgb, var(--text-primary) 3.5%, transparent);
+}
+
+.bucketDistributionRow--open {
+  background: color-mix(in srgb, var(--text-primary) 2%, transparent);
+}
+
+.bucketDistributionRow--open:hover {
+  background: color-mix(in srgb, var(--text-primary) 4.5%, transparent);
+}
+
+.bucketDistributionExpandBtn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.bucketDistributionExpandBtn:hover {
+  background: color-mix(in srgb, var(--text-primary) 6%, transparent);
   color: var(--text-primary);
 }
 
-.bucketDistributionCount {
-  color: var(--text-muted);
+.bucketDistributionExpandBtn:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 1px;
+}
+
+.bucketDistributionExpandBtnIcon {
+  display: flex;
+  width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  transform: rotate(-90deg);
+}
+
+.bucketDistributionExpandBtnIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.bucketDistributionExpandBtn--open .bucketDistributionExpandBtnIcon {
+  transform: rotate(0deg);
+}
+
+.bucketDistributionExpandSpacer {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+}
+
+.bucketDistributionChildren {
+  list-style: none;
+  margin: 0;
+  padding: 0 12px 12px 14px;
+  background: color-mix(in srgb, var(--card-bg) 40%, transparent);
+  border-top: 1px solid var(--border-light);
+}
+
+.bucketDistributionChildRow {
+  margin: 0;
+}
+
+.bucketDistributionChildRow + .bucketDistributionChildRow {
+  margin-top: 10px;
+}
+
+.bucketDistributionChildRowMain {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0 4px;
+}
+
+.bucketDistributionChildIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--text-primary) 4.5%, transparent);
+  color: color-mix(in srgb, var(--text-muted) 80%, var(--text-primary));
+}
+
+.bucketDistributionChildIcon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.bucketDistributionTrack--nested {
+  margin: 0 0 0;
+}
+
+.bucketDistributionFill--nested {
+  background: color-mix(in srgb, var(--accent-blue) 72%, var(--text-primary));
+}
+
+.bucketDistributionRowMain {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px 6px;
+}
+
+.bucketDistributionRowIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--text-primary) 4.5%, transparent);
+  color: color-mix(in srgb, var(--text-muted) 75%, var(--text-primary));
+  border: none;
+  box-shadow: none;
+}
+
+.bucketDistributionRowIcon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.bucketDistributionRowText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bucketDistributionFolder {
+  font-weight: 500;
   font-size: 0.8125rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: var(--text-primary);
+  word-break: break-all;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
 }
 
-.bucketDistributionBarWrap {
-  height: 8px;
-  background: var(--card-bg);
-  border-radius: 4px;
+.bucketDistributionHint {
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--text-muted);
+}
+
+.bucketDistributionPill {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  border: none;
+  font-variant-numeric: tabular-nums;
+  box-shadow: none;
+}
+
+.bucketDistributionPillCount {
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.bucketDistributionPillSep {
+  color: var(--text-muted);
+  font-weight: 400;
+  opacity: 0.55;
+}
+
+.bucketDistributionPillPct {
+  font-weight: 500;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: -0.01em;
+}
+
+.bucketDistributionTrack {
+  height: 3px;
+  margin: 0 14px 12px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--border-light) 65%, var(--card-bg));
   overflow: hidden;
+  box-shadow: none;
 }
 
-.bucketDistributionBar {
+html[data-catalog-theme='dark'] .bucketDistributionTrack {
+  background: color-mix(in srgb, var(--border-light) 85%, transparent);
+  box-shadow: none;
+}
+
+.bucketDistributionFill {
   height: 100%;
-  background: var(--accent-blue, #2e9ad0);
-  border-radius: 4px;
-  min-width: 2px;
-  transition: width 0.2s ease;
+  border-radius: 2px;
+  min-width: 0;
+  transition: width 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  box-shadow: none;
+  background: color-mix(in srgb, var(--accent-blue) 88%, var(--text-primary));
+}
+
+.bucketMetricsCard.bucketMetricsCard--standalone {
+  border-radius: 10px;
+  box-shadow: none;
+  padding: 20px 18px;
 }
 
 .bucketMetricsEmpty {
-  margin: 0;
+  margin: 12px 0 0;
   font-size: 0.875rem;
   color: var(--text-muted);
+  padding: 16px;
+  text-align: center;
+  border-radius: 12px;
+  border: 1px dashed var(--border-light);
+  background: var(--card-bg);
 }
 
 .bucketInlineHeader {
@@ -721,7 +1048,76 @@ html[data-catalog-theme='dark'] .bucketExploreCard {
   box-shadow: var(--ui-shadow-card);
 }
 
+html[data-catalog-theme='dark'] .bucketDataLakeVolumeBlock {
+  background: var(--bg-white);
+  border-color: var(--border-light);
+  box-shadow: var(--ui-shadow-card);
+}
+
 html[data-catalog-theme='dark'] .bucketAwsConsoleBtn {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
 }
 
+html[data-catalog-theme='dark'] .bucketQueryTablesBtn {
+  background: var(--bg-white);
+  border-color: var(--border-light);
+  color: var(--text-primary);
+}
+
+html[data-catalog-theme='dark'] .bucketQueryTablesBtn:hover {
+  background: color-mix(in srgb, var(--card-bg) 88%, var(--text-primary));
+}
+
+html[data-catalog-theme='dark'] .bucketDistributionStat {
+  background: color-mix(in srgb, var(--card-bg) 92%, var(--text-primary));
+  border-color: var(--border-light);
+  box-shadow: none;
+}
+
+html[data-catalog-theme='dark'] .bucketDistributionList {
+  background: var(--bg-white);
+  border-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .bucketDistributionRow:hover {
+  background: color-mix(in srgb, var(--text-primary) 6%, transparent);
+}
+
+html[data-catalog-theme='dark'] .bucketDistributionRow--open {
+  background: color-mix(in srgb, var(--text-primary) 4%, transparent);
+}
+
+html[data-catalog-theme='dark'] .bucketDistributionRow--open:hover {
+  background: color-mix(in srgb, var(--text-primary) 7%, transparent);
+}
+
+html[data-catalog-theme='dark'] .bucketDistributionChildren {
+  background: color-mix(in srgb, var(--text-primary) 5%, transparent);
+  border-top-color: var(--border-light);
+}
+
+html[data-catalog-theme='dark'] .bucketDistributionFill--nested {
+  background: color-mix(in srgb, var(--accent-blue) 68%, #fff);
+}
+
+html[data-catalog-theme='dark'] .bucketDistributionRowIcon {
+  background: color-mix(in srgb, var(--text-primary) 8%, transparent);
+  color: color-mix(in srgb, var(--text-muted) 70%, var(--text-primary));
+  border: none;
+  box-shadow: none;
+}
+
+html[data-catalog-theme='dark'] .bucketDistributionPill {
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+html[data-catalog-theme='dark'] .bucketMetricsCard.bucketMetricsCard--standalone {
+  box-shadow: none;
+}
+
+html[data-catalog-theme='dark'] .bucketDistributionFill {
+  background: color-mix(in srgb, var(--accent-blue) 82%, #fff);
+  box-shadow: none;
+}
