@@ -33,6 +33,60 @@
   pointer-events: none;
 }
 
+/* Home hero stack: global bar shares one row with banner (see HomeHeroChrome) */
+.homeHeroStack {
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  /* Safe area once at top; banner sits flush under it */
+  padding-top: max(16px, env(safe-area-inset-top, 0px));
+  /* Home page paints the band via ::before — avoid stacking a second opaque gradient here */
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.homeHeroStack .homeHeroBannerInBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+/* Banner centered in grid column, same vertical row as ecosystems + tray */
+.homeHeroBannerInBar .catalogHeroBanner.catalogHeroBanner--homeGlobalBar {
+  margin: 0;
+  padding: 0 10px;
+  width: auto;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  transform: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 600px) {
+  .homeHeroBannerInBar .catalogHeroBanner.catalogHeroBanner--homeGlobalBar {
+    padding: 0 16px;
+    max-width: min(420px, calc(100vw - 14rem));
+  }
+}
+
+/* Continuous band; icon row vertically balanced with centered banner copy */
+.homeHeroStack .searchResultsGlobalBar.homeHeroGlobalBar {
+  border-bottom: none;
+  align-items: center;
+  padding: 10px 24px;
+}
+
+.homeHeroStack .catalogHeroToolbar.catalogHeroToolbar--homeBelowIconRow {
+  /* Safe area already applied on .homeHeroStack */
+  padding-top: 14px;
+}
+
+
 /* Centered logo slot passed into CatalogHeroToolbar */
 .homeHeroBrandMark {
   align-self: center;

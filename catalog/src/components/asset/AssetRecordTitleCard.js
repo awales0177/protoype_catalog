@@ -12,7 +12,7 @@ function ProhibitedGlyph() {
 
 const USJA_LETTERS = ['U', 'S', 'J'];
 
-function AssetRecordTitleCard({ assetName, categoryLabel, assetId, onRequestAccess, usjaActiveIndices }) {
+function AssetRecordTitleCard({ assetName, categoryLabel, assetId, onRequestAccess, onDatasetActions, usjaActiveIndices }) {
   const fmt = (s) => {
     if (!s) return '—';
     const t = String(s).trim();
@@ -31,7 +31,7 @@ function AssetRecordTitleCard({ assetName, categoryLabel, assetId, onRequestAcce
 
   return (
     <div className="assetRecordTitleCard">
-           <div className="assetRecordTitleCardMain">
+      <div className="assetRecordTitleCardMain">
         <h1 className="assetRecordTitle">{assetName}</h1>
         <p className="assetRecordCategoryBlurb">
           <span className="assetRecordCategoryBlurbLabel">Category</span>{' '}
@@ -63,6 +63,21 @@ function AssetRecordTitleCard({ assetName, categoryLabel, assetId, onRequestAcce
         </div>
       </div>
       <div className="assetRecordTitleCardActions">
+        <div className="assetRecordTitleCardActionStack">
+          <button type="button" className="assetRecordRequestAccess" onClick={onRequestAccess}>
+            <ProhibitedGlyph />
+            Request Access
+          </button>
+          <button
+            type="button"
+            className="assetRecordDatasetActionsBtn"
+            onClick={() => {
+              onDatasetActions?.();
+            }}
+          >
+            Dataset actions
+          </button>
+        </div>
         <div className="assetRecordUSJA" aria-hidden="true">
           {USJA_LETTERS.map((letter, idx) => (
             <span
@@ -73,10 +88,6 @@ function AssetRecordTitleCard({ assetName, categoryLabel, assetId, onRequestAcce
             </span>
           ))}
         </div>
-        <button type="button" className="assetRecordRequestAccess" onClick={onRequestAccess}>
-          <ProhibitedGlyph />
-          Request Access
-        </button>
       </div>
     </div>
   );
@@ -87,11 +98,13 @@ AssetRecordTitleCard.propTypes = {
   categoryLabel: PropTypes.string.isRequired,
   assetId: PropTypes.string.isRequired,
   onRequestAccess: PropTypes.func,
+  onDatasetActions: PropTypes.func,
   usjaActiveIndices: PropTypes.arrayOf(PropTypes.number),
 };
 
 AssetRecordTitleCard.defaultProps = {
   onRequestAccess: undefined,
+  onDatasetActions: undefined,
   usjaActiveIndices: [],
 };
 

@@ -1,6 +1,7 @@
 /** Relationship helpers for asset detail: parent/children and Mermaid diagram code. */
 
 import type { CatalogAssetDetail } from '../types/catalog';
+import { DATA_ASSETS, DATA_PRODUCT_TYPES } from '../data/assets';
 
 const MAX_NODES_FOR_DIAGRAM = 12;
 
@@ -47,27 +48,51 @@ export interface RelationshipData {
   parent: CatalogAssetDetail | null;
   parents: RelationshipRef[];
   children: RelationshipRef[];
+  /** Catalog data products whose `sourceDatasetIds` include this asset. */
+  dataProducts: RelationshipRef[];
+  /** Count for lineage diagram cap (parents + children + center only — excludes linked products). */
   totalNodes: number;
+}
+
+function listDirectDataProducts(sourceAssetId: string, assetsById: AssetsById): RelationshipRef[] {
+  const key = sourceAssetId.trim().toLowerCase();
+  if (!key) return [];
+  const out: RelationshipRef[] = [];
+  for (const a of DATA_ASSETS) {
+    if (!DATA_PRODUCT_TYPES.includes(a.type)) continue;
+    const sources = (a.sourceDatasetIds as string[] | undefined) ?? [];
+    if (!sources.some((sid) => String(sid).toLowerCase() === key)) continue;
+    const id = String(a.id).toLowerCase();
+    const detail = assetsById[id];
+    if (detail) out.push({ id, asset: detail });
+  }
+  out.sort((x, y) => x.asset.name.localeCompare(y.asset.name));
+  return out;
 }
 
 /** Get parent and children for an asset from assets map (id -> detail shape). */
 export function getRelationshipData(assetId: string, assetsById: AssetsById): RelationshipData {
   const current = assetsById[assetId];
-  if (!current) return { parent: null, parents: [], children: [], totalNodes: 0 };
+  if (!current) {
+    return { parent: null, parents: [], children: [], dataProducts: [], totalNodes: 0 };
+  }
   const parentId = current.parentId;
   const parent = parentId ? assetsById[parentId] ?? null : null;
   const parents = parent && parentId ? [{ id: parentId, asset: parent }] : [];
   const children = Object.entries(assetsById)
     .filter((entry): entry is [string, CatalogAssetDetail] => {
-      const [, a] = entry;
-      return a !== undefined && a.parentId === assetId;
+      const [, child] = entry;
+      return child !== undefined && child.parentId === assetId;
     })
-    .map(([id, a]) => ({ id, asset: a }));
+    .map(([id, child]) => ({ id, asset: child }));
+  children.sort((a, b) => a.asset.name.localeCompare(b.asset.name));
+  const dataProducts = listDirectDataProducts(assetId, assetsById);
   const totalNodes = 1 + parents.length + children.length;
   return {
     parent,
     parents,
     children,
+    dataProducts,
     totalNodes,
   };
 }

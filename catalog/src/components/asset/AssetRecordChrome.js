@@ -1,15 +1,12 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { SearchIcon, RssFeedIcon, SendPlaneIcon, PrintIcon, FloppySaveIcon } from '../../icons';
-import { home, search } from '../../routes';
+import { useNavigate } from 'react-router-dom';
+import { SearchIcon } from '../../icons';
+import { search } from '../../routes';
 import { EcosystemAppsMenu, CatalogHeroActionsMenu, CatalogGlobalBarTray } from '../../catalog-shell';
 import '../search/SearchResultsHeroBar.css';
 import PropTypes from 'prop-types';
-import { publicAssetUrl } from '../../utils/publicAssetUrl';
 
-const BRAND = publicAssetUrl('a_logo.png');
-
-const JUMP_LINKS = [
+export const ASSET_RECORD_JUMP_LINKS = [
   { href: '#asset-record-details', label: 'Details' },
   { href: '#asset-record-lineage', label: 'Lineage' },
   { href: '#asset-record-production', label: 'Production' },
@@ -53,37 +50,6 @@ function AssetRecordChrome({ assetName }) {
           ) : null}
         </form>
         <CatalogGlobalBarTray className="searchResultsGlobalTray" />
-      </div>
-
-      <div className="searchResultsSubBar">
-        <div className="searchResultsSubBarLeft">
-          <Link to={home()} className="searchResultsSubLogoLink" aria-label="Catalog home">
-            <img src={BRAND} alt="" className="searchResultsSubLogo" />
-          </Link>
-          <span className="searchResultsJump">
-            <span className="searchResultsJumpLabel">Jump to:</span>{' '}
-            {JUMP_LINKS.map((l, i) => (
-              <span key={l.href}>
-                {i > 0 && ' · '}
-                <a href={l.href}>{l.label}</a>
-              </span>
-            ))}
-          </span>
-        </div>
-        <div className="searchResultsSubBarTools">
-          <button type="button" className="searchResultsToolBtn" aria-label="RSS feed">
-            <RssFeedIcon />
-          </button>
-          <button type="button" className="searchResultsToolBtn" aria-label="Share">
-            <SendPlaneIcon />
-          </button>
-          <button type="button" className="searchResultsToolBtn" aria-label="Print">
-            <PrintIcon />
-          </button>
-          <button type="button" className="searchResultsToolBtn" aria-label="Save">
-            <FloppySaveIcon />
-          </button>
-        </div>
       </div>
 
       <span className="assetRecordChromeSrOnly">{assetName}</span>

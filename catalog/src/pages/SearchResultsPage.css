@@ -1914,6 +1914,11 @@ html.dark-mode .searchRefRecordTypesInfoBtn:focus-visible {
     padding: 16px;
   }
 
+  .searchResultsPage--ref .searchResultsTitleBandOuter {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
   .searchResultsSidebar--ref {
     width: 100%;
   }

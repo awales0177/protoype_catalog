@@ -22,7 +22,8 @@ import ProductToolingTab from '../components/asset/ProductToolingTab';
 import AssetPageTabStrip from '../components/asset/AssetPageTabStrip';
 import AssetProjectValueCard from '../components/asset/AssetProjectValueCard';
 import AssetAccessCard from '../components/asset/AssetAccessCard';
-import AssetRecordChrome from '../components/asset/AssetRecordChrome';
+import AssetRecordChrome, { ASSET_RECORD_JUMP_LINKS } from '../components/asset/AssetRecordChrome';
+import { CatalogFloatingPageRail } from '../catalog-shell';
 import AssetRecordTitleCard from '../components/asset/AssetRecordTitleCard';
 import AssetCuratedListsCard from '../components/asset/AssetCuratedListsCard';
 import { publicAssetUrl } from '../utils/publicAssetUrl';
@@ -207,12 +208,28 @@ function AssetPage() {
       <AssetRecordChrome assetName={asset.name} />
 
       <div className="assetRecordTitleWrap">
+        <CatalogFloatingPageRail
+          jumpSlot={
+            <span className="searchResultsJump">
+              <span className="searchResultsJumpLabel">Jump to:</span>{' '}
+              {ASSET_RECORD_JUMP_LINKS.map((l, i) => (
+                <span key={l.href}>
+                  {i > 0 && ' · '}
+                  <a href={l.href}>{l.label}</a>
+                </span>
+              ))}
+            </span>
+          }
+        />
         <AssetRecordTitleCard
           assetName={asset.name}
           categoryLabel={categoryLabel}
           assetId={assetId}
           usjaActiveIndices={usjaActiveIndices}
           onRequestAccess={() => document.getElementById('asset-access-heading')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+          onDatasetActions={() =>
+            document.getElementById('asset-record-production')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          }
         />
       </div>
 

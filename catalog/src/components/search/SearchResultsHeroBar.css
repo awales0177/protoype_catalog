@@ -302,6 +302,7 @@ html[data-catalog-theme='dark'] .searchResultsToolBtn:hover {
 
 .searchResultsTitleBandOuter {
   flex-shrink: 0;
+  /* Horizontal inset matches .searchResultsBody--ref so title card aligns with sidebar + results row */
   padding: 18px 24px 0;
   /* Neutral strip behind the white title card — not the blue hero (bars above stay gradient). */
   background: #eef1f4;

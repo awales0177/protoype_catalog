@@ -1,5 +1,6 @@
 import './shell.css';
 
+export { default as CatalogFloatingPageRail } from './CatalogFloatingPageRail';
 export { CatalogShellProvider, useCatalogShell } from './context';
 export { default as CatalogHeroToolbar } from './CatalogHeroToolbar';
 export { CatalogHeroSearch, CatalogHeroSearchRegion } from './CatalogHeroSearch';

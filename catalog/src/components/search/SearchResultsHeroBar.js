@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom';
-import { home } from '../../routes';
-import { SearchIcon, RssFeedIcon, SendPlaneIcon, PrintIcon, FloppySaveIcon } from '../../icons';
-import { EcosystemAppsMenu, CatalogHeroActionsMenu, CatalogGlobalBarTray } from '../../catalog-shell';
+import { SearchIcon } from '../../icons';
+import {
+  CatalogFloatingPageRail,
+  EcosystemAppsMenu,
+  CatalogHeroActionsMenu,
+  CatalogGlobalBarTray,
+} from '../../catalog-shell';
 import './SearchResultsHeroBar.css';
 import PropTypes from 'prop-types';
-import { publicAssetUrl } from '../../utils/publicAssetUrl';
-
-const BRAND = publicAssetUrl('a_logo.png');
 
 function SearchResultsHeroBar({ inputValue, setInputValue, onSubmit, onClear, searchQuery }) {
   const trimmed = (searchQuery || '').trim();
@@ -43,33 +43,15 @@ function SearchResultsHeroBar({ inputValue, setInputValue, onSubmit, onClear, se
         <CatalogGlobalBarTray className="searchResultsGlobalTray" />
       </div>
 
-      <div className="searchResultsSubBar">
-        <div className="searchResultsSubBarLeft">
-          <Link to={home()} className="searchResultsSubLogoLink" aria-label="Catalog home">
-            <img src={BRAND} alt="" className="searchResultsSubLogo" />
-          </Link>
-          <span className="searchResultsJump">
-            <span className="searchResultsJumpLabel">Jump to:</span>{' '}
-            <a href="#search-results-end">Bottom of page</a>
-          </span>
-        </div>
-        <div className="searchResultsSubBarTools">
-          <button type="button" className="searchResultsToolBtn" aria-label="RSS feed" title="RSS feed">
-            <RssFeedIcon />
-          </button>
-          <button type="button" className="searchResultsToolBtn" aria-label="Share" title="Share">
-            <SendPlaneIcon />
-          </button>
-          <button type="button" className="searchResultsToolBtn" aria-label="Print" title="Print">
-            <PrintIcon />
-          </button>
-          <button type="button" className="searchResultsToolBtn" aria-label="Save" title="Save">
-            <FloppySaveIcon />
-          </button>
-        </div>
-      </div>
-
       <div className="searchResultsTitleBandOuter">
+        <CatalogFloatingPageRail
+          jumpSlot={
+            <span className="searchResultsJump">
+              <span className="searchResultsJumpLabel">Jump to:</span>{' '}
+              <a href="#search-results-end">Bottom of page</a>
+            </span>
+          }
+        />
         <div className="searchResultsTitleBand">
           <h1 className="searchResultsPageTitle">{pageTitle}</h1>
         </div>

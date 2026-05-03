@@ -32,17 +32,20 @@ RelationshipChip.propTypes = {
 
 function AssetRelationships({ assetId, asset, assetsById, getAssetUrl, embedded, sectionTitle, sectionDesc }) {
   const rel = getRelationshipData(assetId, assetsById);
-  const hasAny = rel.parents.length > 0 || rel.children.length > 0;
+  const hasAny = rel.parents.length > 0 || rel.children.length > 0 || rel.dataProducts.length > 0;
   const toUrl = getAssetUrl || assetDetail;
   const title = sectionTitle ?? 'Relationships';
   const desc =
-    sectionDesc ?? 'Parent and child assets for this catalog item. Click a node to open that asset.';
+    sectionDesc ??
+    'Parent and child datasets, and data products that source this asset. Click a node to open that catalog item.';
 
   const section = (
     <div className="assetSection">
       <h3 className="assetSectionTitle">{title}</h3>
       <p className="assetSectionDesc">{desc}</p>
-      {!hasAny && <p className="assetFieldValue">No parent or child relationships defined.</p>}
+      {!hasAny && (
+        <p className="assetFieldValue">No parent, child, or data-product relationships defined for this asset.</p>
+      )}
       {hasAny && (
         <>
           <div className="relationshipsChipStrip">
@@ -79,6 +82,20 @@ function AssetRelationships({ assetId, asset, assetsById, getAssetUrl, embedded,
                   ))
                 ) : (
                   <p className="relationshipsChipEmpty">There are no direct children for this asset.</p>
+                )}
+              </div>
+            </div>
+            <div className="relationshipsChipGroup">
+              <span className="relationshipsChipGroupTitle">Data products</span>
+              <div className="relationshipsChipList" role="list">
+                {rel.dataProducts.length > 0 ? (
+                  rel.dataProducts.map(({ id: pid, asset: prod }) => (
+                    <div key={pid} role="listitem">
+                      <RelationshipChip asset={prod} to={toUrl(pid)} />
+                    </div>
+                  ))
+                ) : (
+                  <p className="relationshipsChipEmpty">There are no data products sourcing this asset.</p>
                 )}
               </div>
             </div>
