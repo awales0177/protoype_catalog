@@ -53,26 +53,6 @@ const BY_ASSET_ID = {
       transformRole: 'Orchestration',
     },
   ],
-  'xfer-2024-001': [
-    {
-      toolRecordId: 'tool-aws-dms',
-      name: 'AWS Database Migration Service',
-      version: '3.5.2',
-      transformRole: 'Change capture & initial load',
-    },
-    {
-      toolRecordId: 'tool-aws-glue',
-      name: 'AWS Glue',
-      version: '5.0',
-      transformRole: 'Schema evolution & job bookmarks',
-    },
-    {
-      toolRecordId: 'tool-custom-validator',
-      name: 'Lake validation service',
-      version: '2024.06.1',
-      transformRole: 'Row counts & checksum gates between stages',
-    },
-  ],
   'cdp-2024-001': [
     {
       toolRecordId: 'tool-flink',

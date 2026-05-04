@@ -1,6 +1,5 @@
 export const DATASET_TYPES = ['Parent dataset', 'Child dataset', 'Adoption record'];
-export const DATA_PRODUCT_TYPES = ['Aggregated data product', 'Derived data product', 'Child data product'];
-export const TOPIC_TYPES = ['Topic'];
+export const DATA_PRODUCT_TYPES = ['Data product'];
 const SOURCE_DATASET_TYPES = ['Parent dataset', 'Child dataset', 'Adoption record'];
 
 export const DATA_ASSETS = [
@@ -9,51 +8,46 @@ export const DATA_ASSETS = [
   { id: 'pds-2024-003', type: 'Parent dataset', title: 'Order Revenue Analytics', desc: 'Bronze layer dataset for Order Revenue Analytics data product', feed: false },
   { id: 'cds-2024-001', type: 'Child dataset', title: 'Customer Demographics', desc: 'Child of Enterprise Customer Data', sourceDatasetIds: ['pds-2024-001'], feed: false, noDataAccess: true },
   { id: 'cds-2024-002', type: 'Child dataset', title: 'Customer Transactions', desc: 'Child of Enterprise Customer Data', sourceDatasetIds: ['pds-2024-001'], feed: false },
-  { id: 'ads-2024-001', type: 'Adoption record', title: 'Legacy Customer Feed', desc: 'Adopted from legacy system for migration', sourceDatasetIds: ['pds-2024-001'], feed: true },
+  { id: 'ads-2024-001', type: 'Adoption record', title: 'Legacy Customer Feed', desc: 'Composite ingestion from legacy CRM for staged migration.', sourceDatasetIds: ['pds-2024-001'], feed: true },
   { id: 'cds-2024-003', type: 'Child dataset', title: 'Legacy Contact Sync', desc: 'Child of Legacy Customer Feed', sourceDatasetIds: ['ads-2024-001'], feed: true },
   { id: 'cds-2024-004', type: 'Child dataset', title: 'Legacy Order History', desc: 'Child of Legacy Customer Feed', sourceDatasetIds: ['ads-2024-001'], feed: true },
   { id: 'cds-2024-005', type: 'Child dataset', title: 'Legacy Preference Cache', desc: 'Child of Legacy Customer Feed', sourceDatasetIds: ['ads-2024-001'], feed: true },
   { id: 'cds-2024-006', type: 'Child dataset', title: 'Legacy Address Book', desc: 'Child of Legacy Customer Feed', sourceDatasetIds: ['ads-2024-001'], feed: true },
   { id: 'cds-2024-007', type: 'Child dataset', title: 'Legacy Subscription Feed', desc: 'Child of Legacy Customer Feed', sourceDatasetIds: ['ads-2024-001'], feed: true },
   { id: 'cds-2024-008', type: 'Child dataset', title: 'Legacy Customer Reference', desc: 'Child of Legacy Customer Feed', sourceDatasetIds: ['ads-2024-001'], feed: false, stale: true },
-  { id: 'adp-2024-001', type: 'Aggregated data product', title: 'Monthly Sales Summary', desc: 'Aggregated from Enterprise Customer Data', sourceDatasetIds: ['pds-2024-001'], feed: true },
-  { id: 'ddp-2024-001', type: 'Derived data product', title: 'Customer Lifetime Value', desc: 'Derived from Bronze layer Customer Lifetime Value dataset', sourceDatasetIds: ['pds-2024-002'], feed: true, trackerFailedStepId: 'published' },
-  { id: 'ddp-2024-002', type: 'Derived data product', title: 'Order Revenue Analytics', desc: 'Derived from Bronze layer Order Revenue Analytics dataset', sourceDatasetIds: ['pds-2024-003'], feed: false },
+  { id: 'adp-2024-001', type: 'Data product', title: 'Monthly Sales Summary', desc: 'Aggregated from Enterprise Customer Data', sourceDatasetIds: ['pds-2024-001'], feed: true },
+  { id: 'ddp-2024-001', type: 'Data product', title: 'Customer Lifetime Value', desc: 'Derived from Bronze layer Customer Lifetime Value dataset', sourceDatasetIds: ['pds-2024-002'], feed: true, trackerFailedStepId: 'published' },
+  { id: 'ddp-2024-002', type: 'Data product', title: 'Order Revenue Analytics', desc: 'Derived from Bronze layer Order Revenue Analytics dataset', sourceDatasetIds: ['pds-2024-003'], feed: false },
   { id: 'cds-2024-009', type: 'Child dataset', title: 'CLV Feature Store', desc: 'Curated features for lifetime value scoring pipelines', sourceDatasetIds: ['pds-2024-002'], feed: false },
   { id: 'cds-2024-010', type: 'Child dataset', title: 'CLV Label Store', desc: 'Historical labels and outcome windows for model training', sourceDatasetIds: ['pds-2024-002'], feed: false },
   { id: 'cds-2024-011', type: 'Child dataset', title: 'Order Revenue Enrichment', desc: 'Joined orders, promos, and fulfillment for revenue analytics', sourceDatasetIds: ['pds-2024-003'], feed: false },
   { id: 'dw-2024-001', type: 'Parent dataset', title: 'Partner Revenue Signals', desc: 'Third-party partner feed ingested into the warehouse for CLV features', feed: true },
-  { id: 'cdp-2024-001', type: 'Child data product', title: 'Real-time CLV Scores', desc: 'Streaming scores consumed by activation and CRM systems', sourceDatasetIds: ['pds-2024-002'], feed: true },
-  { id: 'cdp-2024-002', type: 'Child data product', title: 'Order Revenue Serving Layer', desc: 'Normalized revenue metrics for dashboards and downstream apps', sourceDatasetIds: ['pds-2024-003'], feed: false },
-  { id: 'ddp-2024-004', type: 'Derived data product', title: 'CLV Churn Risk Layer', desc: 'Downstream risk scores derived from the Customer Lifetime Value model', sourceDatasetIds: ['pds-2024-002'], feed: false, stale: true },
-  { id: 'topic-2024-001', type: 'Topic', title: 'Customer Data Governance', desc: 'Policies and standards for customer data quality and privacy', feed: false },
-  { id: 'topic-2024-002', type: 'Topic', title: 'Sales & Orders', desc: 'Topic for sales transactions, orders, and fulfillment', feed: false },
-  { id: 'topic-2024-003', type: 'Topic', title: 'Product Information', desc: 'Product catalog, inventory, and taxonomy', feed: false },
+  { id: 'cdp-2024-001', type: 'Data product', title: 'Real-time CLV Scores', desc: 'Streaming scores consumed by activation and CRM systems', sourceDatasetIds: ['pds-2024-002'], feed: true },
+  { id: 'cdp-2024-002', type: 'Data product', title: 'Order Revenue Serving Layer', desc: 'Normalized revenue metrics for dashboards and downstream apps', sourceDatasetIds: ['pds-2024-003'], feed: false },
+  { id: 'ddp-2024-004', type: 'Data product', title: 'CLV Churn Risk Layer', desc: 'Downstream risk scores derived from the Customer Lifetime Value model', sourceDatasetIds: ['pds-2024-002'], feed: false, stale: true },
   {
-    id: 'xfer-2024-001',
-    type: 'Transfer record',
-    title: 'Record Name That is At Least This Many Words Long',
-    desc: 'Active lake-to-lake transfer with staged validation. Progress reflects pipeline steps from intake through publication.',
+    id: 'topic-2024-001',
+    type: 'Data product',
+    title: 'Customer Data Governance',
+    desc: 'Policies and standards for customer data quality and privacy',
     feed: false,
     sourceDatasetIds: ['pds-2024-001'],
-    transferProgress: {
-      totalSteps: 8,
-      currentIndex: 4,
-      stepLabels: ['Intake', 'Staging', 'Validation', 'Approval', 'Replication', 'Testing', 'Sign-off', 'Published'],
-    },
   },
   {
-    id: 'xfer-2024-002',
-    type: 'Transfer record',
-    title: 'Cross-Lake Replication — Finance Mart',
-    desc: 'Replication bundle for finance metrics; awaiting downstream approval before cutover.',
+    id: 'topic-2024-002',
+    type: 'Data product',
+    title: 'Sales & Orders',
+    desc: 'Grouping for sales transactions, orders, and fulfillment domains',
     feed: false,
-    sourceDatasetIds: ['pds-2024-002'],
-    transferProgress: {
-      totalSteps: 7,
-      currentIndex: 2,
-      stepLabels: ['Plan', 'Extract', 'Transform', 'Load', 'Verify', 'Approve', 'Cutover'],
-    },
+    sourceDatasetIds: ['pds-2024-003'],
+  },
+  {
+    id: 'topic-2024-003',
+    type: 'Data product',
+    title: 'Product Information',
+    desc: 'Product catalog, inventory, and taxonomy context',
+    feed: false,
+    sourceDatasetIds: ['pds-2024-001'],
   },
 ];
 
@@ -107,7 +101,6 @@ function toDetailAsset(a) {
     stale: a.stale ?? false,
     noDataAccess: a.noDataAccess ?? false,
     trackerFailedStepId: a.trackerFailedStepId ?? null,
-    transferProgress: a.transferProgress ?? null,
     parentId: (a.sourceDatasetIds && a.sourceDatasetIds[0]) || null,
   };
 }

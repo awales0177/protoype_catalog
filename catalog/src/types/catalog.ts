@@ -1,5 +1,5 @@
 /** Profile tabs for full-page experience management (`/catalog/profile/experience?tab=…`). */
-export type ProfileExperienceTab = 'settings' | 'subscriptions' | 'transfers' | 'other';
+export type ProfileExperienceTab = 'settings' | 'subscriptions' | 'other';
 
 export type SearchRouteParams = {
   q?: string;
@@ -26,11 +26,6 @@ export interface CatalogAssetDetail {
   stale: boolean;
   noDataAccess: boolean;
   trackerFailedStepId: string | null;
-  transferProgress?: {
-    totalSteps: number;
-    currentIndex: number;
-    stepLabels: string[];
-  } | null;
   parentId: string | null;
 }
 

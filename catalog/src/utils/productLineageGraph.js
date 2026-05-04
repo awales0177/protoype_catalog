@@ -2,8 +2,54 @@ import { getFullRelationshipData } from './assetRelationships';
 import {
   getLineagePresentation,
   getPipelineStepLineagePresentation,
+  makeRulRuleId,
   summarizeLineageValidations,
 } from './productLineagePresentation';
+
+const STEP_RANK = {
+  data_bucket: 1,
+  scanning: 2,
+  conditioning: 3,
+  data_validation: 4,
+  write: 5,
+};
+
+function compositeRunSortKey(assetId, node) {
+  if (node.pipelineStep) {
+    const r = STEP_RANK[node.pipelineStep] || 0;
+    const tie = runSortKey(`${assetId}|${node.id}`);
+    return r * 1_000_000_000 + tie;
+  }
+  return 6_000_000_000 + runSortKey(`${assetId}|${node.id}`);
+}
+
+/** Stable unsigned hash for deterministic run identifiers (sort reports by run id). */
+function runSortKey(parts) {
+  let h = 0;
+  const s = String(parts);
+  for (let i = 0; i < s.length; i += 1) {
+    h = (h << 5) - h + s.charCodeAt(i);
+    h |= 0;
+  }
+  return h >>> 0;
+}
+
+/** Bronze / silver / gold for validation rules (one tier per lineage partition node). */
+function lakeTierForNode(node, assetId) {
+  const low = `${node.asset?.name || ''} ${node.pipelineStep || ''}`.toLowerCase();
+  if (low.includes('bronze') || low.includes('landing') || low.includes('bucket') || low.includes('write')) {
+    return 'bronze';
+  }
+  if (low.includes('gold') || low.includes('mart') || low.includes('analytics') || low.includes('serving')) {
+    return 'gold';
+  }
+  if (low.includes('silver') || low.includes('condition') || low.includes('movement')) {
+    return 'silver';
+  }
+  const tiers = ['bronze', 'silver', 'gold'];
+  const seed = runSortKey(`${assetId}|${node.id}|${node.pipelineStep || 'catalog'}|tier`);
+  return tiers[seed % 3];
+}
 
 /**
  * Additional edges shown only on the lineage tab (cross-links, feature tables, downstream products).
@@ -156,23 +202,76 @@ export function getGraphValidationRollup(assetId, assetsById) {
   return { ...rollup, nodeCount: nodes.length, checkCount };
 }
 
-/** Per-node validation rows for the Data validation tab (same graph as lineage). */
-export function getLineageValidationBreakdown(assetId, assetsById) {
+
+/**
+ * Snapshot of lineage checks — one catalog history job run per offset (deterministic replay).
+ */
+function buildBaselineLineageValidationRuleCards(assetId, assetsById) {
   const { nodes } = getProductLineageGraph(assetId, assetsById);
-  return nodes.map((node) => {
+  const cards = [];
+
+  for (const node of nodes) {
     const pres = node.pipelineStep
       ? getPipelineStepLineagePresentation(node.pipelineStep, assetsById[node.focusAssetId], {
           upstreamAsset: node.bucketSourceId ? assetsById[node.bucketSourceId] : undefined,
         })
       : getLineagePresentation(node.asset);
-    return {
-      id: node.id,
-      lineageName: pres.lineageName,
-      catalogName: node.asset?.name || null,
-      isPipelineStep: Boolean(node.pipelineStep),
-      pipelineStep: node.pipelineStep || null,
-      validations: pres.validations,
-      summary: summarizeLineageValidations(pres.validations),
-    };
+
+    const fallbackSort = compositeRunSortKey(assetId, node);
+    const runSortVal =
+      typeof pres.runSortKey === 'number' && !Number.isNaN(pres.runSortKey) ? pres.runSortKey : fallbackSort;
+    const partitionRunCode =
+      typeof pres.runId === 'string' && pres.runId.trim() !== ''
+        ? pres.runId.trim()
+        : `RUN-${String(runSortVal).padStart(10, '0')}`;
+
+    const lineageSlug = String(pres.lineageName || 'node').replace(/\s+/g, '_');
+
+    const lakeTier = lakeTierForNode(node, assetId);
+
+    for (const v of pres.validations || []) {
+      const ruleSlug = `${lineageSlug}::${v.key}`;
+      const rawId = typeof v.ruleId === 'string' ? v.ruleId.trim() : '';
+      const ruleId =
+        rawId && /^RUL-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(rawId)
+          ? rawId
+          : makeRulRuleId(`${node.id}|${ruleSlug}`);
+      const ruleName = (v.label && String(v.label).trim()) || String(v.key || 'Rule');
+      const detail = v.detail != null ? String(v.detail).trim() : '';
+      const description = detail || null;
+
+      cards.push({
+        ruleKey: `${node.id}::${v.key}`,
+        partitionRunCode,
+        lakeTier,
+        runSortKey: runSortVal,
+        ruleId,
+        ruleName,
+        status: v.status,
+        description,
+      });
+    }
+  }
+
+  cards.sort((a, b) => {
+    if (a.runSortKey !== b.runSortKey) return a.runSortKey - b.runSortKey;
+    const rc = String(a.partitionRunCode).localeCompare(String(b.partitionRunCode));
+    if (rc !== 0) return rc;
+    const ra = String(a.ruleId);
+    const rb = String(b.ruleId);
+    if (ra !== rb) return ra.localeCompare(rb);
+    return String(a.ruleKey).localeCompare(String(b.ruleKey));
   });
+
+  return cards;
+}
+
+export function getLineageValidationRuleCards(assetId, assetsById, validationSessionOffset = 0) {
+  const offset = Number(validationSessionOffset) || 0;
+  const baseline = buildBaselineLineageValidationRuleCards(assetId, assetsById);
+  return baseline.map((c) => ({
+    ...c,
+    validationSessionOffset: offset,
+    ruleKey: `${offset}__${c.ruleKey}`,
+  }));
 }

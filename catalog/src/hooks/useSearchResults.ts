@@ -46,11 +46,7 @@ export function useSearchResults(searchParams: URLSearchParams, navigate: Naviga
     dataProduct: true,
   });
   const [selectedDatasetTypes, setSelectedDatasetTypes] = useState<string[]>(['Parent dataset', 'Adoption record']);
-  const [selectedDataProductTypes, setSelectedDataProductTypes] = useState<string[]>([
-    'Aggregated data product',
-    'Transfer record',
-  ]);
-  const [showInProgressOnly, setShowInProgressOnly] = useState(false);
+  const [selectedDataProductTypes, setSelectedDataProductTypes] = useState<string[]>(['Data product']);
 
   useEffect(() => {
     setInputValue(q);
@@ -75,11 +71,9 @@ export function useSearchResults(searchParams: URLSearchParams, navigate: Naviga
   if (layerParam === 'bronze')
     results = results.filter(
       (a) =>
-        a.type === 'Derived data product' &&
+        a.type === 'Data product' &&
         a.sourceDatasetIds?.some((sid) => BRONZE_PARENT_DATASET_IDS.includes(sid))
     );
-  if (showInProgressOnly) results = results.filter((a) => a.transferProgress);
-
   const curatedResults = filterCuratedListsByQuery(CURATED_LISTS, q);
   const displayCount = activeTab === 'curated-lists' ? curatedResults.length : results.length;
   const showCuratedContent = activeTab === 'curated-lists';
@@ -151,7 +145,5 @@ export function useSearchResults(searchParams: URLSearchParams, navigate: Naviga
     isSourceDatasetType,
     DATASET_FILTER_OPTIONS,
     DATA_PRODUCT_FILTER_OPTIONS,
-    showInProgressOnly,
-    setShowInProgressOnly,
   };
 }

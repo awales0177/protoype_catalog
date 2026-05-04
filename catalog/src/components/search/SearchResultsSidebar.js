@@ -22,8 +22,6 @@ function SearchResultsSidebar({
   getDataProductFilter,
   datasetFilterOptions,
   dataProductFilterOptions,
-  showInProgressOnly,
-  setShowInProgressOnly,
 }) {
   const [andOr, setAndOr] = useState('and');
   const [prioritizeProfile, setPrioritizeProfile] = useState(false);
@@ -110,11 +108,6 @@ function SearchResultsSidebar({
           <FilterFunnelIcon />
         </span>
       </div>
-
-      <label className="searchRefCheck">
-        <input type="checkbox" checked={showInProgressOnly} onChange={(e) => setShowInProgressOnly(e.target.checked)} />
-        Show in progress records
-      </label>
 
       <div className="searchRefFilterTabs" role="tablist" aria-label="Record type">
         {FILTER_TABS.map(({ id, label, Icon }) => (
@@ -223,8 +216,6 @@ SearchResultsSidebar.propTypes = {
     .isRequired,
   dataProductFilterOptions: PropTypes.arrayOf(PropTypes.shape({ typeValue: PropTypes.string, label: PropTypes.string }))
     .isRequired,
-  showInProgressOnly: PropTypes.bool.isRequired,
-  setShowInProgressOnly: PropTypes.func.isRequired,
 };
 
 export default SearchResultsSidebar;

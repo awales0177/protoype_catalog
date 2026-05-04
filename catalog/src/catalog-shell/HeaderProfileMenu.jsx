@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import {
   PersonOutlineIcon,
   GlobeIcon,
@@ -8,17 +8,38 @@ import {
 import { useCatalogShell } from './context';
 import { AnchoredPortalPanel } from './AnchoredPortalPanel';
 
+function initialsFromDisplayName(name) {
+  const parts = String(name || '')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+  if (parts.length >= 2) {
+    const a = parts[0][0] || '';
+    const b = parts[parts.length - 1][0] || '';
+    return `${a}${b}`.toUpperCase() || '?';
+  }
+  if (parts.length === 1) {
+    const w = parts[0];
+    const letters = w.replace(/[^a-zA-Z0-9]/g, '');
+    if (letters.length >= 2) return letters.slice(0, 2).toUpperCase();
+    if (letters.length === 1) return letters.toUpperCase();
+    if (w.length >= 2) return w.slice(0, 2).toUpperCase();
+    return w ? w.slice(0, 1).toUpperCase() : '?';
+  }
+  return '?';
+}
+
 export function HeaderProfileMenu() {
   const shell = useCatalogShell();
   const btnRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [viewMode, setViewMode] = useState('personal');
   const displayName = shell?.defaultProfileDisplayName || 'Profile';
+  const avatarInitials = useMemo(() => initialsFromDisplayName(displayName), [displayName]);
 
   const nav = [
     { key: 'subs', label: 'Manage subscriptions', onClick: shell?.onProfileManageSubscriptions },
     { key: 'prefs', label: 'Update preferences', onClick: shell?.onProfileUpdatePreferences },
-    { key: 'xfer', label: 'Track my transfers', onClick: shell?.onProfileTrackTransfers },
     { key: 'other', label: 'Other profile option', onClick: shell?.onProfileOther },
   ];
 
@@ -32,7 +53,9 @@ export function HeaderProfileMenu() {
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
       >
-        <PersonOutlineIcon />
+        <span className="catalogHeroProfileAvatar" aria-hidden title={displayName}>
+          {avatarInitials}
+        </span>
       </button>
       <AnchoredPortalPanel
         open={open}
@@ -83,7 +106,7 @@ export function HeaderProfileMenu() {
           }}
         >
           <span className="headerProfileManageTitle">Manage my experience</span>
-          <span className="headerProfileManageDesc">Subscriptions, preferences, transfers, and more in one place.</span>
+          <span className="headerProfileManageDesc">Subscriptions, preferences, and more in one place.</span>
         </button>
 
         <nav className="headerProfileNav" aria-label="Profile shortcuts">

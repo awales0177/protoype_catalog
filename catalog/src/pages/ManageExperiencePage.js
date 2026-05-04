@@ -8,7 +8,6 @@ const DISPLAY_NAME_STORAGE_KEY = 'catalog_ds_profile_display_name';
 const TABS = [
   { id: 'settings', label: 'Manage Profile Settings' },
   { id: 'subscriptions', label: 'Manage Subscriptions' },
-  { id: 'transfers', label: 'Track Transfers' },
   { id: 'other', label: 'Other Profile Option' },
 ];
 
@@ -219,23 +218,6 @@ function ManageExperiencePage() {
                 snapshot; this section is for deeper management.
               </p>
               <p className="manageExpPlaceholderBlock">Subscription management UI will connect to your catalog backend here.</p>
-            </section>
-          )}
-
-          {activeTab === 'transfers' && (
-            <section
-              className="manageExpPanel"
-              id="manage-exp-panel-transfers"
-              role="tabpanel"
-              aria-labelledby="manage-exp-tab-transfers"
-            >
-              <h2 className="manageExpPanelTitle" id="manage-exp-transfers-heading">
-                Track Transfers
-              </h2>
-              <p className="manageExpPanelIntro">
-                Monitor in-flight and completed data transfers associated with your account.
-              </p>
-              <p className="manageExpPlaceholderBlock">Transfer history and status will appear here.</p>
             </section>
           )}
 

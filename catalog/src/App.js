@@ -51,7 +51,7 @@ function Layout() {
   const catalogShellValue = useMemo(
     () => ({
       heroBannerText: 'Banner',
-      defaultProfileDisplayName: 'John Dow',
+      defaultProfileDisplayName: 'John Doe',
       openNotifications,
       notificationCount: subscribedIds.length,
       feedbackSubtitle: CATALOG_FEEDBACK_SUBTITLE,
@@ -62,7 +62,6 @@ function Layout() {
       onProfileManageExperience: () => navigate(profileExperience()),
       onProfileManageSubscriptions: () => navigate(profileExperience({ tab: 'subscriptions' })),
       onProfileUpdatePreferences: () => navigate(profileExperience({ tab: 'settings' })),
-      onProfileTrackTransfers: () => navigate(profileExperience({ tab: 'transfers' })),
       onProfileOther: () => navigate(profileExperience({ tab: 'other' })),
     }),
     [openNotifications, subscribedIds.length, darkMode, toggleDarkMode, setDarkMode, navigate]

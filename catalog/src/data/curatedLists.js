@@ -24,7 +24,7 @@ export const CURATED_LISTS = [
   {
     id: 'cl-bronze-products-001',
     title: 'Bronze-layer data products',
-    description: 'Derived data products built on bronze-layer datasets (CLV, Order Revenue).',
+    description: 'Data products built on bronze-layer datasets (CLV, Order Revenue).',
     assetIds: ['pds-2024-002', 'pds-2024-003', 'ddp-2024-001', 'ddp-2024-002'],
     owner: 'Analytics Platform',
     curators: ['Sam Chen'],
@@ -34,7 +34,7 @@ export const CURATED_LISTS = [
   {
     id: 'cl-governance-001',
     title: 'Governance & taxonomy',
-    description: 'Topics and reference data for data governance, quality, and product taxonomy.',
+    description: 'Data products for governance policies, taxonomy, and quality reference contexts.',
     assetIds: ['topic-2024-001', 'topic-2024-002', 'topic-2024-003'],
     owner: 'Data Governance Team',
     curators: ['Jordan Lee', 'Alex Rivera'],

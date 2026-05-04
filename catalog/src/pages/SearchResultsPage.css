@@ -942,13 +942,14 @@
 
 .searchResultRelatedLabel {
   flex-shrink: 0;
-  width: 24px;
-  padding: 2px 4px;
-  font-size: 0.65rem;
+  padding: 2px 6px;
+  font-size: 0.6rem;
   font-weight: 700;
   border-radius: 2px;
   text-align: center;
   color: white;
+  line-height: 1.25;
+  white-space: nowrap;
 }
 
 .searchResultRelatedLabel.derivedDataset {
@@ -975,30 +976,6 @@
   color: white;
 }
 
-.searchResultRelatedLabel.aggregatedDataProduct {
-  background: #fd7e14;
-  color: white;
-}
-
-.searchResultRelatedLabel.derivedDataProduct {
-  background: #20c997;
-  color: white;
-}
-
-.searchResultRelatedLabel.childDataProduct {
-  background: #6c757d;
-  color: white;
-}
-
-.searchResultRelatedLabel.topic {
-  background: #6610f2;
-  color: white;
-}
-
-.searchResultRelatedLabel.transferRecord {
-  background: #64748b;
-  color: white;
-}
 
 .searchResultRelatedEmpty {
   margin: 0;
@@ -1008,13 +985,14 @@
 
 .searchResultLabel {
   flex-shrink: 0;
-  width: 48px;
   padding: 6px 8px;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 700;
   border-radius: 4px;
   text-align: center;
   color: white;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 .searchResultLabel.dataset {
@@ -1046,30 +1024,6 @@
   color: white;
 }
 
-.searchResultLabel.aggregatedDataProduct {
-  background: #fd7e14;
-  color: white;
-}
-
-.searchResultLabel.derivedDataProduct {
-  background: #20c997;
-  color: white;
-}
-
-.searchResultLabel.childDataProduct {
-  background: #6c757d;
-  color: white;
-}
-
-.searchResultLabel.topic {
-  background: #6610f2;
-  color: white;
-}
-
-.searchResultLabel.transferRecord {
-  background: #64748b;
-  color: white;
-}
 
 .searchResultLabel.list {
   background: #6f42c1;
@@ -1636,70 +1590,6 @@ html.dark-mode .searchRefRecordTypesInfoBtn:focus-visible {
   height: 14px;
 }
 
-.searchRefTransferStepper {
-  display: flex;
-  align-items: center;
-  flex-shrink: 1;
-  min-width: 0;
-  max-width: 100%;
-  cursor: default;
-}
-
-.searchRefTransferConnWrap {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  padding: 6px 2px;
-  margin: -6px 0;
-}
-
-.searchRefTransferHit {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  padding: 6px 4px;
-  margin: -6px -2px;
-}
-
-.searchRefTransferConnector {
-  width: 12px;
-  height: 2px;
-  flex-shrink: 0;
-  border-radius: 1px;
-  background: #d1d5db;
-  margin: 0 1px;
-}
-
-.searchRefTransferConnector--active {
-  background: var(--accent-blue);
-}
-
-.searchRefTransferNode {
-  width: 10px;
-  height: 10px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  box-sizing: border-box;
-}
-
-.searchRefTransferNode--done {
-  background: var(--accent-blue);
-  border: 2px solid var(--accent-blue);
-}
-
-.searchRefTransferNode--current {
-  width: 12px;
-  height: 12px;
-  background: radial-gradient(circle, var(--accent-blue) 3px, #fff 3.5px, #fff 100%);
-  border: 2px solid var(--accent-blue);
-}
-
-.searchRefTransferNode--pending {
-  background: #fff;
-  border: 2px solid #d1d5db;
-}
-
 .searchRefResultTrail {
   display: flex;
   flex-direction: column;
@@ -1964,22 +1854,4 @@ html[data-catalog-theme='dark'] .searchResultsSidebar--ref {
 html[data-catalog-theme='dark'] .searchRefTextInput {
   background: var(--bg-white);
   color: var(--text-primary);
-}
-
-html[data-catalog-theme='dark'] .searchRefTransferConnector {
-  background: rgba(255, 255, 255, 0.22);
-}
-
-html[data-catalog-theme='dark'] .searchRefTransferNode--current {
-  background: radial-gradient(
-    circle,
-    var(--accent-blue) 3px,
-    var(--bg-white) 3.5px,
-    var(--bg-white) 100%
-  );
-}
-
-html[data-catalog-theme='dark'] .searchRefTransferNode--pending {
-  background: var(--bg-white);
-  border-color: var(--border-light);
 }

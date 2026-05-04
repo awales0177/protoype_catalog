@@ -4,6 +4,7 @@
  */
 
 import { LakeAreaIcon, WarehouseIcon, WaterIcon, RocketIcon } from '../icons';
+import { DATA_PRODUCT_TYPES } from './assets';
 
 // ----- Search page -----
 export const SEARCH_TABS = [
@@ -19,43 +20,39 @@ export const SEARCH_DROPDOWN_META_DEFAULTS = {
   keyMetadataLabel: 'Key metadata',
 };
 
-// ----- Search filters (useSearchResults) -----
-export const DATA_PRODUCT_TYPES = ['Aggregated data product', 'Derived data product', 'Child data product'];
-export const TOPIC_TYPES = ['Topic'];
-export const DATA_PRODUCT_FILTER_TYPES = [...DATA_PRODUCT_TYPES, ...TOPIC_TYPES, 'Transfer record'];
+// ----- Search filters (useSearchResults): same canonical types as `data/assets`. -----
+export { DATA_PRODUCT_TYPES };
+export const DATA_PRODUCT_FILTER_TYPES = DATA_PRODUCT_TYPES;
 export const BRONZE_PARENT_DATASET_IDS = ['pds-2024-002', 'pds-2024-003'];
 
 export const DATASET_FILTER_OPTIONS = [
   { typeValue: 'Parent dataset', label: 'Parent' },
   { typeValue: 'Child dataset', label: 'Child' },
-  { typeValue: 'Adoption record', label: 'Adopted' },
+  { typeValue: 'Adoption record', label: 'Composite' },
 ];
 
-export const DATA_PRODUCT_FILTER_OPTIONS = [
-  { typeValue: 'Aggregated data product', label: 'Aggregated' },
-  { typeValue: 'Derived data product', label: 'Derived' },
-  { typeValue: 'Transfer record', label: 'Transfer' },
-  { typeValue: 'Topic', label: 'Topic' },
-];
+export const DATA_PRODUCT_FILTER_OPTIONS = [{ typeValue: 'Data product', label: 'Product' }];
 
 /** Reference copy for the search results “record types” info modal (grouped). */
 export const SEARCH_RECORD_TYPE_GROUPS = [
   {
     title: 'Datasets',
     items: [
-      { name: 'Parent dataset', description: 'Top-level dataset that groups related child and adopted sources.' },
+      { name: 'Parent dataset', description: 'Top-level dataset that groups related child and composite sources.' },
       { name: 'Child dataset', description: 'Dataset derived from or scoped under a parent dataset.' },
-      { name: 'Adoption record', description: 'Record representing data adopted from an external or legacy system.' },
+      {
+        name: 'Composite',
+        description: 'Bridges externally sourced or legacy data into lineage under a parent with catalog governance.',
+      },
     ],
   },
   {
-    title: 'Data products & related',
+    title: 'Data products',
     items: [
-      { name: 'Aggregated data product', description: 'Rollups and summaries built from one or more datasets.' },
-      { name: 'Derived data product', description: 'Transformed or modeled output, often layered (e.g. bronze to gold).' },
-      { name: 'Child data product', description: 'Product scoped under a broader data product or domain.' },
-      { name: 'Transfer record', description: 'Tracks movement or handoff of data between systems or stages.' },
-      { name: 'Topic', description: 'Thematic grouping for governance, discovery, or domain organization.' },
+      {
+        name: 'Data product',
+        description: 'Curated analytical or serving outputs modeled and governed as products.',
+      },
     ],
   },
   {
@@ -130,12 +127,13 @@ export const DATA_PROFILES_TAGS = [
   { label: 'Encrypted', count: '6' },
 ];
 
+/** Natural-language detection in profiled text (not programming languages). */
 export const DATA_PROFILES_LANGUAGES = [
-  { label: 'SQL', count: '42' },
-  { label: 'Python', count: '28' },
-  { label: 'Scala', count: '15' },
-  { label: 'R', count: '11' },
-  { label: 'Java', count: '8' },
+  { label: 'English', count: '184,200' },
+  { label: 'Spanish', count: '12,840' },
+  { label: 'French', count: '3,291' },
+  { label: 'German', count: '1,892' },
+  { label: 'Portuguese', count: '1,056' },
 ];
 
 export const DATA_PROFILES_SCHEMA_GROUPS = [

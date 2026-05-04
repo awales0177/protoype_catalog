@@ -629,13 +629,15 @@ html[data-catalog-theme='dark'] .pizzaTrackerStep--current .pizzaTrackerLabel {
 
 .relationshipsTypeChip {
   flex-shrink: 0;
-  min-width: 26px;
-  padding: 2px 4px;
-  font-size: 0.625rem;
+  padding: 2px 6px;
+  font-size: 0.5925rem;
   font-weight: 700;
   border-radius: 3px;
   text-align: center;
   color: white;
+  line-height: 1.2;
+  letter-spacing: 0.015em;
+  white-space: nowrap;
 }
 
 .relationshipsTypeChip.dataset {
@@ -664,31 +666,6 @@ html[data-catalog-theme='dark'] .pizzaTrackerStep--current .pizzaTrackerLabel {
 
 .relationshipsTypeChip.adoptionRecord {
   background: #20c997;
-  color: white;
-}
-
-.relationshipsTypeChip.aggregatedDataProduct {
-  background: #fd7e14;
-  color: white;
-}
-
-.relationshipsTypeChip.derivedDataProduct {
-  background: #20c997;
-  color: white;
-}
-
-.relationshipsTypeChip.childDataProduct {
-  background: #6c757d;
-  color: white;
-}
-
-.relationshipsTypeChip.transferRecord {
-  background: #64748b;
-  color: white;
-}
-
-.relationshipsTypeChip.topic {
-  background: #6610f2;
   color: white;
 }
 

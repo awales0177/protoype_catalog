@@ -22,8 +22,11 @@ function ProductDataLineage({
     [assetId, isDatasetVariant],
   );
 
+  /* Preserve Relationships / Data P&L / etc. across in-page navigations from the diagram links.
+     Only coerce when switching to dataset variant can't show Schema lineage. */
   useEffect(() => {
-    setLineageSection(isDatasetVariant ? 'relationships' : 'product');
+    if (!isDatasetVariant) return;
+    setLineageSection((prev) => (prev === 'schema' ? 'relationships' : prev));
   }, [assetId, isDatasetVariant]);
 
   const graphSectionDesc = isDatasetVariant

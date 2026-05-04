@@ -50,7 +50,7 @@ function AssetQuickViewSidebar({ asset, isDataProductType, onViewHistory }) {
           <div className="assetSidebarSection">
             <div className="assetSidebarLabel">Data model</div>
             <div className="assetSidebarValue">
-              <a href="#data-model">Schema and entity definitions</a>
+              <a href="#product-model-info">Overview and stewardship</a>
             </div>
           </div>
           <div className="assetSidebarSection">

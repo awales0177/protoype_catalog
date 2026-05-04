@@ -49,13 +49,22 @@ function AssetPageTabStrip({ activeTab, setActiveTab, isDataProductType, isDatas
           Data lake
         </button>
       )}
+      {isDataset && (
+        <button
+          type="button"
+          className={`${recordLayout ? 'assetRecordTab' : 'assetTab'} ${activeTab === 'dataset-reports' ? 'active' : ''}`}
+          onClick={() => setActiveTab('dataset-reports')}
+        >
+          Reports
+        </button>
+      )}
       {isDataProductType && (
         <button
           type="button"
-          className={`${recordLayout ? 'assetRecordTab' : 'assetTab'} ${activeTab === 'readme' ? 'active' : ''}`}
-          onClick={() => setActiveTab('readme')}
+          className={`${recordLayout ? 'assetRecordTab' : 'assetTab'} ${activeTab === 'product-details' ? 'active' : ''}`}
+          onClick={() => setActiveTab('product-details')}
         >
-          README
+          Details
         </button>
       )}
     </div>

@@ -130,7 +130,33 @@ export function getBucketRootDistribution(assetId, lakeName = 'data-lake-prod') 
   });
 }
 
-/** Default README markdown for data product README tab (mock). */
+/** Model summary card for product Details secondary tab (no field-level schema table). */
+export const DEFAULT_PRODUCT_MODEL_INFO = {
+  logicalName: 'cars',
+  logicalLabel: 'Cars',
+  version: '1.2',
+  domain: 'Automotive / Sales',
+  format: 'Parquet · CSV-compatible views',
+  encoding: 'UTF-8',
+  rowCardinality: 'One row per vehicle listing',
+  updateFrequency: 'Batch (as available)',
+  owner: 'Data Engineering',
+  notes:
+    'Logical model aligns with curated `cars.csv`. Consumers rely on documented fields and semantic versioning on breaking changes.',
+};
+
+/** Product agreement (Details tab) — groups listed under Providers, Producers, Consumers. */
+export const DEFAULT_PRODUCT_AGREEMENT = {
+  title: 'Product agreement',
+  maturityLine: 'Active governed data product',
+  stewardLine: 'Steward · Analytics Platform Team',
+  effectiveDate: 'Jan 2024',
+  providers: ['Dealer Systems Federation', 'OEM Telemetry Program', 'Legacy CRM export batch'],
+  producers: ['Analytics Platform Team', 'Data Engineering — ingest', 'Data Quality guild'],
+  consumers: ['Sales Analytics workspace', 'Customer 360 product', 'ML feature store · pricing models', 'Regional reporting hub'],
+};
+
+/** Default README markdown for product Documentation section (below cards). */
 export const README_MARKDOWN = `# 🚗 Cars Data Product (\`cars.csv\`)
 
 ## Overview

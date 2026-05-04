@@ -16,7 +16,7 @@ const CURATED_LIST_MAX_ASSETS_SHOWN = 5;
 /** Topic-style pills in expanded rows: use query terms when present. */
 function searchMatchPillsFromQuery(query) {
   const t = (query || '').trim();
-  if (!t) return ['Topic', 'Long Long Topic', 'Topic'];
+  if (!t) return ['Governance', 'Catalog', 'Reference'];
   const words = t.split(/\s+/).filter(Boolean);
   if (words.length >= 3) return words.slice(0, 3);
   if (words.length === 2) return [words[0], words[1], t];
@@ -35,57 +35,6 @@ function emptyResultsLabelForTab(activeTab) {
     default:
       return 'data assets';
   }
-}
-
-function transferStepStatusLabel(i, cur) {
-  if (i < cur) return 'Completed';
-  if (i === cur) return 'In progress';
-  return 'Pending';
-}
-
-function TransferProgressStepper({ totalSteps, currentIndex, stepLabels }) {
-  const steps = Math.max(2, Number(totalSteps) || 2);
-  const cur = Math.min(Math.max(0, Number(currentIndex) || 0), steps - 1);
-  const labelAt = (i) => (Array.isArray(stepLabels) && stepLabels[i] ? stepLabels[i] : `Stage ${i + 1}`);
-
-  const parts = [];
-  for (let i = 0; i < steps; i += 1) {
-    if (i > 0) {
-      const segDone = i <= cur;
-      parts.push(
-        <span
-          key={`c-${i}`}
-          className="searchRefTransferConnWrap catalogHoverTip"
-          data-tip={segDone ? 'Completed — data passed this segment' : 'Pending — not reached yet'}
-        >
-          <span
-            className={`searchRefTransferConnector ${segDone ? 'searchRefTransferConnector--active' : ''}`}
-            aria-hidden
-          />
-        </span>
-      );
-    }
-    const nodeClass =
-      i < cur
-        ? 'searchRefTransferNode searchRefTransferNode--done'
-        : i === cur
-          ? 'searchRefTransferNode searchRefTransferNode--current'
-          : 'searchRefTransferNode searchRefTransferNode--pending';
-    const stage = labelAt(i);
-    const status = transferStepStatusLabel(i, cur);
-    const tip =
-      i === cur ? `${stage}: ${status} · Step ${cur + 1} of ${steps}` : `${stage}: ${status}`;
-    parts.push(
-      <span key={`n-${i}`} className="searchRefTransferHit catalogHoverTip" data-tip={tip}>
-        <span className={nodeClass} aria-hidden />
-      </span>
-    );
-  }
-  return (
-    <div className="searchRefTransferStepper" role="img" aria-label={`Transfer in progress, step ${cur + 1} of ${steps}`}>
-      {parts}
-    </div>
-  );
 }
 
 function SearchResultsPage() {
@@ -115,8 +64,6 @@ function SearchResultsPage() {
     isSourceDatasetType,
     DATASET_FILTER_OPTIONS,
     DATA_PRODUCT_FILTER_OPTIONS,
-    showInProgressOnly,
-    setShowInProgressOnly,
   } = useSearchResults(searchParams, navigate);
 
   const [pageSize, setPageSize] = useState(25);
@@ -145,7 +92,7 @@ function SearchResultsPage() {
   useEffect(() => {
     setPage(1);
     setExpandedDatasetId(null);
-  }, [q, activeTab, showCuratedContent, showInProgressOnly, setExpandedDatasetId]);
+  }, [q, activeTab, showCuratedContent, setExpandedDatasetId]);
 
   return (
     <div className="searchResultsPage searchResultsPage--ref">
@@ -178,8 +125,6 @@ function SearchResultsPage() {
           getDataProductFilter={getDataProductFilter}
           datasetFilterOptions={DATASET_FILTER_OPTIONS}
           dataProductFilterOptions={DATA_PRODUCT_FILTER_OPTIONS}
-          showInProgressOnly={showInProgressOnly}
-          setShowInProgressOnly={setShowInProgressOnly}
         />
 
         <main className="searchResultsMain searchResultsMain--ref">
@@ -264,7 +209,7 @@ function SearchResultsPage() {
             ) : results.length > 0 ? (
                 <ul className="searchResultsList">
                   {pageSlice.map((asset) => {
-                    const canExpand = isSourceDatasetType(asset.type) || Boolean(asset.transferProgress);
+                    const canExpand = isSourceDatasetType(asset.type);
                     const isExpanded = canExpand && expandedDatasetId === asset.id;
                     const related = canExpand ? getRelatedAssets(asset.id) : null;
                     const hasSiblings = asset.type === 'Child dataset' && related?.siblingDatasets?.length > 0;
@@ -294,20 +239,12 @@ function SearchResultsPage() {
                             </span>
                           </Link>
                           <div className="searchRefResultStats">
-                            {asset.transferProgress ? (
-                              <TransferProgressStepper
-                                totalSteps={asset.transferProgress.totalSteps}
-                                currentIndex={asset.transferProgress.currentIndex}
-                                stepLabels={asset.transferProgress.stepLabels}
-                              />
-                            ) : (
-                              [1, 2, 3, 4, 5].map((i) => (
-                                <button key={i} type="button" className="searchRefStatBtn" tabIndex={-1} aria-hidden>
-                                  <ChatbotIcon />
-                                  <span>3</span>
-                                </button>
-                              ))
-                            )}
+                            {[1, 2, 3, 4, 5].map((i) => (
+                              <button key={i} type="button" className="searchRefStatBtn" tabIndex={-1} aria-hidden>
+                                <ChatbotIcon />
+                                <span>3</span>
+                              </button>
+                            ))}
                           </div>
                           <div className="searchRefResultTrail">
                             {getTypeLabel(asset.type) && (

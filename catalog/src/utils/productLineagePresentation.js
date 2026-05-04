@@ -16,10 +16,7 @@ function toSnakeCaseLabel(name) {
 }
 
 const TECH_BY_TYPE = {
-  'Derived data product': ['Jupyter', 'Kubeflow', 'Spark', 'S3'],
-  'Aggregated data product': ['Kubeflow', 'Spark', 'S3'],
-  'Child data product': ['Jupyter', 'Kubeflow', 'S3'],
-  'Data product': ['Jupyter', 'Spark', 'S3'],
+  'Data product': ['Jupyter', 'Kubeflow', 'Spark', 'S3'],
   'Parent dataset': ['S3', 'Spark'],
   'Child dataset': ['S3', 'Jupyter'],
   'Adoption record': ['S3'],
@@ -52,9 +49,7 @@ const TECH_TO_LOGO = {
 };
 
 const TYPE_DEFAULT_LOGO = {
-  'Derived data product': 'jupyter',
-  'Aggregated data product': 'kubeflow',
-  'Child data product': 'jupyter',
+  'Data product': 'jupyter',
   'Parent dataset': 's3',
   'Child dataset': 's3',
   'Adoption record': 's3',
@@ -89,6 +84,40 @@ function hashString(s) {
   return Math.abs(h);
 }
 
+/** Deterministic bytes shaped like RFC-4122 v4 from a seed string (catalog demo IDs). */
+function deterministicUuidBytes(seed) {
+  const bytes = new Uint8Array(16);
+  let a = hashString(seed) >>> 0;
+  let b = hashString(`${seed}|b`) >>> 0;
+  if ((a | b) === 0) {
+    a = 0x9e3779b9;
+    b = 0x85ebca6b;
+  }
+  for (let i = 0; i < 16; i += 1) {
+    a = (Math.imul(a, 1664525) + 1013904223) >>> 0;
+    b ^= a;
+    b = (Math.imul(b, 2246822519) + 3266489917) >>> 0;
+    bytes[i] = (a ^ b) & 0xff;
+  }
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  return bytes;
+}
+
+/** Stable rule identifier: `RUL-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`. */
+export function makeRulRuleId(seed) {
+  const hex = [...deterministicUuidBytes(seed)].map((b) => b.toString(16).padStart(2, '0')).join('');
+  return `RUL-${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20, 32)}`;
+}
+
+function stampValidationRuleIds(lineageSlug, validations) {
+  const slug = String(lineageSlug || 'lineage').trim();
+  return (validations || []).map((v) => ({
+    ...v,
+    ruleId: makeRulRuleId(`${slug}::${v.key}`),
+  }));
+}
+
 /** Deterministic “last materialized” label per asset id (demo). */
 function materializedLabelForId(id) {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -111,7 +140,14 @@ function inferLogoId(techTags, assetType) {
 /** Default validation checks (deterministic demo). */
 function buildDefaultValidations(asset) {
   if (!asset) {
-    return [{ key: 'meta', label: 'Metadata', status: 'pending', detail: 'Unknown asset' }];
+    return [
+      {
+        key: 'meta',
+        label: 'Metadata',
+        status: 'pending',
+        detail: 'Unknown asset',
+      },
+    ];
   }
   const checks = [
     {
@@ -415,7 +451,7 @@ export function getPipelineStepLineagePresentation(step, focusAsset, opts = {}) 
       logoId: cfg.logoId,
       logoLabel: cfg.logoLabel,
       footerStatusLabel: cfg.footerStatusLabel,
-      validations: cfg.validations,
+      validations: stampValidationRuleIds(lineageName, cfg.validations),
       fileCount: pipelineFileCount,
     };
   }
@@ -446,7 +482,7 @@ export function getPipelineStepLineagePresentation(step, focusAsset, opts = {}) 
     logoId: cfg.logoId,
     logoLabel: cfg.logoLabel,
     footerStatusLabel: cfg.footerStatusLabel,
-    validations: cfg.validations,
+    validations: stampValidationRuleIds(cfg.lineageName, cfg.validations),
     fileCount: pipelineFileCount,
   };
 }
@@ -473,7 +509,7 @@ export function getLineagePresentation(asset) {
     rawDesc.length > 0 ? (rawDesc.length > 90 ? `${rawDesc.slice(0, 87)}…` : rawDesc) : 'No description';
   const techTags = override.techTags || TECH_BY_TYPE[asset.type] || ['S3', 'Parquet'];
   const unsyncedCount = asset.stale ? 1 : null;
-  const validations = override.validations || buildDefaultValidations(asset);
+  const validations = stampValidationRuleIds(lineageName, override.validations || buildDefaultValidations(asset));
   const logoId = override.logoId || inferLogoId(techTags, asset.type);
   const logoLabel = override.logoLabel || `${logoId} platform`;
 
@@ -488,6 +524,8 @@ export function getLineagePresentation(asset) {
     footerStatusLabel: 'Written',
     validations,
     fileCount: fileCountForCatalogAsset(asset),
+    runSortKey: override.runSortKey,
+    runId: override.runId,
   };
 }
 

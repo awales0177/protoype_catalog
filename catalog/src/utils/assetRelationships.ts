@@ -7,18 +7,15 @@ const MAX_NODES_FOR_DIAGRAM = 12;
 
 export type AssetsById = Record<string, CatalogAssetDetail | undefined>;
 
-/** Short type label for chips (PD, CD, DP, etc.). */
+/** Type label shown on chips (search, relationships, lineage flow). Uppercase spelled-out where noted. */
 export function getTypeLabel(type: string): string | null {
   const map: Record<string, string> = {
-    'Parent dataset': 'PD',
-    'Child dataset': 'CD',
-    'Adoption record': 'AR',
-    'Aggregated data product': 'ADP',
-    'Derived data product': 'DDP',
-    'Child data product': 'CDP',
-    Topic: 'TOP',
-    'Transfer record': 'TR',
+    'Parent dataset': 'PARENT',
+    'Child dataset': 'CHILD',
+    'Adoption record': 'COMPOSITE',
     'Curated list': 'LIST',
+    Dataset: 'DATASET',
+    'Data product': 'PRODUCT',
   };
   return map[type] ?? null;
 }
@@ -30,11 +27,6 @@ export function getTypeLabelClass(type: string): string {
   if (type === 'Child dataset') return 'childDataset';
   if (type === 'Adoption record') return 'adoptionRecord';
   if (type === 'Data product') return 'dataProduct';
-  if (type === 'Aggregated data product') return 'aggregatedDataProduct';
-  if (type === 'Derived data product') return 'derivedDataProduct';
-  if (type === 'Child data product') return 'childDataProduct';
-  if (type === 'Topic') return 'topic';
-  if (type === 'Transfer record') return 'transferRecord';
   if (type === 'Curated list') return 'list';
   return 'dataset';
 }

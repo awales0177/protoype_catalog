@@ -37,13 +37,13 @@ export function curatedList(id: string | undefined | null): string {
   return `${CATALOG_BASE}/list/${id ?? ''}`;
 }
 
-const PROFILE_TABS: ProfileExperienceTab[] = ['settings', 'subscriptions', 'transfers', 'other'];
+const PROFILE_TABS: ProfileExperienceTab[] = ['settings', 'subscriptions', 'other'];
 
 function isProfileTab(tab: string): tab is ProfileExperienceTab {
   return (PROFILE_TABS as readonly string[]).includes(tab);
 }
 
-/** Full-page profile / experience management (query: tab = settings | subscriptions | transfers | other). */
+/** Full-page profile / experience management (query: tab = settings | subscriptions | other). */
 export function profileExperience(params: ProfileExperienceParams = {}): string {
   const { tab = '' } = params;
   const t = tab && isProfileTab(tab) ? tab : '';

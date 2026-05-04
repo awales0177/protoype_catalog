@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useLayoutEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -22,7 +22,7 @@ function layoutNodesEdges(nodes, edges, direction = 'TB') {
   if (nodes.length === 0) return { nodes, edges };
   dagreGraph.setGraph({ rankdir: direction, nodesep: 48, ranksep: 72, marginx: 24, marginy: 24 });
   nodes.forEach((node) => {
-    dagreGraph.setNode(node.id, { width: 220, height: 72 });
+    dagreGraph.setNode(node.id, { width: 220, height: 94 });
   });
   edges.forEach((edge) => {
     dagreGraph.setEdge(edge.source, edge.target);
@@ -33,14 +33,15 @@ function layoutNodesEdges(nodes, edges, direction = 'TB') {
     if (!pos) return node;
     return {
       ...node,
-      position: { x: pos.x - 110, y: pos.y - 36 },
+      position: { x: pos.x - 110, y: pos.y - 47 },
     };
   });
   return { nodes: layoutedNodes, edges };
 }
 
 function AssetFlowNode({ data, selected }) {
-  const { asset, isCurrent, href } = data;
+  const { catalogId = '', asset, isCurrent, href } = data;
+  const idAttr = catalogId ? `relationship-diagram-${catalogId}` : undefined;
   const label = getTypeLabel(asset.type);
   const labelClass = getTypeLabelClass(asset.type);
   const baseClass = `assetFlowNode ${isCurrent ? 'assetFlowNode--current' : ''} ${selected ? 'assetFlowNode--selected' : ''}`;
@@ -49,6 +50,11 @@ function AssetFlowNode({ data, selected }) {
     <>
       <Handle type="target" position={Position.Top} className="assetFlowHandle" />
       <span className="assetFlowNodeName">{asset.name}</span>
+      {catalogId ? (
+        <span className="assetFlowNodeCatalogId" title="Catalog asset id">
+          {catalogId}
+        </span>
+      ) : null}
       {label && (
         <span className={`assetFlowNodeType relationshipsTypeChip ${labelClass}`}>{label}</span>
       )}
@@ -58,16 +64,26 @@ function AssetFlowNode({ data, selected }) {
 
   if (href) {
     return (
-      <Link to={href} className={`${baseClass} nodrag nopan`} onClick={(e) => e.stopPropagation()}>
+      <Link
+        id={idAttr}
+        to={href}
+        className={`${baseClass} nodrag nopan`}
+        onClick={(e) => e.stopPropagation()}
+      >
         {body}
       </Link>
     );
   }
-  return <div className={baseClass}>{body}</div>;
+  return (
+    <div id={idAttr} className={baseClass}>
+      {body}
+    </div>
+  );
 }
 
 AssetFlowNode.propTypes = {
   data: PropTypes.shape({
+    catalogId: PropTypes.string,
     asset: PropTypes.object.isRequired,
     isCurrent: PropTypes.bool,
     href: PropTypes.string,
@@ -89,6 +105,7 @@ function AssetRelationshipFlow({ assetId, assetsById, getAssetUrl }) {
       type: 'asset',
       position: { x: 0, y: 0 },
       data: {
+        catalogId: id,
         asset,
         isCurrent: id === assetId,
         href: resolveUrl(id),
@@ -106,7 +123,7 @@ function AssetRelationshipFlow({ assetId, assetsById, getAssetUrl }) {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setNodes(initialNodes);
     setEdges(initialEdges);
   }, [initialNodes, initialEdges, setNodes, setEdges]);
@@ -128,6 +145,7 @@ function AssetRelationshipFlow({ assetId, assetsById, getAssetUrl }) {
   return (
     <div className="assetRelationshipFlowWrap">
       <ReactFlow
+        key={assetId}
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}

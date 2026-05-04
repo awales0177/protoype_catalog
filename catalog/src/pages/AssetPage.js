@@ -8,6 +8,8 @@ import {
   getAssetAttachments,
   getAssetHistoryLogs,
   README_MARKDOWN,
+  DEFAULT_PRODUCT_MODEL_INFO,
+  DEFAULT_PRODUCT_AGREEMENT,
 } from '../data/assetMockData';
 import { ASSET_OVERVIEW_DEFAULTS } from '../data/sample_data';
 import { CURATED_LISTS } from '../data/curatedLists';
@@ -16,8 +18,9 @@ import AssetDetails from '../components/asset/AssetDetails';
 import ProductDataLineage from '../components/asset/ProductDataLineage';
 import LineageValidationPanel from '../components/asset/LineageValidationPanel';
 import ExploreBucket from '../components/asset/ExploreBucket';
+import DatasetReportsTab from '../components/asset/DatasetReportsTab';
 import DataProfilesTab from '../components/asset/DataProfilesTab';
-import ReadmeTab from '../components/asset/ReadmeTab';
+import ModelDetailsTab from '../components/asset/ModelDetailsTab';
 import ProductToolingTab from '../components/asset/ProductToolingTab';
 import AssetPageTabStrip from '../components/asset/AssetPageTabStrip';
 import AssetProjectValueCard from '../components/asset/AssetProjectValueCard';
@@ -54,14 +57,7 @@ function AssetPage() {
   const assetsById = catalogData.getAssetsMap();
 
   const assetType = (asset.type || '').toLowerCase();
-  const isDataProductType = [
-    'data product',
-    'aggregated data product',
-    'derived data product',
-    'child data product',
-    'transfer record',
-  ].includes(assetType);
-  const isTopic = assetType === 'topic';
+  const isDataProductType = assetType === 'data product';
   const isDataset = ['parent dataset', 'child dataset', 'adoption record'].includes(assetType);
 
   const [secondaryTab, setSecondaryTab] = useState('data-lineage');
@@ -80,7 +76,13 @@ function AssetPage() {
     if (!isDataProductType && (secondaryTab === 'validation' || secondaryTab === 'tooling')) {
       setSecondaryTab('data-lineage');
     }
-  }, [assetId, isDataProductType, secondaryTab]);
+    if (!isDataProductType && secondaryTab === 'product-details') {
+      setSecondaryTab('data-lineage');
+    }
+    if (!isDataset && secondaryTab === 'dataset-reports') {
+      setSecondaryTab('data-lineage');
+    }
+  }, [assetId, isDataProductType, isDataset, secondaryTab]);
 
   useEffect(() => {
     if (secondaryTab === 'data-volume') {
@@ -90,6 +92,12 @@ function AssetPage() {
       setSecondaryTab('data-lineage');
     }
     if (secondaryTab === 'download') {
+      setSecondaryTab('data-lineage');
+    }
+    if (secondaryTab === 'readme' || secondaryTab === 'model-details') {
+      setSecondaryTab('product-details');
+    }
+    if (secondaryTab === 'transfer-details') {
       setSecondaryTab('data-lineage');
     }
   }, [secondaryTab]);
@@ -140,18 +148,23 @@ function AssetPage() {
     return () => ac.abort();
   }, [secondaryTab]);
 
-  const breadcrumbCategory = isDataProductType || isTopic ? 'Data product' : 'Dataset';
+  const breadcrumbCategory = isDataProductType ? 'Data product' : 'Dataset';
   const categoryLabel = [breadcrumbCategory, asset.type].join(' · ');
 
   const usjaActiveIndices = useMemo(() => {
     const lineageRelated =
       secondaryTab === 'data-lineage' || (isDataProductType && secondaryTab === 'validation');
-    const tabIdx = USJA_SECONDARY_TABS.indexOf(lineageRelated ? 'data-lineage' : secondaryTab);
+    const tabKey = lineageRelated
+      ? 'data-lineage'
+      : isDataset && secondaryTab === 'dataset-reports'
+        ? 'explore-bucket'
+        : secondaryTab;
+    const tabIdx = USJA_SECONDARY_TABS.indexOf(tabKey);
     if (tabIdx < 0) return [];
     const set = new Set([tabIdx]);
     if (tabIdx > 0) set.add(0);
     return [...set].sort((a, b) => a - b);
-  }, [secondaryTab, isDataProductType]);
+  }, [secondaryTab, isDataProductType, isDataset]);
 
   const descSecondary =
     'Operational notes, steward contacts, and compliance context can be expanded here as the record matures in the catalog.';
@@ -195,11 +208,19 @@ function AssetPage() {
         />
       )}
 
-      {secondaryTab === 'readme' && isDataProductType && <ReadmeTab content={README_MARKDOWN} />}
+      {secondaryTab === 'product-details' && isDataProductType && (
+        <ModelDetailsTab
+          readmeContent={README_MARKDOWN}
+          modelInfo={DEFAULT_PRODUCT_MODEL_INFO}
+          productAgreement={DEFAULT_PRODUCT_AGREEMENT}
+        />
+      )}
 
       {secondaryTab === 'explore-bucket' && (isDataProductType || isDataset) && (
         <ExploreBucket asset={asset} assetId={assetId} />
       )}
+
+      {secondaryTab === 'dataset-reports' && isDataset && <DatasetReportsTab assetId={assetId} asset={asset} />}
     </>
   );
 
@@ -210,15 +231,16 @@ function AssetPage() {
       <div className="assetRecordTitleWrap">
         <CatalogFloatingPageRail
           jumpSlot={
-            <span className="searchResultsJump">
-              <span className="searchResultsJumpLabel">Jump to:</span>{' '}
-              {ASSET_RECORD_JUMP_LINKS.map((l, i) => (
-                <span key={l.href}>
-                  {i > 0 && ' · '}
-                  <a href={l.href}>{l.label}</a>
-                </span>
-              ))}
-            </span>
+            <nav className="assetRecordJumpNav" aria-label="Sections on this page">
+              <span className="assetRecordJumpNavLabel">Jump to</span>
+              <ul className="assetRecordJumpNavList">
+                {ASSET_RECORD_JUMP_LINKS.map((l) => (
+                  <li key={l.href}>
+                    <a href={l.href}>{l.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           }
         />
         <AssetRecordTitleCard
@@ -267,9 +289,9 @@ function AssetPage() {
                       <p className="assetRecordDescText">{asset.description}</p>
                       <p className="assetRecordDescText">{descSecondary}</p>
                       <div className="assetRecordTopics">
-                        <span className="assetRecordTopicsLabel">Topics</span>
+                        <span className="assetRecordTopicsLabel">Tags</span>
                         <div className="assetRecordTopicPills">
-                          {['Topic', 'Long Long Topic', 'Topic'].map((t) => (
+                          {['Analytics', 'Customer', 'Compliance'].map((t) => (
                             <span key={t} className="assetRecordTopicPill">
                               {t}
                             </span>

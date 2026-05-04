@@ -42,12 +42,6 @@ export const CATALOG_QUICK_ACTION_SPECS = [
     iconKind: 'flow',
   },
   {
-    id: 'transfer-transport-data',
-    label: 'Transfer or Transport Data',
-    description: CATALOG_QUICK_ACTIONS_PLACEHOLDER_DESCRIPTION,
-    iconKind: 'flow',
-  },
-  {
     id: 'request-data-conditioning',
     label: 'Request Data Conditioning',
     description: CATALOG_QUICK_ACTIONS_PLACEHOLDER_DESCRIPTION,

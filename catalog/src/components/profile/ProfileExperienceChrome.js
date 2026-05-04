@@ -12,7 +12,6 @@ const BRAND = publicAssetUrl('a_logo.png');
 const JUMP_LINKS = [
   { to: profileExperience({ tab: 'settings' }), label: 'Update Preferences' },
   { to: profileExperience({ tab: 'subscriptions' }), label: 'Manage Subscriptions' },
-  { to: profileExperience({ tab: 'transfers' }), label: 'Track My Transfers' },
   { to: profileExperience({ tab: 'other' }), label: 'Other Profile Option' },
 ];
 

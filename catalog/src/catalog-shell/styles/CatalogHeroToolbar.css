@@ -387,10 +387,39 @@ button.catalogHeroSearchForm:hover .catalogHeroSearchLead {
   height: 22px;
 }
 
-/* Profile — slightly smaller glyph (reference IconButton) */
-.catalogHeroIconBtn--profile svg {
-  width: 1.35rem;
-  height: 1.35rem;
+/* Profile — initials in a circular avatar */
+.catalogHeroIconBtn--profile {
+  overflow: visible;
+}
+
+.catalogHeroProfileAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: #fff;
+  background: linear-gradient(148deg, #38bdf8 0%, #0369a1 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 1px 3px rgba(15, 23, 42, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.45);
+}
+
+.catalogHeroIconBtn--profile:hover .catalogHeroProfileAvatar {
+  filter: brightness(1.06);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.catalogHeroIconBtn--profile:focus-visible .catalogHeroProfileAvatar {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 2px;
 }
 
 .catalogHeroBellBadge {
