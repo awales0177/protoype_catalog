@@ -492,26 +492,6 @@ html[data-catalog-theme='dark'] .assetRecordDatasetActionsBtn:hover {
   position: relative;
 }
 
-.assetRecordLineageFs {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  width: 36px;
-  height: 36px;
-  border-radius: 6px;
-  border: 1px solid var(--border-light);
-  background: var(--bg-white);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-muted);
-}
-
-.assetRecordLineageFs:hover {
-  color: var(--accent-blue);
-}
-
 /* Right rail — “Is this data useful?” — same hues as catalog hero / search chrome (`index.css` tokens), light + dark */
 .assetProjectValueCard--record {
   background: var(--hero-band-gradient-stacked);

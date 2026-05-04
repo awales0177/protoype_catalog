@@ -74,7 +74,11 @@ export function getRelationshipData(assetId: string, assetsById: AssetsById): Re
   const children = Object.entries(assetsById)
     .filter((entry): entry is [string, CatalogAssetDetail] => {
       const [, child] = entry;
-      return child !== undefined && child.parentId === assetId;
+      return (
+        child !== undefined &&
+        child.parentId === assetId &&
+        !DATA_PRODUCT_TYPES.includes(child.type)
+      );
     })
     .map(([id, child]) => ({ id, asset: child }));
   children.sort((a, b) => a.asset.name.localeCompare(b.asset.name));
